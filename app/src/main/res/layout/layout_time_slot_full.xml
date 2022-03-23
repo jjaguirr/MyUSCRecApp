@@ -14,23 +14,25 @@
 
         <Button
             android:id="@+id/btn_remindme"
-            android:layout_width="152dp"
-            android:layout_height="61dp"
+            android:layout_width="122dp"
+            android:layout_height="52dp"
             android:layout_gravity="center"
             android:layout_margin="4dp"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/btn_remindme"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/btn_book"
             android:fontFamily="@font/inter"
             android:gravity="center"
             android:padding="6dp"
+            android:text="REMIND"
             android:textColor="@color/cardinal_red"
             android:textSize="20sp"
             android:textStyle="bold"
             app:backgroundTint="@null"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/txt_hours"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="REMIND ME" />
+            app:layout_constraintVertical_bias="0.333" />
 
         <TextView
             android:id="@+id/txt_hours"

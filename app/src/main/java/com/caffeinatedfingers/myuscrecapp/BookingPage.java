@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -19,6 +21,7 @@ public class BookingPage extends AppCompatActivity {
     RecyclerView recyclerView;
     RVAdapter rvAdapter;
     RecCenter recCenter;
+    User user = new User ("0001", "JOJO");
     DAORecCenter dao;
     String key = null;
     boolean isLoading=false;
@@ -31,16 +34,18 @@ public class BookingPage extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager manager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(manager);
-
-        rvAdapter = new RVAdapter(this);
-        recyclerView.setAdapter(rvAdapter);
-
         Bundle b = getIntent().getExtras();
         String recCenterName = b.getString("RecCenter");
+
+
 
         //When click on a button do add, remove calling dao.add(timeslot, user) or dao.remove() etc.
         this.recCenter = new RecCenter(recCenterName, "INFO");
         dao = new DAORecCenter(this.recCenter);
+
+
+        rvAdapter = new RVAdapter(this, dao, user);
+        recyclerView.setAdapter(rvAdapter);
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -55,29 +60,48 @@ public class BookingPage extends AppCompatActivity {
                         loadData();
                     }
                 }
-
             }
         });
-
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeRefreshLayout.setRefreshing(false);
+                loadData();
+            }
+        });
         loadData();
     }
+
     private void loadData(){
         swipeRefreshLayout.setRefreshing(true);
         dao.get(key).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                ArrayList<TimeSlot> temp =  new ArrayList<>();
                 for(DataSnapshot data: snapshot.getChildren()){
                     String timeSlotID = data.getKey();
                     String recCenter = snapshot.getKey();
-                    //get capacity
-                    TimeSlot ts = new TimeSlot(2, recCenter , timeSlotID);
-                    ts.usersCount= (int) data.getChildrenCount();
-                    temp.add(ts);
-                    key =  data.getKey();
+                    //get capacity, hardcoded for now
+                    //create ts if not found
+                    assert timeSlotID != null;
+                    TimeSlot ts = rvAdapter.getTimeSlot(timeSlotID);
+                    if (ts==null){
+                        TimeSlot nTs = new TimeSlot(3, recCenter, timeSlotID);
+                        rvAdapter.add(nTs);
+                        nTs.setThisUserReserved(data.child(user.id).exists());
+                        rvAdapter.notifyItemInserted(rvAdapter.items.indexOf(nTs));
+                        nTs.usersCount = (int) data.getChildrenCount();
+                    }
+                    //update already existing timeslot
+                    else {
+                        ts.setThisUserReserved(data.child(user.id).exists());
+                        int pos = rvAdapter.items.indexOf(ts);
+                        rvAdapter.notifyItemChanged(pos);
+                        ts.usersCount = (int) data.getChildrenCount();
+                    }
                 }
-                rvAdapter.setItems(temp);
-                rvAdapter.notifyDataSetChanged();
+                /*@TODO: Highly inefficient, make it so that only each timeslot changes.
+                should redefine value event listener on data change.
+                 */
                 isLoading = false;
                 swipeRefreshLayout.setRefreshing(false);
             }

@@ -1,7 +1,7 @@
 package com.caffeinatedfingers.myuscrecapp;
 
 public class User {
-    public User(String userName, String id) {
+    public User(String id,String userName) {
         this.userName = userName;
         this.id = id;
     }
