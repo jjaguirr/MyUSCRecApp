@@ -10,6 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyUSCRecApp">
         <activity
+            android:name=".ui.login.WelcomePage"
+            android:exported="false"
+            android:label="@string/title_activity_welcome_page" />
+        <activity
             android:name=".BookingPage"
             android:exported="false" />
         <activity
