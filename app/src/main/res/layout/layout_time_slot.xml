@@ -8,8 +8,9 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/timeslot_book_background"
+        android:layout_height="match_parent"
+        android:background="@drawable/reservation_card"
+        android:elevation="9dp"
         android:orientation="vertical">
 
         <Button
@@ -17,8 +18,7 @@
             android:layout_width="122dp"
             android:layout_height="52dp"
             android:layout_gravity="center"
-            android:layout_margin="4dp"
-            android:layout_marginStart="8dp"
+            android:layout_marginEnd="4dp"
             android:background="@drawable/btn_book"
             android:fontFamily="@font/inter"
             android:gravity="center"
@@ -30,18 +30,15 @@
             app:backgroundTint="@null"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/txt_hours"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.333" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/txt_hours"
             android:layout_width="261dp"
             android:layout_height="24dp"
-            android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:background="@drawable/times_background"
+
             android:fontFamily="@font/inter"
             android:gravity="center_vertical"
             android:text=" Hours: "
@@ -49,11 +46,11 @@
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/txt_remaining"
-            app:layout_constraintEnd_toStartOf="@+id/btn_book"
-            app:layout_constraintHorizontal_bias="0.78"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.112"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.65" />
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/txt_remaining"
@@ -65,7 +62,6 @@
             android:fontFamily="@font/inter"
             android:text="Spots Left:"
             android:textAllCaps="true"
-            android:textColor="@color/gray"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"

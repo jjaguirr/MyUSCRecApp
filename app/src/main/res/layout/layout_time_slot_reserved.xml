@@ -9,7 +9,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/timeslot_reserved_background"
+        android:background="@drawable/reservation_card"
+        android:elevation="9dp"
         android:orientation="vertical">
 
         <Button
@@ -39,19 +40,15 @@
             android:layout_width="229dp"
             android:layout_height="28dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="3dp"
-            android:background="@drawable/times_background"
-            android:fontFamily="@font/inter"
 
+            android:fontFamily="@font/inter"
             android:gravity="center_vertical"
             android:text=" Hours: "
             android:textColor="@color/gray_trojan"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/btn_cancel"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            tools:layout_editor_absoluteY="11dp" />
 
         <TextView
             android:id="@+id/txt_remaining"
@@ -59,7 +56,7 @@
             android:layout_height="0dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="60dp"
-            android:layout_marginBottom="4dp"
+            android:layout_marginBottom="16dp"
             android:fontFamily="@font/inter"
             android:text="Spots Left:"
             android:textAllCaps="true"
