@@ -15,7 +15,8 @@ public class DAOUpcomingReservations {
     }
 
     public void removeUser(TimeSlot ts, User user, Context context){
-        this.databaseReference.child(ts.id).child(user.id).removeValue().addOnSuccessListener(suc->{
+        this.databaseReference.child(ts.date).child(ts.recCenter).child(ts.id).child(user.id).removeValue().
+                addOnSuccessListener(suc->{
             ts.notifyRemovedUser();
             Toast.makeText(context, "Successfully cancelled reservation.", Toast.LENGTH_SHORT).show();
         }).addOnFailureListener(fail->{
@@ -24,8 +25,7 @@ public class DAOUpcomingReservations {
     }
 
     //Returns a db ordered reference of the timeslots
-    public Query get(String key){
-        if (key==null) return databaseReference.orderByKey().limitToFirst(10);
-        return databaseReference.orderByKey().startAfter(key).limitToFirst(10);
+    public Query get(){
+        return databaseReference;
     }
 }

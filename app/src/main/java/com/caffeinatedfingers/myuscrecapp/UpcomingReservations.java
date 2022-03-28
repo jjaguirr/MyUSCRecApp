@@ -10,6 +10,9 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.util.Log;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -20,9 +23,8 @@ public class UpcomingReservations extends AppCompatActivity {
     SwipeRefreshLayout swipeRefreshLayout;
     RecyclerView recyclerView;
     RVAdapter rvAdapter;
-    DAOUpcomingReservations dao;
+    DAOFireBase dao;
     User user;
-    String key = null;
     boolean isLoading=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,27 +43,12 @@ public class UpcomingReservations extends AppCompatActivity {
 
 
         //When click on a button do add, remove calling dao.add(timeslot, user) or dao.remove() etc.
-        dao = new DAOUpcomingReservations();
+        dao = new DAOFireBase();
 
 
-        rvAdapter = new RVAdapterUpcomingR(this, dao, user);
+        rvAdapter = new RVAdapter(this, dao, user);
         recyclerView.setAdapter(rvAdapter);
 
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                LinearLayoutManager llm = (LinearLayoutManager) recyclerView.getLayoutManager();
-                assert llm != null;
-                int totalItem = llm.getItemCount();
-                int lastVisible = llm.findLastVisibleItemPosition();
-                if (totalItem< lastVisible+3){
-                    if (!isLoading) {
-                        isLoading = true;
-                        loadData();
-                    }
-                }
-            }
-        });
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -74,36 +61,27 @@ public class UpcomingReservations extends AppCompatActivity {
 
     private void loadData(){
         swipeRefreshLayout.setRefreshing(true);
-        dao.get(key).addValueEventListener(new ValueEventListener() {
+        dao.getReservations(this.user.id).addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot data: snapshot.getChildren()){
-                    String timeSlotID = data.getKey();
-                    String recCenter = snapshot.getKey();
-                    //get capacity, hardcoded for now
-                    //create ts if not found
-                    assert timeSlotID != null;
+            public void onDataChange(@NonNull DataSnapshot userRSS) {
+                for (DataSnapshot reservationSS: userRSS.getChildren()){
+                    Reservation reservation = (Reservation) reservationSS.getValue();
+                    assert reservation != null;
+                    String timeSlotID = reservation.time;
                     TimeSlot ts = rvAdapter.getTimeSlot(timeSlotID);
                     if (ts==null){
-                        TimeSlot nTs = new TimeSlot(3, recCenter, timeSlotID);
+                        TimeSlot nTs = new TimeSlot(reservation.cap, reservation.location, timeSlotID);
                         rvAdapter.add(nTs);
-                        nTs.setThisUserReserved(data.child(user.id).exists());
                         rvAdapter.notifyItemInserted(rvAdapter.items.indexOf(nTs));
-                        nTs.usersCount = (int) data.getChildrenCount();
+                        nTs.usersCount= dao.getTimeSlotCount(nTs);
                     }
                     //update already existing timeslot
                     else {
-                        ts.setThisUserReserved(data.child(user.id).exists());
                         int pos = rvAdapter.items.indexOf(ts);
                         rvAdapter.notifyItemChanged(pos);
-                        ts.usersCount = (int) data.getChildrenCount();
+                        ts.usersCount = dao.getTimeSlotCount(ts);
                     }
                 }
-                /*@TODO: Highly inefficient, make it so that only each timeslot changes.
-                should redefine value event listener on data change.
-                 */
-                isLoading = false;
-                swipeRefreshLayout.setRefreshing(false);
             }
 
             @Override

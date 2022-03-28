@@ -17,26 +17,32 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-public class DAORecCenter {
-    private final DatabaseReference databaseReference;
-    public DAORecCenter(RecCenter recCenter, String date) {
+public class DAOFireBase {
+    private final DatabaseReference databaseReference, databaseReferenceReservations;
+    public DAOFireBase() {
         FirebaseDatabase db = FirebaseDatabase.getInstance();
-        this.databaseReference = db.getReference("reservations/"
-                +recCenter.id+"/"+ date);
+        this.databaseReference = db.getReference("timeslots");
+        this.databaseReferenceReservations = db.getReference("reservations");
     }
 
     public void addUser(TimeSlot ts, User user, Context context){
-        this.databaseReference.child(ts.id).child(user.id).setValue(user.userName)
+        Reservation reservation = new Reservation(user.id, ts.time, ts.recCenter, ts.capacity, ts.date);
+        this.databaseReference.child(ts.recCenter).child(ts.date)
+                .child(ts.id).child("Registered").child(user.id).setValue(user.userName)
                 .addOnSuccessListener(suc->{
                     ts.notifyAddedUser();
+                    this.databaseReferenceReservations.child(user.id).child(reservation.id).setValue(reservation);
                     Toast.makeText(context, "Successfully booked reservation.", Toast.LENGTH_SHORT).show();
                 }).addOnFailureListener(fail->{
                     Toast.makeText(context, ""+fail.getMessage(), Toast.LENGTH_SHORT).show();
         });
     }
     public void removeUser(TimeSlot ts, User user, Context context){
-        this.databaseReference.child(ts.id).child(user.id).removeValue().addOnSuccessListener(suc->{
+        Reservation reservation = new Reservation(user.id, ts.time, ts.recCenter, ts.capacity, ts.date);
+        this.databaseReference.child(ts.id).child("Registered").child(user.id)
+                .removeValue().addOnSuccessListener(suc->{
             ts.notifyRemovedUser();
+            this.databaseReferenceReservations.child(user.id).child(reservation.id).removeValue();
             Toast.makeText(context, "Successfully cancelled reservation.", Toast.LENGTH_SHORT).show();
         }).addOnFailureListener(fail->{
             Toast.makeText(context, ""+fail.getMessage(), Toast.LENGTH_SHORT).show();
@@ -45,11 +51,27 @@ public class DAORecCenter {
     //@TODO: Implement notifications. Create wait-list in FireBase Database per each Timeslot.
     public void remindUser(TimeSlot ts, User user, Context context){
         //Toast.makeText(context, "Successfully added to wait-list", Toast.LENGTH_SHORT).show();
-
+        //notifications
     }
+
     //Returns a db ordered reference of the timeslots
-    public Query get(String key){
-        if (key==null) return databaseReference.orderByKey().limitToFirst(10);
-        return databaseReference.orderByKey().startAfter(key).limitToFirst(10);
+    public Query getTimeSlots(String recCenter, String date){
+        return databaseReference.child(recCenter).child(date).orderByKey();
+    }
+
+    public int getTimeSlotCount(TimeSlot timeSlot){
+        final int[] count = new int[1];
+        databaseReference.child(timeSlot.recCenter).child(timeSlot.date).child(timeSlot.id)
+                .child("Registered").get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
+            @Override
+            public void onSuccess(DataSnapshot dataSnapshot) {
+                count[0] = (int) dataSnapshot.getChildrenCount();
+            }
+        });
+        return count[0];
+    }
+
+    public Query getReservations(String userID){
+        return databaseReferenceReservations.child(userID).orderByKey();
     }
 }

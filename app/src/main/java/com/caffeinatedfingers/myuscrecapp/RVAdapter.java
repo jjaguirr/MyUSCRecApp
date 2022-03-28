@@ -1,7 +1,6 @@
 package com.caffeinatedfingers.myuscrecapp;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +14,10 @@ import java.util.ArrayList;
 
 public class RVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context context;
-    DAORecCenter dao;
+    DAOFireBase dao;
     User user;
     ArrayList<TimeSlot> items = new ArrayList<>();
-    public RVAdapter(Context context, DAORecCenter dao, User user){
+    public RVAdapter(Context context, DAOFireBase dao, User user){
         this.context = context;
         this.dao = dao;
         this.user = user;
