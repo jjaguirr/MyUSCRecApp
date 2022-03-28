@@ -10,4 +10,8 @@
     <string name="invalid_password">Password must be more than 5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="title_activity_welcome_page">WelcomePage</string>
+    <string name="title_activity_google_maps">GoogleMapsActivity</string>
+    <string name="lyon_center">Lyon Center</string>
+    <string name="usc_village_rec_center">USC Village Rec Center</string>
+    <string name="uytengsu_aquatics_center">Uytengsu Aquatics Center</string>
 </resources>

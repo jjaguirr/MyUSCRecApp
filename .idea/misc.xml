@@ -31,7 +31,8 @@
         <entry key="app/src/main/res/layout/activity_booking_page.xml" value="0.2259963768115942" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.22585144042968752" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2595108695652174" />
-        <entry key="app/src/main/res/layout/activity_welcome_page.xml" value="0.17104337388190669" />
+        <entry key="app/src/main/res/layout/activity_map.xml" value="0.22301571611045062" />
+        <entry key="app/src/main/res/layout/activity_welcome_page.xml" value="0.18057706528815673" />
         <entry key="app/src/main/res/layout/layout_time_slot.xml" value="0.25885416666666666" />
         <entry key="app/src/main/res/layout/popup_window.xml" value="0.20643363728470113" />
       </map>
