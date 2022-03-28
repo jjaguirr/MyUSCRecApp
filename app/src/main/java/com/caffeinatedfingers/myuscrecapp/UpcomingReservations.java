@@ -16,12 +16,11 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class BookingPage extends AppCompatActivity {
+public class UpcomingReservations extends AppCompatActivity {
     SwipeRefreshLayout swipeRefreshLayout;
     RecyclerView recyclerView;
     RVAdapter rvAdapter;
-    RecCenter recCenter;
-    DAORecCenter dao;
+    DAOUpcomingReservations dao;
     User user;
     String key = null;
     boolean isLoading=false;
@@ -38,17 +37,14 @@ public class BookingPage extends AppCompatActivity {
         String userId = b.getString("UserId");
         String userName= b.getString("UserName");
         this.user = new User (userId,userName);
-        String recCenterName = b.getString("RecCenter");
 
 
 
         //When click on a button do add, remove calling dao.add(timeslot, user) or dao.remove() etc.
-        this.recCenter = new RecCenter(recCenterName, "INFO");
-        String date = "TODAY";
-        dao = new DAORecCenter(this.recCenter, date);
+        dao = new DAOUpcomingReservations();
 
 
-        rvAdapter = new RVAdapter(this, dao, user);
+        rvAdapter = new RVAdapterUpcomingR(this, dao, user);
         recyclerView.setAdapter(rvAdapter);
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {

@@ -19,10 +19,10 @@ import com.google.firebase.database.ValueEventListener;
 
 public class DAORecCenter {
     private final DatabaseReference databaseReference;
-    public DAORecCenter(RecCenter recCenter) {
+    public DAORecCenter(RecCenter recCenter, String date) {
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         this.databaseReference = db.getReference("reservations/"
-                +recCenter.id);
+                +recCenter.id+"/"+ date);
     }
 
     public void addUser(TimeSlot ts, User user, Context context){

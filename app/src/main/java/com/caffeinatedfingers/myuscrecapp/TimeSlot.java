@@ -20,6 +20,7 @@ public class TimeSlot implements Serializable {
     String id;
     int capacity;
     String recCenter;
+    String date;
     String time; //or Timeobject
     int usersCount;
 
