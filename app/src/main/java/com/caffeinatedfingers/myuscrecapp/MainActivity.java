@@ -14,13 +14,25 @@ public class MainActivity extends AppCompatActivity {
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button btn = findViewById(R.id.btn_inMap_gymtest);
-        btn.setOnClickListener(v->{
+        Button test = findViewById(R.id.btn_inMap_gymtest);
+        test.setOnClickListener(v->{
             Intent intent = new Intent(MainActivity.this, BookingPage.class);
-            intent.putExtra("RecCenter", btn.getText());
+            intent.putExtra("RecCenter", test.getText());
+            intent.putExtra("UserId", "01");
+            intent.putExtra("UserName", "UserTest");
             startActivity(intent);
         });
+        Button upcomingReservations = findViewById(R.id.btn_upcoming_reservations);
+        upcomingReservations.setOnClickListener(v->{
+            Intent intent = new Intent(MainActivity.this, BookingPage.class);
+            intent.putExtra("UserId", "01");
+            intent.putExtra("UserName", "UserTest");
+            startActivity(intent);
+        });
+
+
     }
 }
