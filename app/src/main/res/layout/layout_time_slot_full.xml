@@ -8,9 +8,12 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/timeslot_full_background"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:background="@drawable/reservation_card"
+        android:elevation="9dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/txt_hours"
+        app:layout_constraintTop_toBottomOf="@+id/txt_hours">
 
         <Button
             android:id="@+id/btn_remindme"
@@ -37,19 +40,18 @@
         <TextView
             android:id="@+id/txt_hours"
             android:layout_width="236dp"
-            android:layout_height="25dp"
+            android:layout_height="0dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="3dp"
-            android:background="@drawable/times_background"
-            android:fontFamily="@font/inter"
 
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="2dp"
+            android:fontFamily="@font/inter"
             android:gravity="center_vertical"
-            android:text=" Hours: "
+            android:text="Hours: "
             android:textColor="@color/gray_trojan"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/btn_remindme"
+            app:layout_constraintBottom_toTopOf="@+id/txt_remaining"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -59,17 +61,17 @@
             android:layout_height="0dp"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="60dp"
-            android:layout_marginBottom="4dp"
+            android:layout_marginBottom="8dp"
             android:fontFamily="@font/inter"
             android:text="Spots Left:"
             android:textAllCaps="true"
-            android:textColor="@color/gray"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btn_remindme"
-            app:layout_constraintHorizontal_bias="0.231"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintHorizontal_bias="0.301"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_hours" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
