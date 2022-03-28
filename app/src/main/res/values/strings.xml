@@ -28,4 +28,11 @@
     <string name="menu_slideshow">Slideshow</string>
     <string name="tommy_trojan">Tommy Trojan</string>
     <string name="usc_id_298784909">USC ID: 298784909</string>
+    <string name="logo">logo</string>
+    <string name="action_password">password</string>
+    <string name="logo">logo</string>
+    <string name="first_name">First Name</string>
+    <string name="enter_last_name">enter last name</string>
+    <string name="last_name">Last Name</string>
+    <string name="email_address">Email Address</string>
 </resources>

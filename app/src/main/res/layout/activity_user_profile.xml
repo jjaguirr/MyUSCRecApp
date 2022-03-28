@@ -17,9 +17,8 @@
             android:id="@+id/profile_image"
             android:layout_width="318dp"
             android:layout_height="284dp"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            app:srcCompat="@drawable/TommyTrojan" />
+            android:layout_centerInParent="true"
+            app:srcCompat="@drawable/tommyTrojan" />
     </RelativeLayout>
 
     <TextView
