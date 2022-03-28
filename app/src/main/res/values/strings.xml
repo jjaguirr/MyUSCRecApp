@@ -19,4 +19,11 @@
     <string name="action_password">action_password</string>
     <string name="gym_name">GYM NAME</string>
     <string name="SUMMARY_PAGE_TITLE">UPCOMING RESERVATIONS</string>
+    <string name="logo">logo</string>
+    <string name="my_reservations">my reservations</string>
+    <string name="last_name">Last Name</string>
+    <string name="email_address">Email Address</string>
+    <string name="first_name">First Name</string>
+    <string name="map">map</string>
+    <string name="select_a_rec_center">Select a Rec Center</string>
 </resources>

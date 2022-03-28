@@ -10,9 +10,11 @@
         android:id="@+id/imageView3"
         android:layout_width="404dp"
         android:layout_height="413dp"
+        android:contentDescription="@string/map"
         app:layout_constraintBottom_toTopOf="@+id/rec_center_lyon"
-        app:srcCompat="@drawable/map"
-        tools:layout_editor_absoluteX="3dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/map" />
 
     <Button
         android:id="@+id/btn_my_reservations"
@@ -20,7 +22,6 @@
         android:layout_height="51dp"
         android:layout_gravity="center"
         android:layout_marginTop="18dp"
-        android:layout_marginBottom="664dp"
         android:background="@drawable/btn_login"
         android:gravity="center"
         android:padding="6dp"
@@ -29,12 +30,12 @@
         android:textSize="15sp"
         android:textStyle="bold"
         app:backgroundTint="@null"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/rec_center_header"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.789"
+        app:layout_constraintHorizontal_bias="0.929"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf=""
-        app:layout_constraintVertical_bias="0.106" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/rec_center_lyon"
@@ -44,47 +45,44 @@
         android:text="@string/lyon_center"
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/rec_center_village"
-        tools:layout_editor_absoluteX="81dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/rec_center_village"
         android:layout_width="249dp"
         android:layout_height="55dp"
+        android:layout_marginBottom="8dp"
         android:backgroundTint="#343A40"
         android:text="@string/usc_village_rec_center"
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/rec_center_aquatics"
-        tools:layout_editor_absoluteX="81dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/rec_center_aquatics"
         android:layout_width="249dp"
         android:layout_height="55dp"
+        android:layout_marginBottom="28dp"
         android:backgroundTint="#343A40"
         android:text="@string/uytengsu_aquatics_center"
         android:textColor="@color/white"
-        tools:layout_editor_absoluteX="81dp"
-        tools:layout_editor_absoluteY="641dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/rec_center_header"
         android:layout_width="288dp"
         android:layout_height="36dp"
-        android:text="Select a Rec Center"
+        android:text="@string/select_a_rec_center"
         android:textAlignment="center"
         android:textColor="@color/gray_trojan"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/imageView3"
-        tools:layout_editor_absoluteX="61dp" />
-
-    <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="40dp"
-        android:layout_height="50dp"
-        android:layout_marginEnd="8dp"
-        android:backgroundTint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/reservation_bookmark"
-        tools:layout_editor_absoluteY="17dp" />
+        app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
