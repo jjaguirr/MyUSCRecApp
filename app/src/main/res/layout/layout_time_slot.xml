@@ -11,7 +11,8 @@
         android:layout_height="match_parent"
         android:background="@drawable/reservation_card"
         android:elevation="9dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:backgroundTint="#343A40">
 
         <Button
             android:id="@+id/btn_book"
@@ -20,6 +21,7 @@
             android:layout_gravity="center"
             android:layout_marginEnd="4dp"
             android:background="@drawable/btn_book"
+            android:elevation="9dp"
             android:fontFamily="@font/inter"
             android:gravity="center"
             android:padding="6dp"
@@ -42,7 +44,7 @@
             android:fontFamily="@font/inter"
             android:gravity="center_vertical"
             android:text=" Hours: "
-            android:textColor="@color/gray_trojan"
+            android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/txt_remaining"
@@ -61,6 +63,7 @@
             android:layout_marginBottom="12dp"
             android:fontFamily="@font/inter"
             android:text="Spots Left:"
+            android:textColor="@color/white"
             android:textAllCaps="true"
             android:textSize="16sp"
             android:textStyle="bold"

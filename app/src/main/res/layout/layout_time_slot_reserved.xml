@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/reservation_card"
+        android:backgroundTint="#343A40"
         android:elevation="9dp"
         android:orientation="vertical">
 
@@ -44,7 +45,7 @@
             android:fontFamily="@font/inter"
             android:gravity="center_vertical"
             android:text=" Hours: "
-            android:textColor="@color/gray_trojan"
+            android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -60,7 +61,7 @@
             android:fontFamily="@font/inter"
             android:text="Spots Left:"
             android:textAllCaps="true"
-            android:textColor="@color/gray_trojan"
+            android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
