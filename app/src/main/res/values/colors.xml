@@ -14,6 +14,6 @@
     <color name="book_button_gradient_end"> #FFDFA0</color>
     <color name="sign_up_button_gradient_start"> #FFA800</color>
     <color name="sign_up_button_gradient_end"> #D00C00</color>
-    <color name="gray"> #E5E5E5</color>
+    <color name="gray"> #E5E5E5 </color>
 
 </resources>
