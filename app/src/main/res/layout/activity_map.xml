@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MapActivity">
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="404dp"
+        android:layout_height="413dp"
+        app:layout_constraintBottom_toTopOf="@+id/rec_center_lyon"
+        app:srcCompat="@drawable/map"
+        tools:layout_editor_absoluteX="3dp" />
+
+    <Button
+        android:id="@+id/rec_center_lyon"
+        android:layout_width="249dp"
+        android:layout_height="55dp"
+        android:backgroundTint="#343A40"
+        android:text="@string/lyon_center"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/rec_center_village"
+        tools:layout_editor_absoluteX="81dp" />
+
+    <Button
+        android:id="@+id/rec_center_village"
+        android:layout_width="249dp"
+        android:layout_height="55dp"
+        android:backgroundTint="#343A40"
+        android:text="@string/usc_village_rec_center"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/rec_center_aquatics"
+        tools:layout_editor_absoluteX="81dp" />
+
+    <Button
+        android:id="@+id/rec_center_aquatics"
+        android:layout_width="249dp"
+        android:layout_height="55dp"
+        android:backgroundTint="#343A40"
+        android:text="@string/uytengsu_aquatics_center"
+        android:textColor="@color/white"
+        tools:layout_editor_absoluteX="81dp"
+        tools:layout_editor_absoluteY="641dp" />
+
+    <TextView
+        android:id="@+id/rec_center_header"
+        android:layout_width="288dp"
+        android:layout_height="59dp"
+        android:text="Select a Rec Center"
+        android:textAlignment="center"
+        android:textColor="#343A40"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/imageView3"
+        tools:layout_editor_absoluteX="61dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>
