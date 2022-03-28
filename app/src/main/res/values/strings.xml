@@ -17,4 +17,6 @@
     <string name="today">today</string>
     <string name="tomorrow">tomorrow</string>
     <string name="action_password">action_password</string>
+    <string name="gym_name">GYM NAME</string>
+    <string name="SUMMARY_PAGE_TITLE">UPCOMING RESERVATIONS</string>
 </resources>

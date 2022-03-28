@@ -29,7 +29,7 @@ public class UpcomingReservations extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_booking_page);
+        setContentView(R.layout.activity_upcoming_page);
         swipeRefreshLayout = findViewById(R.id.swipe);
         recyclerView = findViewById(R.id.rv);
         recyclerView.setHasFixedSize(true);
