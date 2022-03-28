@@ -44,8 +44,6 @@
         android:layout_width="300dp"
         android:layout_height="58dp"
         android:layout_gravity="center"
-        android:layout_marginTop="18dp"
-        android:layout_marginBottom="112dp"
         android:background="@drawable/btn_login"
         android:fontFamily="@font/inter"
         android:gravity="center"
@@ -57,9 +55,10 @@
         app:backgroundTint="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf=""
-        app:layout_constraintVertical_bias="0.106" />
+        app:layout_constraintTop_toBottomOf="@+id/password"
+        app:layout_constraintVertical_bias="0.349" />
 
     <ProgressBar
         android:id="@+id/loading"

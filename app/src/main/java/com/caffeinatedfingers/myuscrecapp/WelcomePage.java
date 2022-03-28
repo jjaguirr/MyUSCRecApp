@@ -8,7 +8,7 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class WelcomePage extends AppCompatActivity implements View.OnClickListener {
+public class WelcomePage extends AppCompatActivity{
 
     public void onButtonClicked(View view)
     { }
