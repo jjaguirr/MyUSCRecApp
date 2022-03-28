@@ -29,4 +29,6 @@
     <string name="usc_id_123456780">USC ID: 123456780</string>
     <string name="tommy_trojan">Tommy Trojan</string>
     <string name="tommy">tommy</string>
+    <string name="name">Name</string>
+    <string name="username">Username</string>
 </resources>
