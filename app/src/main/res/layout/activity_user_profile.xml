@@ -18,7 +18,7 @@
             android:layout_width="318dp"
             android:layout_height="284dp"
             android:layout_centerInParent="true"
-            app:srcCompat="@drawable/tommyTrojan" />
+            app:srcCompat="@drawable/tommy_trojan" />
     </RelativeLayout>
 
     <TextView
@@ -40,7 +40,7 @@
         android:layout_gravity="center_horizontal"
         android:paddingBottom="20dp"
         android:textSize="20sp"
-        android:text="@string/usc_id_298784909" />
+        android:text="@string/usc_id_123456789" />
 
     <Button
         android:id="@+id/btn_my_reservations"

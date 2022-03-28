@@ -17,4 +17,6 @@
     <string name="today">today</string>
     <string name="tomorrow">tomorrow</string>
     <string name="action_password">action_password</string>
+    <string name="tommy_trojan">Tommy Trojan</string>
+    <string name="usc_id_123456789">USC ID: 123456789</string>
 </resources>
