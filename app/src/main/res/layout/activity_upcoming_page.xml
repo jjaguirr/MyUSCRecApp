@@ -23,7 +23,7 @@
         android:id="@+id/gym_name"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/gym_name"
+        android:text="@string/SUMMARY_PAGE_TITLE"
         android:textAlignment="center"
         android:textColor="#000000"
         android:textSize="50sp"
