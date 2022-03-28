@@ -1,14 +1,21 @@
 package com.caffeinatedfingers.myuscrecapp;
 
-public class Reservation {
-    public Reservation(User student, String time, String location) {
-        this.student = student;
-        this.time = time;
-        this.location = location;
-    }
+import java.io.Serializable;
 
-    User student;
+public class Reservation implements Serializable {
+    String studentID;
     String time;
     String location;
-    //waitlisted
+    String id;
+    Double cap;
+    String date;
+
+    public Reservation(String studentID, String time, String recCenter, Double cap, String date) {
+        this.studentID = studentID;
+        this.time = time;
+        this.location = recCenter;
+        this.cap = cap;
+        this.id = studentID+recCenter+time;
+        this.date = date;
+    }
 }
