@@ -10,27 +10,28 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyUSCRecApp">
         <activity
-            android:name=".SignUp"
-            android:exported="false" />
+            android:name=".LogIn"
+            android:exported="false"
+            android:label="@string/title_activity_login" />
         <activity
-            android:name=".UserProfile"
+            android:name=".SignUp"
             android:exported="false" />
         <activity
             android:name=".MapActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.login.WelcomePage"
-            android:exported="false"
-            android:label="@string/title_activity_welcome_page" />
-        <activity
             android:name=".BookingPage"
             android:exported="false" />
         <activity
-            android:name=".ui.login.LoginActivity"
-            android:exported="false"
-            android:label="@string/title_activity_login" />
+            android:name=".UpcomingReservations"
+            android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".UserProfile"
+            android:exported="false" />
+
+        <activity
+            android:name=".WelcomePage"
+            android:label="MyUSCRecApp"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

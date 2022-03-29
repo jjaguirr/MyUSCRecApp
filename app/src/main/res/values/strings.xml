@@ -31,4 +31,6 @@
     <string name="tommy">tommy</string>
     <string name="name">Name</string>
     <string name="username">Username</string>
+    <string name="profile">Profile</string>
+    <string name="reservations">reservations</string>
 </resources>

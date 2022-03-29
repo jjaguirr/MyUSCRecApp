@@ -25,6 +25,14 @@ public class MapActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+        Button my_profile = findViewById(R.id.btn_my_profile);
+        my_profile.setOnClickListener(v->{
+            Intent intent = new Intent(MapActivity.this,UserProfile.class);
+            intent.putExtra("UserId", "23458494");
+            intent.putExtra("UserName", "Tommy Trojan");
+            startActivity(intent);
+        });
+
         Button lyon_center = findViewById(R.id.btn_lyon_center);
         lyon_center.setOnClickListener(v->{
             Intent intent = new Intent(MapActivity.this,BookingPage.class);
