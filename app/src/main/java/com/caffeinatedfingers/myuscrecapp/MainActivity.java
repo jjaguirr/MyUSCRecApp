@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Button test = findViewById(R.id.btn_inMap_gymtest);
         test.setOnClickListener(v->{
             Intent intent = new Intent(MainActivity.this, BookingPage.class);
@@ -25,9 +26,10 @@ public class MainActivity extends AppCompatActivity {
             intent.putExtra("UserName", "UserTest");
             startActivity(intent);
         });
+
         Button upcomingReservations = findViewById(R.id.btn_upcoming_reservations);
         upcomingReservations.setOnClickListener(v->{
-            Intent intent = new Intent(MainActivity.this, BookingPage.class);
+            Intent intent = new Intent(MainActivity.this, UpcomingReservations.class);
             intent.putExtra("UserId", "01");
             intent.putExtra("UserName", "UserTest");
             startActivity(intent);

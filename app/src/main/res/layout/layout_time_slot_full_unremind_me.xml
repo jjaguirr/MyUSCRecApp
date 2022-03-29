@@ -17,7 +17,7 @@
         app:layout_constraintTop_toBottomOf="@+id/txt_hours">
 
         <Button
-            android:id="@+id/btn_remindme"
+            android:id="@+id/btn_unremindme"
             android:layout_width="122dp"
             android:layout_height="52dp"
             android:layout_gravity="center"
@@ -27,7 +27,7 @@
             android:fontFamily="@font/inter"
             android:gravity="center"
             android:padding="6dp"
-            android:text="REMIND"
+            android:text="UNREMIND_ME"
             android:textColor="@color/cardinal_red"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -68,7 +68,7 @@
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btn_remindme"
+            app:layout_constraintEnd_toStartOf="@+id/btn_unremindme"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_hours" />
