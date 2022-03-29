@@ -45,7 +45,7 @@
             android:layout_width="150dp"
             android:layout_height="50sp"
             android:layout_marginStart="30sp"
-            android:background="@drawable/timeslot_full_background"
+            android:background="@drawable/timeslot_book_background"
             android:text="@string/today"
             android:textColor="#ffd000"
             android:textSize="20sp"
