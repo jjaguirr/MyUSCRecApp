@@ -19,9 +19,11 @@ import com.google.firebase.database.ValueEventListener;
 
 public class DAOFireBase {
     private final DatabaseReference databaseReference, databaseReferenceReservations;
+    private final DatabaseReference databaseUsers;
     public DAOFireBase() {
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         this.databaseReference = db.getReference("timeslots");
+        this.databaseUsers=db.getReference("users");
         this.databaseReferenceReservations = db.getReference("reservations");
     }
 
@@ -74,4 +76,5 @@ public class DAOFireBase {
     public Query getReservations(String userID){
         return databaseReferenceReservations.child(userID).orderByKey();
     }
+
 }
