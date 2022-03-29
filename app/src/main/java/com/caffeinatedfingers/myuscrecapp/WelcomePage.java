@@ -20,14 +20,14 @@ public class WelcomePage extends AppCompatActivity{
         setContentView(R.layout.activity_welcome_page);
         Button signUp = findViewById(R.id.btn_sign_up);
         signUp.setOnClickListener(v->{
-            Intent intent = new Intent(WelcomePage.this,LogIn.class);
+            Intent intent = new Intent(WelcomePage.this,SignUp.class);
             //intent.putExtra("UserId", "01");
             //intent.putExtra("UserName", "UserTest");
             startActivity(intent);
         });
         Button logIn = findViewById(R.id.btn_login);
         logIn.setOnClickListener(v->{
-            Intent intent = new Intent(WelcomePage.this, SignUp.class);
+            Intent intent = new Intent(WelcomePage.this, LogIn.class);
             //intent.putExtra("UserName", "UserTest");
             //intent.putExtra("UserId", "01");
             //intent.putExtra("UserName", "UserTest");
