@@ -39,6 +39,8 @@ public class LogIn extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         Button logIn = findViewById(R.id.btn_login);
         logIn.setOnClickListener(v->{
+            Intent intent = new Intent(LogIn.this,MapActivity.class);
+            startActivity(intent);
             mAuth.signInWithEmailAndPassword(email.getText().toString(), password.getText().toString())
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
