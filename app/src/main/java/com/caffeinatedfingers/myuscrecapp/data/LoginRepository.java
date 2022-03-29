@@ -1,5 +1,7 @@
 package com.caffeinatedfingers.myuscrecapp.data;
 
+import android.media.MediaSession2;
+
 import com.caffeinatedfingers.myuscrecapp.data.model.LoggedInUser;
 
 /**
@@ -26,6 +28,10 @@ public class LoginRepository {
             instance = new LoginRepository(dataSource);
         }
         return instance;
+    }
+
+    public static MediaSession2 getInstance() {
+        return null;
     }
 
     public boolean isLoggedIn() {

@@ -37,7 +37,7 @@
         <entry key="app/src/main/res/drawable/timeslot_full_background.xml" value="0.2495" />
         <entry key="app/src/main/res/layout-w1240dp/activity_login.xml" value="0.112109375" />
         <entry key="app/src/main/res/layout-w936dp/activity_login.xml" value="0.1093994140625" />
-        <entry key="app/src/main/res/layout/activity_booking_page.xml" value="0.2259963768115942" />
+        <entry key="app/src/main/res/layout/activity_booking_page.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.165" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.24490203857421877" />
         <entry key="app/src/main/res/layout/activity_map.xml" value="0.27615509033203123" />
