@@ -18,7 +18,7 @@ import java.io.Serializable;
 
 public class TimeSlot implements Serializable {
     String id;
-    Double capacity;
+    Long capacity;
     String recCenter;
     String date;
     String time; //or Timeobject
@@ -26,14 +26,15 @@ public class TimeSlot implements Serializable {
 
     boolean thisUserReserved;
 
-    public TimeSlot(Double capacity, String recCenter, String time) {
+    public TimeSlot(Long capacity, String recCenter, String time, String date) {
         this.capacity = capacity;
         this.id = time;
         this.recCenter = recCenter;
         this.time = time;
+        this.date = date;
     }
 
-    public Double getRemaining(){
+    public Long getRemaining(){
         return this.capacity-this.usersCount;
     }
     public Boolean isAvailable(){

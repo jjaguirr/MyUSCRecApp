@@ -3,6 +3,7 @@ package com.caffeinatedfingers.myuscrecapp;
 import static android.content.ContentValues.TAG;
 
 import android.content.Context;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -41,9 +42,10 @@ public class DAOFireBase {
     }
     public void removeUser(TimeSlot ts, User user, Context context){
         Reservation reservation = new Reservation(user.id, ts.time, ts.recCenter, ts.capacity, ts.date);
-        this.databaseReference.child(ts.id).child("Registered").child(user.id)
+        this.databaseReference.child(ts.recCenter).child(ts.date).child(ts.id).child("Registered").child(user.id)
                 .removeValue().addOnSuccessListener(suc->{
             ts.notifyRemovedUser();
+            ts.setThisUserReserved(false);
             this.databaseReferenceReservations.child(user.id).child(reservation.id).removeValue();
             Toast.makeText(context, "Successfully cancelled reservation.", Toast.LENGTH_SHORT).show();
         }).addOnFailureListener(fail->{
@@ -61,20 +63,13 @@ public class DAOFireBase {
         return databaseReference.child(recCenter).child(date).orderByKey();
     }
 
-    public int getTimeSlotCount(TimeSlot timeSlot){
-        final int[] count = new int[1];
-        databaseReference.child(timeSlot.recCenter).child(timeSlot.date).child(timeSlot.id)
-                .child("Registered").get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
-            @Override
-            public void onSuccess(DataSnapshot dataSnapshot) {
-                count[0] = (int) dataSnapshot.getChildrenCount();
-            }
-        });
-        return count[0];
+    public Query getTimeSlotQuery(TimeSlot ts){
+        return databaseReference.child(ts.recCenter).child(ts.date).child(ts.id)
+                .child("Registered");
     }
 
     public Query getReservations(String userID){
-        return databaseReferenceReservations.child(userID).orderByKey();
+        return databaseReferenceReservations.child(userID);
     }
 
 }

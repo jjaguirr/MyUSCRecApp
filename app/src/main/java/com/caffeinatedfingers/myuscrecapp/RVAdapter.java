@@ -17,16 +17,26 @@ public class RVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     DAOFireBase dao;
     User user;
     ArrayList<TimeSlot> items = new ArrayList<>();
-    public RVAdapter(Context context, DAOFireBase dao, User user){
+    String date;
+    public RVAdapter(Context context, DAOFireBase dao, User user, String date){
         this.context = context;
         this.dao = dao;
         this.user = user;
+        this.date = date;
     }
     //@TODO specify item for efficiency purposes
     public void add(TimeSlot ts) {
         this.items.add(ts);
     }
 
+    public void delete(TimeSlot ts) {
+        this.items.remove(ts);
+    }
+
+    public void refreshDelete(){
+        items.clear();
+        this.notifyDataSetChanged();
+    }
     public TimeSlot getTimeSlot(@NonNull String id){
         for (TimeSlot ts: items){
             if (ts.id.equals(id)) return ts;
@@ -59,17 +69,14 @@ public class RVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         vh.txt_hours.setText(timeSlot.time);
         String text = String.valueOf(timeSlot.getRemaining()) + " SPOTS LEFT";
         vh.txt_remaining.setText(text);
-        vh.btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                switch (timeSlot.getViewType()){
-                    case 0: dao.addUser(timeSlot,user,context);
-                        break;
-                    case 1: dao.removeUser(timeSlot,user,context);
-                        break;
-                    case 2: dao.remindUser(timeSlot,user,context);
-                        break;
-                }
+        vh.btn.setOnClickListener(view -> {
+            switch (timeSlot.getViewType()){
+                case 0: dao.addUser(timeSlot,user,context);
+                    break;
+                case 1: dao.removeUser(timeSlot,user,context);
+                    break;
+                case 2: dao.remindUser(timeSlot,user,context);
+                    break;
             }
         });
     }

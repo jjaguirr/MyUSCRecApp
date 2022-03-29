@@ -60,7 +60,7 @@
             app:backgroundTint="@null"
             android:background="@drawable/timeslot_full_background"
             android:text="@string/tomorrow"
-            android:textColor="#ffd000"
+            android:textColor="@color/gold"
             android:textSize="20sp" />
     </LinearLayout>
 
