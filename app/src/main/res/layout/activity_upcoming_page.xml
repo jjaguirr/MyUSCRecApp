@@ -25,8 +25,8 @@
         android:layout_height="match_parent"
         android:text="@string/SUMMARY_PAGE_TITLE"
         android:textAlignment="center"
-        android:textColor="#000000"
-        android:textSize="50sp"
+        android:textColor="@color/gray_trojan"
+        android:textSize="40sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -46,9 +46,9 @@
             android:layout_width="150dp"
             android:layout_height="50sp"
             app:backgroundTint="@null"
-            android:background="@drawable/timeslot_book_background"
+            android:background="@drawable/timeslot_full_background"
             android:text="@string/today"
-            android:textColor="@color/gold"
+            android:textColor="#ffd000"
             android:textSize="20sp" />
 
         <Button
@@ -60,7 +60,7 @@
             app:backgroundTint="@null"
             android:background="@drawable/timeslot_full_background"
             android:text="@string/tomorrow"
-            android:textColor="@color/gold"
+            android:textColor="#ffd000"
             android:textSize="20sp" />
     </LinearLayout>
 

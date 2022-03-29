@@ -40,16 +40,16 @@
         android:orientation="horizontal">
 
         <Button
-            android:layout_marginStart="30sp"
             android:id="@+id/btn_today"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="150dp"
             android:layout_height="50sp"
-            app:backgroundTint="@null"
-            android:background="@drawable/timeslot_book_background"
+            android:layout_marginStart="30sp"
+            android:background="@drawable/timeslot_full_background"
             android:text="@string/today"
-            android:textColor="@color/gold"
-            android:textSize="20sp" />
+            android:textColor="#ffd000"
+            android:textSize="20sp"
+            app:backgroundTint="@null" />
 
         <Button
             android:layout_marginStart="50sp"
@@ -60,7 +60,7 @@
             app:backgroundTint="@null"
             android:background="@drawable/timeslot_full_background"
             android:text="@string/tomorrow"
-            android:textColor="@color/gold"
+            android:textColor="#ffd000"
             android:textSize="20sp" />
     </LinearLayout>
 

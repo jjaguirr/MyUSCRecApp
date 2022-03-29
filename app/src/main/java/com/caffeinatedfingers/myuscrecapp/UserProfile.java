@@ -16,7 +16,7 @@ public class UserProfile extends AppCompatActivity {
         Button my_reservations = findViewById(R.id.btn_my_reservations);
         my_reservations.setOnClickListener(v->{
             Intent intent = new Intent(UserProfile.this, UpcomingReservations.class);
-            intent.putExtra("UserId", "23458494");
+            intent.putExtra("UserId", "123456780");
             intent.putExtra("UserName", "Tommy Trojan");
             startActivity(intent);
         });

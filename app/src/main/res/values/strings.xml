@@ -18,7 +18,7 @@
     <string name="tomorrow">tomorrow</string>
     <string name="action_password">action_password</string>
     <string name="gym_name">GYM NAME</string>
-    <string name="SUMMARY_PAGE_TITLE">UPCOMING RESERVATIONS</string>
+    <string name="SUMMARY_PAGE_TITLE">Upcoming Reservations</string>
     <string name="logo">logo</string>
     <string name="my_reservations">my reservations</string>
     <string name="last_name">Last Name</string>
@@ -30,7 +30,7 @@
     <string name="tommy_trojan">Tommy Trojan</string>
     <string name="tommy">tommy</string>
     <string name="name">Name</string>
-    <string name="username">Username</string>
     <string name="profile">Profile</string>
     <string name="reservations">reservations</string>
+    <string name="username">Username</string>
 </resources>
