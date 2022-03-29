@@ -1,31 +1,21 @@
 package com.caffeinatedfingers.myuscrecapp;
 
-import static android.content.ContentValues.TAG;
-
 import android.content.Context;
-import android.provider.ContactsContract;
-import android.util.Log;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 
 public class DAOFireBase {
-    private final DatabaseReference databaseReference, databaseReferenceReservations;
+    private final DatabaseReference databaseReference, databaseReferenceReservations, databaseReferencePrevious;
     private final DatabaseReference databaseUsers;
     public DAOFireBase() {
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         this.databaseReference = db.getReference("timeslots");
         this.databaseUsers=db.getReference("users");
         this.databaseReferenceReservations = db.getReference("reservations");
+        this.databaseReferencePrevious = db.getReference("previous");
     }
 
     public void addUser(TimeSlot ts, User user, Context context){
@@ -71,6 +61,10 @@ public class DAOFireBase {
 
     public Query getReservations(String userID){
         return databaseReferenceReservations.child(userID);
+    }
+
+    public Query getPrevious(String userID){
+        return databaseReferencePrevious.child(userID);
     }
 
 }
