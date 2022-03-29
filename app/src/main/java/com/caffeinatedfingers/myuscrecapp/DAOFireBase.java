@@ -54,6 +54,7 @@ public class DAOFireBase {
     }
     //@TODO: Implement notifications. Create wait-list in FireBase Database per each Timeslot.
     public void remindUser(TimeSlot ts, User user, Context context){
+        Toast.makeText(context, "You're added to the waitlist!", Toast.LENGTH_SHORT).show();
         //Toast.makeText(context, "Successfully added to wait-list", Toast.LENGTH_SHORT).show();
         //notifications
     }
