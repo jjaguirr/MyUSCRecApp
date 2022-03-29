@@ -29,9 +29,9 @@ public class SignUp extends AppCompatActivity {
 //        updateUI(currentUser);
         EditText email, password, name, id;
         password=(EditText) findViewById(R.id.password);
-        name=(EditText) findViewById(R.id.name);
+        name=(EditText) findViewById(R.id.Name);
         email=(EditText) findViewById(R.id.email);
-        id=(EditText) findViewById(R.id.id);
+        id=(EditText) findViewById(R.id.user_ID);
         setContentView(R.layout.activity_login);
         Button signUp = findViewById(R.id.btn_sign_up);
         signUp.setOnClickListener(v->{
