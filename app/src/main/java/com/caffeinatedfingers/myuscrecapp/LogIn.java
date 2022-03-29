@@ -17,12 +17,10 @@ public class LogIn extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        Button signUp = findViewById(R.id.btn_login);
-        signUp.setOnClickListener(v->{
+
+        Button login = findViewById(R.id.btn_login);
+        login.setOnClickListener(v->{
             Intent intent = new Intent(LogIn.this,MapActivity.class);
-            //intent.putExtra("RecCenter", signUp.getText());
-            //intent.putExtra("UserId", "01");
-            //intent.putExtra("UserName", "UserTest");
             startActivity(intent);
         });
 

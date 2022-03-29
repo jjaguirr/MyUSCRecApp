@@ -16,28 +16,30 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="364dp"
+        android:autofillHints="enter username"
         android:hint="@string/username"
         android:inputType="text"
+        android:minHeight="48dp"
         android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:autofillHints="enter username" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/password"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:autofillHints="enter password"
         android:hint="@string/prompt_password"
         android:imeActionLabel="@string/action_password"
         android:imeOptions="actionDone"
         android:inputType="textPassword"
+        android:minHeight="48dp"
         android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/username"
-        android:autofillHints="enter password" />
+        app:layout_constraintTop_toBottomOf="@+id/username" />
 
     <Button
         android:id="@+id/btn_login"

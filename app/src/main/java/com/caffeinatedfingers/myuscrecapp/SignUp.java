@@ -16,10 +16,6 @@ public class SignUp extends AppCompatActivity {
         Button signUp = findViewById(R.id.btn_sign_up);
         signUp.setOnClickListener(v->{
             Intent intent = new Intent(SignUp.this, MapActivity.class);
-            // username, email, password
-            //intent.putExtra("RecCenter", signUp.getText());
-            //intent.putExtra("UserId", "01");
-            //intent.putExtra("UserName", "UserTest");
             startActivity(intent);
         });
     }

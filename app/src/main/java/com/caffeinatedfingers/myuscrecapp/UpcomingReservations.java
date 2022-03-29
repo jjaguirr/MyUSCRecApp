@@ -35,11 +35,11 @@ public class UpcomingReservations extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager manager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(manager);
+
         Bundle b = getIntent().getExtras();
         String userId = b.getString("UserId");
         String userName= b.getString("UserName");
         this.user = new User (userId,userName);
-
 
 
         //When click on a button do add, remove calling dao.add(timeslot, user) or dao.remove() etc.

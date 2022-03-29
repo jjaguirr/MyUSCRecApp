@@ -32,6 +32,7 @@ public class BookingPage extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager manager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(manager);
+
         Bundle b = getIntent().getExtras();
         String userId = b.getString("UserId");
         String userName= b.getString("UserName");
