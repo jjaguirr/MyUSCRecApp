@@ -33,6 +33,10 @@
         <entry key="..\:/Users/josej/Desktop/MyUSCRecApp/app/src/main/res/layout/layout_time_slot_reserved.xml" value="0.33" />
         <entry key="..\:/Users/josej/Desktop/MyUSCRecApp/app/src/main/res/layout/layout_time_slots.xml" value="0.19610507246376813" />
         <entry key="..\:/Users/josej/Desktop/MyUSCRecApp/app/src/main/res/layout/popup_window.xml" value="0.25364583333333335" />
+        <entry key="app/src/main/res/layout/activity_input_id.xml" value="0.22526397705078127" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.2206120808919269" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.2520833333333333" />
+        <entry key="app/src/main/res/layout/activity_map.xml" value="0.1621376811594203" />
       </map>
     </option>
   </component>
