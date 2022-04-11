@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "1048736735435",
+    "firebase_url": "https://myuscrecapp-default-rtdb.firebaseio.com",
     "project_id": "myuscrecapp",
     "storage_bucket": "myuscrecapp.appspot.com"
   },
@@ -13,6 +14,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "1048736735435-jcpae6ni72dogpictan3aflopq57crj9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.caffeinatedfingers.myuscrecapp",
+            "certificate_hash": "f9749c1a8eb4abda45585466849ee7fe7bf4232e"
+          }
+        },
         {
           "client_id": "1048736735435-f1npnduge60f5p3s84jn6h5sevmhv8co.apps.googleusercontent.com",
           "client_type": 3

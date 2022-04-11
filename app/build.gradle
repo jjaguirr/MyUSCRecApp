@@ -65,10 +65,12 @@ dependencies {
     //For Database and Authentication
     implementation 'com.google.firebase:firebase-auth'
     implementation 'com.google.firebase:firebase-database'
+    implementation 'com.google.firebase:firebase-auth:21.0.3'
     // For Google Authentication - Log in / Sign up
     implementation 'com.google.android.gms:play-services-auth:20.1.0'
 
     //For linear scroll
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
     implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'com.google.gms:google-services:4.3.10'
 }

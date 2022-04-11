@@ -9,7 +9,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="360dp"
+        android:layout_height="310dp"
         android:background="@drawable/btn_login"
         android:padding="20dp">
 
@@ -18,8 +18,9 @@
             android:layout_width="318dp"
             android:layout_height="284dp"
             android:layout_centerInParent="true"
-            app:srcCompat="@drawable/tommy_trojan"
-            android:contentDescription="@string/tommy" />
+            android:contentDescription="@string/tommy"
+            app:srcCompat="@drawable/tommy_trojan" />
+
     </RelativeLayout>
 
     <TextView
@@ -40,8 +41,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:paddingBottom="20dp"
-        android:textSize="20sp"
-        android:text="@string/usc_id_123456780" />
+        android:text="@string/usc_id_123456780"
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/btn_my_reservations"
@@ -56,5 +57,29 @@
         android:textStyle="bold"
         app:backgroundTint="@null" />
 
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background= "@color/white"
+        android:padding="20dp">
+
+        <Button
+            android:id="@+id/btn_logout"
+            android:layout_width="196dp"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/btn_logout"
+            android:fontFamily="@font/inter"
+            android:text="@string/logout"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:backgroundTint="@null"
+            android:onClick="logout"
+            />
+
+    </RelativeLayout>
 
 </LinearLayout>

@@ -34,4 +34,9 @@
     <string name="reservations">reservations</string>
     <string name="username">Username</string>
     <string name="previous_reservations">Previous Reservations</string>
+    <string name="title_activity_login_google">LoginActivityGoogle</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="logout">Logout</string>
 </resources>
+
