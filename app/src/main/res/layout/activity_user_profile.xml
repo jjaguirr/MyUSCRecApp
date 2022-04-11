@@ -77,7 +77,8 @@
             android:textSize="20sp"
             android:textStyle="bold"
             app:backgroundTint="@null"
-            />
+            android:onClick="logout"
+            tools:ignore="UsingOnClickInXml" />
 
     </RelativeLayout>
 
