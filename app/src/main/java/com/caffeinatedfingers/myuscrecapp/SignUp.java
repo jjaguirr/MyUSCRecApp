@@ -76,11 +76,7 @@ public class SignUp extends AppCompatActivity
                         if(task.isSuccessful())
                         {
                             Toast.makeText(SignUp.this, "Account Created, Welcome!", Toast.LENGTH_SHORT).show();
-                            signUp.setOnClickListener(v->{
-                                Intent intent = new Intent(SignUp.this,MapActivity.class);
-                                startActivity(intent);
-                            });
-//                            startActivity(new Intent(SignUp.this,MapActivity.class));
+                            startActivity(new Intent(SignUp.this, MapActivity.class));
                         }
 
                         else

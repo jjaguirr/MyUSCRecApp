@@ -38,5 +38,7 @@
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="logout">Logout</string>
+    <string name="email">email</string>
+    <string name="Email">Email</string>
 </resources>
 
