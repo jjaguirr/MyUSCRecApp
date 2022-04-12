@@ -40,5 +40,6 @@
     <string name="logout">Logout</string>
     <string name="email">email</string>
     <string name="Email">Email</string>
+    <string name="uscid">uscID</string>
 </resources>
 

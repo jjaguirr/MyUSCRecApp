@@ -24,24 +24,23 @@
     </RelativeLayout>
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/fullName_profile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="20dp"
-
-        android:text="@string/tommy_trojan"
+        android:hint="@string/name"
         android:textAlignment="center"
         android:textColor="@color/gray_trojan"
         android:textSize="35sp"
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/uscID_profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:paddingBottom="20dp"
-        android:text="@string/usc_id_123456780"
+        android:hint="@string/uscid"
         android:textSize="20sp" />
 
     <Button
