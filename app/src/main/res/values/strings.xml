@@ -42,5 +42,6 @@
     <string name="Email">Email</string>
     <string name="uscid">uscID</string>
     <string name="upload_photo">Upload Photo</string>
+    <string name="profile_image">Profile image</string>
 </resources>
 
