@@ -60,23 +60,43 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:background= "@color/white"
+        android:background="@color/white"
         android:padding="20dp">
 
         <Button
             android:id="@+id/btn_logout"
-            android:layout_width="196dp"
+            android:layout_width="151dp"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
+            android:layout_alignParentStart="true"
             android:layout_gravity="center_horizontal"
+            android:layout_marginStart="20dp"
             android:background="@drawable/btn_logout"
             android:fontFamily="@font/inter"
+            android:onClick="logout"
             android:text="@string/logout"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold"
             app:backgroundTint="@null"
+            tools:ignore="UsingOnClickInXml" />
+
+        <Button
+            android:id="@+id/btn_changePic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="22dp"
+            android:layout_marginEnd="16dp"
+            android:layout_toEndOf="@+id/btn_logout"
+            android:background="@drawable/btn_logout"
+            android:fontFamily="@font/inter"
             android:onClick="logout"
+            android:text="@string/upload_photo"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:backgroundTint="@null"
             tools:ignore="UsingOnClickInXml" />
 
     </RelativeLayout>
