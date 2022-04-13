@@ -127,16 +127,6 @@ public class BookingPage extends AppCompatActivity {
         });
 
     }
-    private void notification(){
-        if(Build.VERSION.SDK_INT >=Build.VERSION_CODES.O){
-            NotificationChannel channel = new NotificationChannel("waitlistOpen","waitlistOpen", NotificationManager.IMPORTANCE_DEFAULT);
-            NotificationManager manager = getSystemService(NotificationManager.class);
-            manager.createNotificationChannel(channel);
 
-        }
-        NotificationCompat.Builder builder= new NotificationCompat.Builder(this, "waitlistOpen").setContentTitle("USCRecApp").setAutoCancel(true).setContentText("Good news! A spot opened for your slot.");
-        NotificationManagerCompat managerCompat= NotificationManagerCompat.from(this);
-        managerCompat.notify(999,builder.build());
-    }
 
 }

@@ -33,6 +33,7 @@ public class DAOFireBase {
     private FirebaseFirestore fStore;
     String fullName="";
     String uscID="";
+    User u=null;
     public DAOFireBase() {
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         fAuth = FirebaseAuth.getInstance();
@@ -46,6 +47,7 @@ public class DAOFireBase {
                 if (document.exists()) {
                     fullName=document.get("fName").toString();
                     uscID=document.get("uscID").toString();
+                    u=new User(uscID,fullName);
                 }
             }
         });
@@ -56,7 +58,8 @@ public class DAOFireBase {
     }
 
     public void addUser(TimeSlot ts, User user, Context context){
-        Reservation reservation = new Reservation(uscID, ts.time, ts.recCenter, ts.capacity, ts.date);
+
+        Reservation reservation = new Reservation(u, ts);
         this.databaseReference.child(ts.recCenter).child(ts.date)
                 .child(ts.id).child("Registered").child(uscID).setValue(fullName)
                 .addOnSuccessListener(suc->{
@@ -68,7 +71,7 @@ public class DAOFireBase {
         });
     }
     public void removeUser(TimeSlot ts, User user, Context context){
-        Reservation reservation = new Reservation(uscID, ts.time, ts.recCenter, ts.capacity, ts.date);
+        Reservation reservation = new Reservation(u, ts);
         this.databaseReference.child(ts.recCenter).child(ts.date).child(ts.id).child("Registered").child(uscID)
                 .removeValue().addOnSuccessListener(suc->{
             ts.notifyRemovedUser();
@@ -86,16 +89,7 @@ public class DAOFireBase {
      * @param user User to be reminded
      * @param context Context for toast texts.
      */
-    public void remindUser(@NonNull TimeSlot ts, @NonNull User user, Context context) {
 
-        this.databaseReference.child(ts.recCenter).child(ts.date).child(ts.id).child("Waitlist").child(user.id)
-                .setValue(user.userName).addOnSuccessListener(suc -> {
-            //@TODO set waiting for a notification
-            Toast.makeText(context, "You're added to the waitlist!", Toast.LENGTH_SHORT).show();
-        }).addOnFailureListener(fail -> {
-            Toast.makeText(context, "" + fail.getMessage(), Toast.LENGTH_SHORT).show();
-        });
-    }
     //@TODO: Implement notifications. Create wait-list in FireBase Database per each Timeslot.
     public void remindUser(TimeSlot ts, User user, Context context){
         Toast.makeText(context, "You're added to the waitlist!", Toast.LENGTH_SHORT).show();
@@ -144,6 +138,17 @@ public class DAOFireBase {
      */
     public Query getPreviousReservationQuery(String userID) {
         return databaseReferencePrevious.child(userID);
+    }
+    private void notification(Context context){
+        if(Build.VERSION.SDK_INT >=Build.VERSION_CODES.O){
+            NotificationChannel channel = new NotificationChannel("waitlistOpen","waitlistOpen", NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationManager manager = context.getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
+
+        }
+        NotificationCompat.Builder builder= new NotificationCompat.Builder(context, "waitlistOpen").setContentTitle("USCRecApp").setAutoCancel(true).setContentText("Good news! A spot opened for your slot.");
+        NotificationManagerCompat managerCompat= NotificationManagerCompat.from(context);
+        managerCompat.notify(999,builder.build());
     }
 
 
