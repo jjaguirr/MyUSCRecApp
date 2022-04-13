@@ -9,6 +9,7 @@ import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withParent;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 
@@ -24,7 +25,6 @@ import androidx.test.runner.AndroidJUnit4;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
-import org.hamcrest.core.IsInstanceOf;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -58,7 +58,7 @@ public class InvalidLogInTest {
                                                 0)),
                                 0),
                         isDisplayed()));
-        appCompatEditText.perform(replaceText("ttrojan@usc.edu"), closeSoftKeyboard());
+        appCompatEditText.perform(replaceText("no@usc.edu"), closeSoftKeyboard());
 
         ViewInteraction appCompatEditText2 = onView(
                 allOf(withId(R.id.password),
@@ -69,10 +69,10 @@ public class InvalidLogInTest {
                                                 0)),
                                 1),
                         isDisplayed()));
-        appCompatEditText2.perform(replaceText("fighton!"), closeSoftKeyboard());
+        appCompatEditText2.perform(replaceText("invaliduser"), closeSoftKeyboard());
 
         ViewInteraction appCompatEditText3 = onView(
-                allOf(withId(R.id.password), withText("fighton!"),
+                allOf(withId(R.id.password), withText("invaliduser"),
                         childAtPosition(
                                 allOf(withId(R.id.container),
                                         childAtPosition(
@@ -93,9 +93,12 @@ public class InvalidLogInTest {
                         isDisplayed()));
         materialButton2.perform(click());
 
-        ViewInteraction frameLayout = onView(
-                allOf(IsInstanceOf.<View>instanceOf(android.widget.FrameLayout.class), isDisplayed()));
-        frameLayout.check(matches(isDisplayed()));
+        ViewInteraction button = onView(
+                allOf(withId(R.id.btn_login), withText("LOG IN"),
+                        withParent(allOf(withId(R.id.container),
+                                withParent(withId(android.R.id.content)))),
+                        isDisplayed()));
+        button.check(matches(isDisplayed()));
     }
 
     private static Matcher<View> childAtPosition(

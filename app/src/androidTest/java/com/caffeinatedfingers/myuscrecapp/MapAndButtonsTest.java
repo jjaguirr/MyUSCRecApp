@@ -38,7 +38,7 @@ public class MapAndButtonsTest {
     public ActivityTestRule<WelcomePage> mActivityTestRule = new ActivityTestRule<>(WelcomePage.class);
 
     @Test
-    public void mapAndButtonsTest() {
+    public void mapAndButtonsTest() throws InterruptedException {
         ViewInteraction materialButton = onView(
                 allOf(withId(R.id.btn_login), withText("Log in"),
                         childAtPosition(
@@ -49,6 +49,7 @@ public class MapAndButtonsTest {
                                 1),
                         isDisplayed()));
         materialButton.perform(click());
+        Thread.sleep(3000);
 
         ViewInteraction appCompatEditText = onView(
                 allOf(withId(R.id.email),
@@ -60,7 +61,7 @@ public class MapAndButtonsTest {
                                 0),
                         isDisplayed()));
         appCompatEditText.perform(replaceText("ttrojan@usc.edu"), closeSoftKeyboard());
-
+        Thread.sleep(3000);
         ViewInteraction appCompatEditText2 = onView(
                 allOf(withId(R.id.password),
                         childAtPosition(
@@ -71,7 +72,7 @@ public class MapAndButtonsTest {
                                 1),
                         isDisplayed()));
         appCompatEditText2.perform(replaceText("fighton!"), closeSoftKeyboard());
-
+        Thread.sleep(3000);
         ViewInteraction appCompatEditText3 = onView(
                 allOf(withId(R.id.password), withText("fighton!"),
                         childAtPosition(
@@ -82,7 +83,7 @@ public class MapAndButtonsTest {
                                 1),
                         isDisplayed()));
         appCompatEditText3.perform(pressImeActionButton());
-
+        Thread.sleep(3000);
         ViewInteraction materialButton2 = onView(
                 allOf(withId(R.id.btn_login), withText("Log in"),
                         childAtPosition(
@@ -93,48 +94,49 @@ public class MapAndButtonsTest {
                                 2),
                         isDisplayed()));
         materialButton2.perform(click());
-
+        Thread.sleep(3000);
         ViewInteraction button = onView(
                 allOf(withId(R.id.btn_my_profile), withText("PROFILE"),
                         withParent(withParent(withId(android.R.id.content))),
                         isDisplayed()));
         button.check(matches(isDisplayed()));
-
+        Thread.sleep(3000);
         ViewInteraction button2 = onView(
                 allOf(withId(R.id.btn_my_reservations), withText("RESERVATIONS"),
                         withParent(withParent(withId(android.R.id.content))),
                         isDisplayed()));
         button2.check(matches(isDisplayed()));
-
+        Thread.sleep(3000);
         ViewInteraction textView = onView(
                 allOf(withId(R.id.rec_center_header), withText("Select a Rec Center"),
                         withParent(withParent(withId(android.R.id.content))),
                         isDisplayed()));
         textView.check(matches(withText("Select a Rec Center")));
-
+        Thread.sleep(3000);
         ViewInteraction imageView = onView(
                 allOf(withId(R.id.imageView3), withContentDescription("map"),
                         withParent(withParent(withId(android.R.id.content))),
                         isDisplayed()));
         imageView.check(matches(isDisplayed()));
-
+        Thread.sleep(3000);
         ViewInteraction button3 = onView(
                 allOf(withId(R.id.btn_lyon_center), withText("LYON CENTER"),
                         withParent(withParent(withId(android.R.id.content))),
                         isDisplayed()));
         button3.check(matches(isDisplayed()));
-
+        Thread.sleep(3000);
         ViewInteraction button4 = onView(
                 allOf(withId(R.id.btn_village_center), withText("USC VILLAGE REC CENTER"),
                         withParent(withParent(withId(android.R.id.content))),
                         isDisplayed()));
         button4.check(matches(isDisplayed()));
-
+        Thread.sleep(3000);
         ViewInteraction button5 = onView(
                 allOf(withId(R.id.btn_aquatics), withText("UYTENGSU AQUATICS CENTER"),
                         withParent(withParent(withId(android.R.id.content))),
                         isDisplayed()));
         button5.check(matches(isDisplayed()));
+        Thread.sleep(3000);
     }
 
     private static Matcher<View> childAtPosition(

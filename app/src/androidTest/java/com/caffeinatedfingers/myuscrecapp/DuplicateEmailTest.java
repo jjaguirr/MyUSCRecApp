@@ -35,7 +35,7 @@ public class DuplicateEmailTest {
     public ActivityTestRule<WelcomePage> mActivityTestRule = new ActivityTestRule<>(WelcomePage.class);
 
     @Test
-    public void duplicateEmailTest() {
+    public void duplicateEmailTest() throws InterruptedException {
         ViewInteraction materialButton = onView(
                 allOf(withId(R.id.btn_sign_up), withText("Sign up"),
                         childAtPosition(
@@ -46,7 +46,7 @@ public class DuplicateEmailTest {
                                 0),
                         isDisplayed()));
         materialButton.perform(click());
-
+        Thread.sleep(3000);
         ViewInteraction appCompatEditText = onView(
                 allOf(withId(R.id.fullName),
                         childAtPosition(
@@ -56,7 +56,7 @@ public class DuplicateEmailTest {
                                 2),
                         isDisplayed()));
         appCompatEditText.perform(replaceText("Tommy Trojan"), closeSoftKeyboard());
-
+        Thread.sleep(3000);
         ViewInteraction appCompatEditText2 = onView(
                 allOf(withId(R.id.fullName), withText("Tommy Trojan"),
                         childAtPosition(
@@ -66,7 +66,7 @@ public class DuplicateEmailTest {
                                 2),
                         isDisplayed()));
         appCompatEditText2.perform(pressImeActionButton());
-
+        Thread.sleep(3000);
         ViewInteraction appCompatEditText3 = onView(
                 allOf(withId(R.id.user_ID),
                         childAtPosition(
@@ -76,7 +76,7 @@ public class DuplicateEmailTest {
                                 3),
                         isDisplayed()));
         appCompatEditText3.perform(replaceText("3710164646"), closeSoftKeyboard());
-
+        Thread.sleep(3000);
         ViewInteraction appCompatEditText4 = onView(
                 allOf(withId(R.id.user_ID), withText("3710164646"),
                         childAtPosition(
@@ -86,7 +86,7 @@ public class DuplicateEmailTest {
                                 3),
                         isDisplayed()));
         appCompatEditText4.perform(pressImeActionButton());
-
+        Thread.sleep(3000);
         ViewInteraction appCompatEditText5 = onView(
                 allOf(withId(R.id.email),
                         childAtPosition(
@@ -96,7 +96,7 @@ public class DuplicateEmailTest {
                                 4),
                         isDisplayed()));
         appCompatEditText5.perform(replaceText("ttrojan@usc.edu"), closeSoftKeyboard());
-
+        Thread.sleep(3000);
         ViewInteraction appCompatEditText6 = onView(
                 allOf(withId(R.id.email), withText("ttrojan@usc.edu"),
                         childAtPosition(
@@ -106,7 +106,7 @@ public class DuplicateEmailTest {
                                 4),
                         isDisplayed()));
         appCompatEditText6.perform(pressImeActionButton());
-
+        Thread.sleep(3000);
         ViewInteraction appCompatEditText7 = onView(
                 allOf(withId(R.id.password),
                         childAtPosition(
@@ -116,7 +116,7 @@ public class DuplicateEmailTest {
                                 5),
                         isDisplayed()));
         appCompatEditText7.perform(replaceText("fighton!"), closeSoftKeyboard());
-
+        Thread.sleep(3000);
         ViewInteraction appCompatEditText8 = onView(
                 allOf(withId(R.id.password), withText("fighton!"),
                         childAtPosition(
@@ -126,7 +126,7 @@ public class DuplicateEmailTest {
                                 5),
                         isDisplayed()));
         appCompatEditText8.perform(pressImeActionButton());
-
+        Thread.sleep(3000);
         ViewInteraction materialButton2 = onView(
                 allOf(withId(R.id.btn_sign_up), withText("Sign up"),
                         childAtPosition(
@@ -136,6 +136,7 @@ public class DuplicateEmailTest {
                                 1),
                         isDisplayed()));
         materialButton2.perform(click());
+        Thread.sleep(3000);
     }
 
     private static Matcher<View> childAtPosition(

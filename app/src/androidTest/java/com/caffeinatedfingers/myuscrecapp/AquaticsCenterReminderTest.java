@@ -41,7 +41,7 @@ public class AquaticsCenterReminderTest {
     public ActivityTestRule<WelcomePage> mActivityTestRule = new ActivityTestRule<>(WelcomePage.class);
 
     @Test
-    public void aquaticsCenterReminderTest() {
+    public void aquaticsCenterReminderTest() throws InterruptedException {
         ViewInteraction materialButton = onView(
                 allOf(withId(R.id.btn_login), withText("Log in"),
                         childAtPosition(
@@ -52,7 +52,7 @@ public class AquaticsCenterReminderTest {
                                 1),
                         isDisplayed()));
         materialButton.perform(click());
-
+        Thread.sleep(3000);
         ViewInteraction appCompatEditText = onView(
                 allOf(withId(R.id.email),
                         childAtPosition(
@@ -63,7 +63,7 @@ public class AquaticsCenterReminderTest {
                                 0),
                         isDisplayed()));
         appCompatEditText.perform(replaceText("ttrojan@usc.edu"), closeSoftKeyboard());
-
+        Thread.sleep(3000);
         ViewInteraction appCompatEditText2 = onView(
                 allOf(withId(R.id.password),
                         childAtPosition(
@@ -74,7 +74,7 @@ public class AquaticsCenterReminderTest {
                                 1),
                         isDisplayed()));
         appCompatEditText2.perform(replaceText("fighton!"), closeSoftKeyboard());
-
+        Thread.sleep(3000);
         ViewInteraction appCompatEditText3 = onView(
                 allOf(withId(R.id.password), withText("fighton!"),
                         childAtPosition(
@@ -85,7 +85,7 @@ public class AquaticsCenterReminderTest {
                                 1),
                         isDisplayed()));
         appCompatEditText3.perform(pressImeActionButton());
-
+        Thread.sleep(3000);
         ViewInteraction materialButton2 = onView(
                 allOf(withId(R.id.btn_login), withText("Log in"),
                         childAtPosition(
@@ -96,7 +96,7 @@ public class AquaticsCenterReminderTest {
                                 2),
                         isDisplayed()));
         materialButton2.perform(click());
-
+        Thread.sleep(3000);
         ViewInteraction materialButton3 = onView(
                 allOf(withId(R.id.btn_aquatics), withText("Uytengsu Aquatics Center"),
                         childAtPosition(
@@ -106,30 +106,30 @@ public class AquaticsCenterReminderTest {
                                 5),
                         isDisplayed()));
         materialButton3.perform(click());
-
+        Thread.sleep(3000);
         ViewInteraction textView = onView(
                 allOf(withId(R.id.gym_name), withText("Uytengsu Aquatics Center"),
                         withParent(withParent(withId(android.R.id.content))),
                         isDisplayed()));
         textView.check(matches(withText("Uytengsu Aquatics Center")));
-
+        Thread.sleep(3000);
         ViewInteraction viewGroup = onView(
                 allOf(withParent(withParent(withId(R.id.rv))),
                         isDisplayed()));
         viewGroup.check(matches(isDisplayed()));
-
+        Thread.sleep(3000);
         ViewInteraction button = onView(
                 allOf(withId(R.id.btn_remindme), withText("REMIND"),
                         withParent(withParent(IsInstanceOf.<View>instanceOf(android.widget.FrameLayout.class))),
                         isDisplayed()));
         button.check(matches(isDisplayed()));
-
+        Thread.sleep(3000);
         ViewInteraction textView2 = onView(
                 allOf(withId(R.id.txt_remaining), withText("0 SPOTS LEFT"),
                         withParent(withParent(IsInstanceOf.<View>instanceOf(android.widget.FrameLayout.class))),
                         isDisplayed()));
         textView2.check(matches(withText("0 SPOTS LEFT")));
-
+        Thread.sleep(3000);
         ViewInteraction materialButton4 = onView(
                 allOf(withId(R.id.btn_remindme), withText("REMIND"),
                         childAtPosition(
@@ -139,7 +139,7 @@ public class AquaticsCenterReminderTest {
                                 0),
                         isDisplayed()));
         materialButton4.perform(click());
-
+        Thread.sleep(3000);
         pressBack();
 
         ViewInteraction materialButton5 = onView(
@@ -151,7 +151,7 @@ public class AquaticsCenterReminderTest {
                                 1),
                         isDisplayed()));
         materialButton5.perform(click());
-
+        Thread.sleep(3000);
         pressBack();
     }
 

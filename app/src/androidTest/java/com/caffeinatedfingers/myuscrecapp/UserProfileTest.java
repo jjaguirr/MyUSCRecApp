@@ -8,12 +8,10 @@ import static androidx.test.espresso.action.ViewActions.pressImeActionButton;
 import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withParent;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.is;
 
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,13 +31,13 @@ import org.junit.runner.RunWith;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class SuccessfulLogOutTest {
+public class UserProfileTest {
 
     @Rule
     public ActivityTestRule<WelcomePage> mActivityTestRule = new ActivityTestRule<>(WelcomePage.class);
 
     @Test
-    public void successfulLogOutTest() {
+    public void userProfileTest() throws InterruptedException {
         ViewInteraction materialButton = onView(
                 allOf(withId(R.id.btn_login), withText("Log in"),
                         childAtPosition(
@@ -50,7 +48,7 @@ public class SuccessfulLogOutTest {
                                 1),
                         isDisplayed()));
         materialButton.perform(click());
-
+        Thread.sleep(3000);
         ViewInteraction appCompatEditText = onView(
                 allOf(withId(R.id.email),
                         childAtPosition(
@@ -61,7 +59,7 @@ public class SuccessfulLogOutTest {
                                 0),
                         isDisplayed()));
         appCompatEditText.perform(replaceText("ttrojan@usc.edu"), closeSoftKeyboard());
-
+        Thread.sleep(3000);
         ViewInteraction appCompatEditText2 = onView(
                 allOf(withId(R.id.password),
                         childAtPosition(
@@ -72,7 +70,7 @@ public class SuccessfulLogOutTest {
                                 1),
                         isDisplayed()));
         appCompatEditText2.perform(replaceText("fighton!"), closeSoftKeyboard());
-
+        Thread.sleep(3000);
         ViewInteraction appCompatEditText3 = onView(
                 allOf(withId(R.id.password), withText("fighton!"),
                         childAtPosition(
@@ -83,7 +81,7 @@ public class SuccessfulLogOutTest {
                                 1),
                         isDisplayed()));
         appCompatEditText3.perform(pressImeActionButton());
-
+        Thread.sleep(3000);
         ViewInteraction materialButton2 = onView(
                 allOf(withId(R.id.btn_login), withText("Log in"),
                         childAtPosition(
@@ -94,7 +92,7 @@ public class SuccessfulLogOutTest {
                                 2),
                         isDisplayed()));
         materialButton2.perform(click());
-
+        Thread.sleep(3000);
         ViewInteraction materialButton3 = onView(
                 allOf(withId(R.id.btn_my_profile), withText("Profile"),
                         childAtPosition(
@@ -104,23 +102,19 @@ public class SuccessfulLogOutTest {
                                 2),
                         isDisplayed()));
         materialButton3.perform(click());
-
-        ViewInteraction materialButton4 = onView(
-                allOf(withId(R.id.btn_logout), withText("Logout"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withClassName(is("android.widget.LinearLayout")),
-                                        4),
-                                0),
+        Thread.sleep(3000);
+        ViewInteraction textView = onView(
+                allOf(withId(R.id.fullName_profile), withText("Tommy Trojan"),
+                        withParent(withParent(withId(android.R.id.content))),
                         isDisplayed()));
-        materialButton4.perform(click());
-
-        ViewInteraction viewGroup = onView(
-                allOf(withId(R.id.container),
-                        withParent(allOf(withId(android.R.id.content),
-                                withParent(withId(R.id.decor_content_parent)))),
+        textView.check(matches(withText("Tommy Trojan")));
+        Thread.sleep(3000);
+        ViewInteraction textView2 = onView(
+                allOf(withId(R.id.uscID_profile), withText("3710164646"),
+                        withParent(withParent(withId(android.R.id.content))),
                         isDisplayed()));
-        viewGroup.check(matches(isDisplayed()));
+        textView2.check(matches(withText("3710164646")));
+        Thread.sleep(3000);
     }
 
     private static Matcher<View> childAtPosition(
