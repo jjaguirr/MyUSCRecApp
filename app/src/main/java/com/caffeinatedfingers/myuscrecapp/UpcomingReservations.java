@@ -93,7 +93,7 @@ public class UpcomingReservations extends AppCompatActivity {
 
     private void loadData(){
         swipeRefreshLayout.setRefreshing(true);
-        dao.getReservations(this.user.id).addValueEventListener(new ValueEventListener() {
+        dao.getReservationsQuery(this.user.id).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot userRSS) {
                 if (userRSS.getValue() == null){
@@ -142,7 +142,7 @@ public class UpcomingReservations extends AppCompatActivity {
 
     private void loadPrevious(){
         swipeRPrevious.setRefreshing(true);
-        dao.getPrevious(this.user.id).addValueEventListener(new ValueEventListener() {
+        dao.getPreviousReservationQuery(this.user.id).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot userRSS) {
                 if (userRSS.getValue() == null){

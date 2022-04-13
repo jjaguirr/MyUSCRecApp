@@ -25,6 +25,7 @@ public class TimeSlot implements Serializable {
     int usersCount;
 
     boolean thisUserReserved;
+    boolean thisUserInWaitlist;
 
     public TimeSlot(Long capacity, String recCenter, String time, String date) {
         this.capacity = capacity;
@@ -44,6 +45,9 @@ public class TimeSlot implements Serializable {
     public void setThisUserReserved(boolean thisUserReserved) {
         this.thisUserReserved = thisUserReserved;
     }
+    public void setThisUserInWaitlist(boolean thisUserInWaitlist){
+        this.thisUserInWaitlist = thisUserInWaitlist;
+    }
 
     public boolean isReserved(){
         return thisUserReserved;
@@ -53,7 +57,9 @@ public class TimeSlot implements Serializable {
         //TOCANCEL
         if (isReserved()) return 1;
         //TOREMIND
-        else if (!isAvailable()) return 2;
+        else if (!isAvailable() && !thisUserInWaitlist) return 2;
+        //TO UNREMIND
+        else if (thisUserInWaitlist) return 4 ;
         //TORESERVE
         else return (0);
     }
