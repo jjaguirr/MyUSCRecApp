@@ -13,12 +13,13 @@ public class Reservation implements Serializable {
     public Reservation(){
         //no argument constructor
     }
-    public Reservation(String studentID, String time, String recCenter, Long cap, String date) {
-        this.studentID = studentID;
-        this.time = time;
-        this.location = recCenter;
-        this.cap = cap;
-        this.id = studentID+recCenter+time;
-        this.date = date;
+
+    public Reservation(User user, TimeSlot timeSlot) {
+        this.studentID = user.id;
+        this.time = timeSlot.time;
+        this.location = timeSlot.recCenter;
+        this.cap = timeSlot.capacity;
+        this.id = studentID+timeSlot.recCenter+time;
+        this.date = timeSlot.date;
     }
 }

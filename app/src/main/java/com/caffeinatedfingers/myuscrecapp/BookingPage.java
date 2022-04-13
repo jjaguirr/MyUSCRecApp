@@ -90,7 +90,7 @@ public class BookingPage extends AppCompatActivity {
 
     private void loadData(){
         swipeRefreshLayout.setRefreshing(true);
-        dao.getTimeSlots(this.recCenter.id, this.date).addValueEventListener(new ValueEventListener() {
+        dao.getTimeSlotsQuery(this.recCenter.id, this.date).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot RCSnapshot) {
                 String recCenterName = recCenter.id;
@@ -103,12 +103,14 @@ public class BookingPage extends AppCompatActivity {
                         TimeSlot nTs = new TimeSlot(capacity, recCenterName, timeSlotID, date);
                         rvAdapter.add(nTs);
                         nTs.setThisUserReserved(TSSnapshot.child("Registered").child(user.id).exists());
+                        nTs.setThisUserInWaitlist(TSSnapshot.child("Waitlist").child(user.id).exists());
                         rvAdapter.notifyItemInserted(rvAdapter.items.indexOf(nTs));
                         nTs.usersCount = (int) TSSnapshot.child("Registered").getChildrenCount();
                     }
                     //update already existing timeslot
                     else {
                         ts.setThisUserReserved(TSSnapshot.child("Registered").child(user.id).exists());
+                        ts.setThisUserInWaitlist(TSSnapshot.child("Waitlist").child(user.id).exists());
                         int pos = rvAdapter.items.indexOf(ts);
                         rvAdapter.notifyItemChanged(pos);
                         ts.usersCount = (int) TSSnapshot.child("Registered").getChildrenCount();
