@@ -26,7 +26,6 @@ import androidx.test.runner.AndroidJUnit4;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
-import org.hamcrest.core.IsInstanceOf;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -39,7 +38,7 @@ public class SignUpToMapTest {
     public ActivityTestRule<WelcomePage> mActivityTestRule = new ActivityTestRule<>(WelcomePage.class);
 
     @Test
-    public void signUpToMapTest() {
+    public void signUpToMapTest() throws InterruptedException {
         ViewInteraction materialButton = onView(
                 allOf(withId(R.id.btn_sign_up), withText("Sign up"),
                         childAtPosition(
@@ -50,37 +49,7 @@ public class SignUpToMapTest {
                                 0),
                         isDisplayed()));
         materialButton.perform(click());
-
-        ViewInteraction imageView = onView(
-                allOf(withId(R.id.logo), withContentDescription("logo"),
-                        withParent(withParent(withId(android.R.id.content))),
-                        isDisplayed()));
-        imageView.check(matches(isDisplayed()));
-
-        ViewInteraction editText = onView(
-                allOf(withId(R.id.fullName), withText("Name"),
-                        withParent(withParent(withId(android.R.id.content))),
-                        isDisplayed()));
-        editText.check(matches(withText("Name")));
-
-        ViewInteraction editText2 = onView(
-                allOf(withId(R.id.user_ID), withText("USC ID"),
-                        withParent(withParent(withId(android.R.id.content))),
-                        isDisplayed()));
-        editText2.check(matches(withText("USC ID")));
-
-        ViewInteraction editText3 = onView(
-                allOf(withId(R.id.email), withText("Email Address"),
-                        withParent(withParent(withId(android.R.id.content))),
-                        isDisplayed()));
-        editText3.check(matches(withText("Email Address")));
-
-        ViewInteraction button = onView(
-                allOf(withId(R.id.btn_sign_up), withText("SIGN UP"),
-                        withParent(withParent(withId(android.R.id.content))),
-                        isDisplayed()));
-        button.check(matches(isDisplayed()));
-
+        Thread.sleep(3000);
         ViewInteraction appCompatEditText = onView(
                 allOf(withId(R.id.fullName),
                         childAtPosition(
@@ -89,10 +58,10 @@ public class SignUpToMapTest {
                                         0),
                                 2),
                         isDisplayed()));
-        appCompatEditText.perform(replaceText("Traveler Trojan"), closeSoftKeyboard());
-
+        appCompatEditText.perform(replaceText("Test Trojan"), closeSoftKeyboard());
+        Thread.sleep(3000);
         ViewInteraction appCompatEditText2 = onView(
-                allOf(withId(R.id.fullName), withText("Traveler Trojan"),
+                allOf(withId(R.id.fullName), withText("Test Trojan"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(android.R.id.content),
@@ -100,7 +69,7 @@ public class SignUpToMapTest {
                                 2),
                         isDisplayed()));
         appCompatEditText2.perform(pressImeActionButton());
-
+        Thread.sleep(3000);
         ViewInteraction appCompatEditText3 = onView(
                 allOf(withId(R.id.user_ID),
                         childAtPosition(
@@ -109,10 +78,10 @@ public class SignUpToMapTest {
                                         0),
                                 3),
                         isDisplayed()));
-        appCompatEditText3.perform(replaceText("111111"), closeSoftKeyboard());
-
+        appCompatEditText3.perform(replaceText("12345678"), closeSoftKeyboard());
+        Thread.sleep(3000);
         ViewInteraction appCompatEditText4 = onView(
-                allOf(withId(R.id.user_ID), withText("111111"),
+                allOf(withId(R.id.user_ID), withText("12345678"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(android.R.id.content),
@@ -120,7 +89,7 @@ public class SignUpToMapTest {
                                 3),
                         isDisplayed()));
         appCompatEditText4.perform(pressImeActionButton());
-
+        Thread.sleep(3000);
         ViewInteraction appCompatEditText5 = onView(
                 allOf(withId(R.id.email),
                         childAtPosition(
@@ -129,10 +98,10 @@ public class SignUpToMapTest {
                                         0),
                                 4),
                         isDisplayed()));
-        appCompatEditText5.perform(replaceText("traveler@usc.edu"), closeSoftKeyboard());
-
+        appCompatEditText5.perform(replaceText("test@usc.edu"), closeSoftKeyboard());
+        Thread.sleep(3000);
         ViewInteraction appCompatEditText6 = onView(
-                allOf(withId(R.id.email), withText("traveler@usc.edu"),
+                allOf(withId(R.id.email), withText("test@usc.edu"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(android.R.id.content),
@@ -140,6 +109,7 @@ public class SignUpToMapTest {
                                 4),
                         isDisplayed()));
         appCompatEditText6.perform(pressImeActionButton());
+        Thread.sleep(3000);
 
         ViewInteraction appCompatEditText7 = onView(
                 allOf(withId(R.id.password),
@@ -149,10 +119,11 @@ public class SignUpToMapTest {
                                         0),
                                 5),
                         isDisplayed()));
-        appCompatEditText7.perform(replaceText("horse123"), closeSoftKeyboard());
+        appCompatEditText7.perform(replaceText("testtest"), closeSoftKeyboard());
+        Thread.sleep(3000);
 
         ViewInteraction appCompatEditText8 = onView(
-                allOf(withId(R.id.password), withText("horse123"),
+                allOf(withId(R.id.password), withText("testtest"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(android.R.id.content),
@@ -160,6 +131,7 @@ public class SignUpToMapTest {
                                 5),
                         isDisplayed()));
         appCompatEditText8.perform(pressImeActionButton());
+        Thread.sleep(3000);
 
         ViewInteraction materialButton2 = onView(
                 allOf(withId(R.id.btn_sign_up), withText("Sign up"),
@@ -170,11 +142,33 @@ public class SignUpToMapTest {
                                 1),
                         isDisplayed()));
         materialButton2.perform(click());
+        Thread.sleep(3000);
 
-        ViewInteraction frameLayout = onView(
-                allOf(withParent(withParent(IsInstanceOf.<View>instanceOf(android.widget.FrameLayout.class))),
+        ViewInteraction imageView = onView(
+                allOf(withId(R.id.imageView3), withContentDescription("map"),
+                        withParent(withParent(withId(android.R.id.content))),
                         isDisplayed()));
-        frameLayout.check(matches(isDisplayed()));
+        imageView.check(matches(isDisplayed()));
+        Thread.sleep(3000);
+
+        ViewInteraction button = onView(
+                allOf(withId(R.id.btn_lyon_center), withText("LYON CENTER"),
+                        withParent(withParent(withId(android.R.id.content))),
+                        isDisplayed()));
+        button.check(matches(isDisplayed()));
+        Thread.sleep(3000);
+        ViewInteraction button2 = onView(
+                allOf(withId(R.id.btn_village_center), withText("USC VILLAGE REC CENTER"),
+                        withParent(withParent(withId(android.R.id.content))),
+                        isDisplayed()));
+        button2.check(matches(isDisplayed()));
+        Thread.sleep(3000);
+        ViewInteraction button3 = onView(
+                allOf(withId(R.id.btn_aquatics), withText("UYTENGSU AQUATICS CENTER"),
+                        withParent(withParent(withId(android.R.id.content))),
+                        isDisplayed()));
+        button3.check(matches(isDisplayed()));
+        Thread.sleep(3000);
     }
 
     private static Matcher<View> childAtPosition(
