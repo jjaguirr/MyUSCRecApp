@@ -106,7 +106,7 @@ public class UpcomingReservations extends AppCompatActivity {
                     TimeSlot ts = rvAdapter.getTimeSlot(timeSlotID);
                     if (ts==null){
                         TimeSlot nTs = new TimeSlot(reservation.cap, reservation.location, timeSlotID, date);
-                        dao.getTimeSlotQuery(nTs).get().addOnSuccessListener(dataSnapshot -> {
+                        dao.getTimeSlotRegisteredQuery(nTs).get().addOnSuccessListener(dataSnapshot -> {
                             nTs.usersCount = (int) dataSnapshot.getChildrenCount();
                             nTs.setThisUserReserved(dataSnapshot.child(user.id).exists());
                             rvAdapter.add(nTs);
@@ -123,7 +123,7 @@ public class UpcomingReservations extends AppCompatActivity {
                         }
                         else{
                             rvAdapter.notifyItemChanged(pos);
-                            dao.getTimeSlotQuery(ts).get().addOnSuccessListener(dataSnapshot -> {
+                            dao.getTimeSlotRegisteredQuery(ts).get().addOnSuccessListener(dataSnapshot -> {
                                 ts.usersCount = (int) dataSnapshot.getChildrenCount();
                                 ts.setThisUserReserved(dataSnapshot.child(user.id).exists());
                             });
@@ -155,7 +155,7 @@ public class UpcomingReservations extends AppCompatActivity {
                     TimeSlot ts = rvAdapterPrev.getTimeSlot(timeSlotID);
                     if (ts==null){
                         TimeSlot nTs = new TimeSlot(reservation.cap, reservation.location, timeSlotID, date);
-                        dao.getTimeSlotQuery(nTs).get().addOnSuccessListener(dataSnapshot -> {
+                        dao.getTimeSlotRegisteredQuery(nTs).get().addOnSuccessListener(dataSnapshot -> {
                             nTs.usersCount = (int) dataSnapshot.getChildrenCount();
                             nTs.setThisUserReserved(false);
                             nTs.usersCount = 50;

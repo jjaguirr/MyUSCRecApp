@@ -1,6 +1,7 @@
 package com.caffeinatedfingers.myuscrecapp;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -36,6 +37,7 @@ public class DAOFireBase {
                 .child(ts.id).child("Registered").child(user.id).setValue(user.userName)
                 .addOnSuccessListener(suc -> {
                     ts.notifyAddedUser();
+                    ts.setThisUserReserved(true);
                     this.databaseReferenceReservations.child(user.id).child(reservation.id).setValue(reservation);
                     Toast.makeText(context, "Successfully booked reservation.", Toast.LENGTH_SHORT).show();
                 }).addOnFailureListener(fail -> {
@@ -54,10 +56,12 @@ public class DAOFireBase {
                 .removeValue().addOnSuccessListener(suc -> {
             ts.notifyRemovedUser();
             ts.setThisUserReserved(false);
-            this.databaseReferenceReservations.child(user.id).child(reservation.id).removeValue();
             Toast.makeText(context, "Successfully cancelled reservation.", Toast.LENGTH_SHORT).show();
         }).addOnFailureListener(fail -> {
             Toast.makeText(context, "" + fail.getMessage(), Toast.LENGTH_SHORT).show();
+        });
+        this.databaseReferenceReservations.child(user.id).child(reservation.id).removeValue().addOnSuccessListener(succ-> {
+            Log.println(Log.ERROR,"DAO FIREBASE", "Successfully removed reservation from DB");
         });
     }
 
@@ -103,9 +107,16 @@ public class DAOFireBase {
     /**
      * @return A db reference of a timeslot given a timeslot object
      */
-    public Query getTimeSlotQuery(@NonNull TimeSlot ts) {
+    public Query getTimeSlotRegisteredQuery(@NonNull TimeSlot ts) {
         return databaseReference.child(ts.recCenter).child(ts.date).child(ts.id)
                 .child("Registered");
+    }
+    /**
+     * @return A db reference of a timeslot given a timeslot object
+     */
+    public Query getTimeSlotWaitListQuery(@NonNull TimeSlot ts) {
+        return databaseReference.child(ts.recCenter).child(ts.date).child(ts.id)
+                .child("Waitlist");
     }
     /**
      * @return A db reference of incoming reservations of a user
