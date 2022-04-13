@@ -1,25 +1,57 @@
 package com.caffeinatedfingers.myuscrecapp;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.util.Log;
+import android.os.Build;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import androidx.annotation.Nullable;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.ktx.Firebase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 public class DAOFireBase {
     private final DatabaseReference databaseReference, databaseReferenceReservations, databaseReferencePrevious;
     private final DatabaseReference databaseUsers;
-
-    /**
-     * Data Access Object used to make calls to the Firebase Realtime Database.
-     */
+    private FirebaseAuth fAuth;
+    private FirebaseFirestore fStore;
+    String fullName="";
+    String uscID="";
+    User u=null;
     public DAOFireBase() {
         FirebaseDatabase db = FirebaseDatabase.getInstance();
+        fAuth = FirebaseAuth.getInstance();
+        fStore = FirebaseFirestore.getInstance();
+        DocumentReference documentReference = fStore.collection("users").document(fAuth.getCurrentUser().getUid());
+        documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                DocumentSnapshot document = task.getResult();
+                if (document.exists()) {
+                    fullName=document.get("fName").toString();
+                    uscID=document.get("uscID").toString();
+                    u=new User(uscID,fullName);
+                }
+            }
+        });
         this.databaseReference = db.getReference("timeslots");
         this.databaseUsers = db.getReference("users");
         this.databaseReferenceReservations = db.getReference("reservations");
@@ -130,5 +162,17 @@ public class DAOFireBase {
     public Query getPreviousReservationQuery(String userID) {
         return databaseReferencePrevious.child(userID);
     }
+    private void notification(Context context){
+        if(Build.VERSION.SDK_INT >=Build.VERSION_CODES.O){
+            NotificationChannel channel = new NotificationChannel("waitlistOpen","waitlistOpen", NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationManager manager = context.getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
+
+        }
+        NotificationCompat.Builder builder= new NotificationCompat.Builder(context, "waitlistOpen").setContentTitle("USCRecApp").setAutoCancel(true).setContentText("Good news! A spot opened for your slot.");
+        NotificationManagerCompat managerCompat= NotificationManagerCompat.from(context);
+        managerCompat.notify(999,builder.build());
+    }
+
 
 }

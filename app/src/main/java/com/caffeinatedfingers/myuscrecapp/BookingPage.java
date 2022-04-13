@@ -2,10 +2,15 @@ package com.caffeinatedfingers.myuscrecapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -69,7 +74,7 @@ public class BookingPage extends AppCompatActivity {
         btn_today.setOnClickListener(onClickListener);
         btn_tomorrow.setOnClickListener(onClickListener);
 
-        rvAdapter = new RVAdapter(this, dao, user, date);
+        rvAdapter = new RVAdapter(this, dao, user,date);
         recyclerView.setAdapter(rvAdapter);
 
         swipeRefreshLayout.setOnRefreshListener(() -> {
@@ -120,6 +125,8 @@ public class BookingPage extends AppCompatActivity {
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
+
     }
+
 
 }
