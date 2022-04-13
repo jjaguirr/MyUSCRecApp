@@ -30,28 +30,8 @@ import com.squareup.picasso.Picasso;
 public class DAOFireBase {
     private final DatabaseReference databaseReference, databaseReferenceReservations, databaseReferencePrevious;
     private final DatabaseReference databaseUsers;
-    private FirebaseAuth fAuth;
-    private FirebaseFirestore fStore;
-    String fullName="";
-    String uscID="";
-    User u=null;
     public DAOFireBase() {
         FirebaseDatabase db = FirebaseDatabase.getInstance();
-        fAuth = FirebaseAuth.getInstance();
-        fStore = FirebaseFirestore.getInstance();
-        DocumentReference documentReference = fStore.collection("users").document(fAuth.getCurrentUser().getUid());
-        documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                DocumentSnapshot document = task.getResult();
-                if (document.exists()) {
-                    fullName=document.get("fName").toString();
-                    uscID=document.get("uscID").toString();
-                    u=new User(uscID,fullName);
-                }
-            }
-        });
         this.databaseReference = db.getReference("timeslots");
         this.databaseUsers = db.getReference("users");
         this.databaseReferenceReservations = db.getReference("reservations");
