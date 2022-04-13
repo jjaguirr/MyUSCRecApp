@@ -23,7 +23,6 @@ public class TimeSlot implements Serializable {
     String date;
     String time; //or Timeobject
     int usersCount;
-
     boolean thisUserReserved;
     boolean thisUserInWaitlist;
 
@@ -33,6 +32,8 @@ public class TimeSlot implements Serializable {
         this.recCenter = recCenter;
         this.time = time;
         this.date = date;
+        this.thisUserReserved = false;
+        this.thisUserInWaitlist = false;
     }
 
     public Long getRemaining(){
@@ -53,23 +54,27 @@ public class TimeSlot implements Serializable {
         return thisUserReserved;
     }
 
+    /**
+     * @return 0: RESERVE VIEW (BOOK BUTTON)
+     *         1: UNAVAILABLE (REMIND ME BUTTON)
+     *         2: RESERVED (CANCEL BUTTON)
+     *         3:
+     */
     public int getViewType(){
         //TOCANCEL
         if (isReserved()) return 1;
         //TOREMIND
         else if (!isAvailable() && !thisUserInWaitlist) return 2;
         //TO UNREMIND
-        else if (thisUserInWaitlist) return 4 ;
+        else if (thisUserInWaitlist) return 3 ;
         //TORESERVE
         else return (0);
     }
     public void notifyRemovedUser() {
         usersCount--;
-        thisUserReserved = false;
     }
 
     public void notifyAddedUser() {
         usersCount++;
-        thisUserReserved = true;
     }
 }

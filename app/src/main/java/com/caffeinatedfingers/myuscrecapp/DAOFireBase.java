@@ -3,6 +3,7 @@ package com.caffeinatedfingers.myuscrecapp;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.util.Log;
 import android.os.Build;
 import android.widget.Toast;
 
@@ -57,29 +58,42 @@ public class DAOFireBase {
         this.databaseReferencePrevious = db.getReference("previous");
     }
 
-    public void addUser(TimeSlot ts, User user, Context context){
-
-        Reservation reservation = new Reservation(u, ts);
+    /**
+     * @param ts Timeslot to add user to
+     * @param user User to be added
+     * @param context Context used to make toast texts.
+     */
+    public void addUser(@NonNull TimeSlot ts, @NonNull User user, Context context) {
+        Reservation reservation = new Reservation(user, ts);
         this.databaseReference.child(ts.recCenter).child(ts.date)
-                .child(ts.id).child("Registered").child(uscID).setValue(fullName)
-                .addOnSuccessListener(suc->{
+                .child(ts.id).child("Registered").child(user.id).setValue(user.userName)
+                .addOnSuccessListener(suc -> {
                     ts.notifyAddedUser();
-                    this.databaseReferenceReservations.child(uscID).child(reservation.id).setValue(reservation);
+                    ts.setThisUserReserved(true);
+                    this.databaseReferenceReservations.child(user.id).child(reservation.id).setValue(reservation);
                     Toast.makeText(context, "Successfully booked reservation.", Toast.LENGTH_SHORT).show();
                 }).addOnFailureListener(fail -> {
             Toast.makeText(context, "" + fail.getMessage(), Toast.LENGTH_SHORT).show();
         });
     }
-    public void removeUser(TimeSlot ts, User user, Context context){
-        Reservation reservation = new Reservation(u, ts);
-        this.databaseReference.child(ts.recCenter).child(ts.date).child(ts.id).child("Registered").child(uscID)
-                .removeValue().addOnSuccessListener(suc->{
+
+    /**
+     * @param ts Time slot to remove user from
+     * @param user User to be removed
+     * @param context Context for toast texts.
+     */
+    public void removeUser(@NonNull TimeSlot ts, @NonNull User user, Context context) {
+        Reservation reservation = new Reservation(user, ts);
+        this.databaseReference.child(ts.recCenter).child(ts.date).child(ts.id).child("Registered").child(user.id)
+                .removeValue().addOnSuccessListener(suc -> {
             ts.notifyRemovedUser();
             ts.setThisUserReserved(false);
-            this.databaseReferenceReservations.child(uscID).child(reservation.id).removeValue();
             Toast.makeText(context, "Successfully cancelled reservation.", Toast.LENGTH_SHORT).show();
         }).addOnFailureListener(fail -> {
             Toast.makeText(context, "" + fail.getMessage(), Toast.LENGTH_SHORT).show();
+        });
+        this.databaseReferenceReservations.child(user.id).child(reservation.id).removeValue().addOnSuccessListener(succ-> {
+            Log.println(Log.ERROR,"DAO FIREBASE", "Successfully removed reservation from DB");
         });
     }
 
@@ -89,14 +103,16 @@ public class DAOFireBase {
      * @param user User to be reminded
      * @param context Context for toast texts.
      */
+    public void remindUser(@NonNull TimeSlot ts, @NonNull User user, Context context) {
 
-    //@TODO: Implement notifications. Create wait-list in FireBase Database per each Timeslot.
-    public void remindUser(TimeSlot ts, User user, Context context){
-        Toast.makeText(context, "You're added to the waitlist!", Toast.LENGTH_SHORT).show();
-        this.databaseReference.child(ts.recCenter).child(ts.date).child(ts.id).child("Waitlist").child(uscID).setValue(fullName);
+        this.databaseReference.child(ts.recCenter).child(ts.date).child(ts.id).child("Waitlist").child(user.id)
+                .setValue(user.userName).addOnSuccessListener(suc -> {
+            //@TODO set waiting for a notification
+            Toast.makeText(context, "You're added to the waitlist!", Toast.LENGTH_SHORT).show();
+        }).addOnFailureListener(fail -> {
+            Toast.makeText(context, "" + fail.getMessage(), Toast.LENGTH_SHORT).show();
+        });
     }
-
-        //notifications
     /**
      * Removes a user from a timeslot wait list
      * @param ts Time slot to remove from wait list
@@ -123,9 +139,16 @@ public class DAOFireBase {
     /**
      * @return A db reference of a timeslot given a timeslot object
      */
-    public Query getTimeSlotQuery(@NonNull TimeSlot ts) {
+    public Query getTimeSlotRegisteredQuery(@NonNull TimeSlot ts) {
         return databaseReference.child(ts.recCenter).child(ts.date).child(ts.id)
                 .child("Registered");
+    }
+    /**
+     * @return A db reference of a timeslot given a timeslot object
+     */
+    public Query getTimeSlotWaitListQuery(@NonNull TimeSlot ts) {
+        return databaseReference.child(ts.recCenter).child(ts.date).child(ts.id)
+                .child("Waitlist");
     }
     /**
      * @return A db reference of incoming reservations of a user

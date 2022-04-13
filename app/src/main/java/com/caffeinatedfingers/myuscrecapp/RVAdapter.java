@@ -56,9 +56,9 @@ public class RVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             break;
             case 2: view = LayoutInflater.from(context).inflate(R.layout.layout_time_slot_full, parent, false);
             break;
-            case 4: view = LayoutInflater.from(context).inflate(R.layout.layout_time_slot_full_unremind_me, parent, false);
+            case 3: view = LayoutInflater.from(context).inflate(R.layout.layout_time_slot_full_unremind_me, parent, false);
             break;
-            case 5: view = LayoutInflater.from(context).inflate(R.layout.layout_reservation_previous, parent, false);
+            case 4: view = LayoutInflater.from(context).inflate(R.layout.layout_reservation_previous, parent, false);
             break;
             default:
                 throw new IllegalStateException("Unexpected value: " + viewType);
@@ -81,7 +81,7 @@ public class RVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     break;
                 case 2: dao.remindUser(timeSlot,user,context);
                     break;
-                case 4: dao.unRemindUser(timeSlot,user,context);
+                case 3: dao.unRemindUser(timeSlot,user,context);
                     break;
             }
         });
@@ -121,7 +121,7 @@ public class RVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     this.txt_remaining = itemView.findViewById(R.id.txt_remaining);
                     break;
                 }
-                case 4:{
+                case 3:{
                     this.btn = itemView.findViewById(R.id.btn_unremindme);
                     this.txt_hours = itemView.findViewById(R.id.txt_hours);
                     this.txt_remaining = itemView.findViewById(R.id.txt_remaining);
