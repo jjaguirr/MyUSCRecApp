@@ -68,17 +68,18 @@ public class UserProfile extends AppCompatActivity {
             startActivity(intent);
         });
 
-        Button logoutbtn = findViewById(R.id.btn_logout);
-        logoutbtn.setOnClickListener(v->{
-            FirebaseAuth.getInstance().signOut();
-            startActivity(new Intent(UserProfile.this,WelcomePage.class));
-        });
-
         uploadPhotoButton.setOnClickListener(view -> {
             // open gallery on phone
             // this intent returns the image that the user has clicked on to select
             Intent openGalleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             startActivityForResult(openGalleryIntent, 1000);
+        });
+
+        Button logout_btn = findViewById(R.id.btn_logout);
+            logout_btn.setOnClickListener(v->{
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(UserProfile.this,WelcomePage.class));
+                finish();
         });
     }
 
@@ -109,4 +110,9 @@ public class UserProfile extends AppCompatActivity {
                 Toast.makeText(UserProfile.this, "Failed to Upload Photo", Toast.LENGTH_SHORT).show());
     }
 
+//    public void logout(View view) {
+//        FirebaseAuth.getInstance().signOut();
+//        startActivity(new Intent(UserProfile.this,WelcomePage.class));
+//        finish();
+//    }
 }
