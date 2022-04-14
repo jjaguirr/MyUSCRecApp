@@ -17,6 +17,10 @@ import com.google.firebase.database.ValueEventListener;
 import java.io.Serializable;
 
 public class TimeSlot implements Serializable {
+    public String getId() {
+        return id;
+    }
+
     String id;
     Long capacity;
     String recCenter;

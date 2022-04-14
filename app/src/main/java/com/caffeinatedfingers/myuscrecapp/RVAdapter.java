@@ -26,6 +26,7 @@ public class RVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
     //@TODO specify item for efficiency purposes
     public void add(TimeSlot ts) {
+        if (this.items.contains(ts)) return;
         this.items.add(ts);
     }
 
@@ -125,6 +126,10 @@ public class RVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     this.btn = itemView.findViewById(R.id.btn_unremindme);
                     this.txt_hours = itemView.findViewById(R.id.txt_hours);
                     this.txt_remaining = itemView.findViewById(R.id.txt_remaining);
+                }
+                case 4:{
+                    this.txt_hours = itemView.findViewById(R.id.txt_date);
+                    this.txt_remaining = itemView.findViewById(R.id.txt_day);
                 }
             }
 
