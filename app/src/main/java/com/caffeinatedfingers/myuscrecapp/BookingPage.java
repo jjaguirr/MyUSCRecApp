@@ -74,7 +74,7 @@ public class BookingPage extends AppCompatActivity {
         btn_today.setOnClickListener(onClickListener);
         btn_tomorrow.setOnClickListener(onClickListener);
 
-        rvAdapter = new RVAdapter(this, dao, user,date);
+        rvAdapter = new RVAdapter(this, dao, user, date);
         recyclerView.setAdapter(rvAdapter);
 
         swipeRefreshLayout.setOnRefreshListener(() -> {

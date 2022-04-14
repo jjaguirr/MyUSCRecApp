@@ -52,22 +52,26 @@ public class SignUp extends AppCompatActivity
             String fullName = uFullName.getText().toString().trim();
             String uscID = uUscId.getText().toString();
 
-            // validate the data in email and password - check for empty fields and such
-            if(TextUtils.isEmpty(email))
-            {
-                uEmail.setError("Email is Required");
-                return;
-            }
+            int valid=checkData(email,password,fullName,uscID);
+            if(valid!=0){
+                if(valid==1){
+                    uEmail.setError("Please enter a valid email");
+                    return;
+                }
+                if(valid==2){
+                    uPassword.setError("Please enter a valid password");
+                    return;
+                }
+                if(valid==3){
+                    uFullName.setError("Please enter your first and last name");
 
-            if(TextUtils.isEmpty(password))
-            {
-                uPassword.setError("Password is Required");
-                return;
-            }
+                    return;
+                }
+                if(valid==4){
+                    uUscId.setError("Please enter a valid USC ID");
+                    return;
+                }
 
-            if(password.length() < 6)
-            {
-                uPassword.setError("Password must be at least 6 characters");
             }
 
             //register user in firebase
@@ -108,5 +112,34 @@ public class SignUp extends AppCompatActivity
 //            startActivity(intent);
 //        });
 
+    }
+    protected static int checkData(String email, String password, String fullName, String uscID){
+        // validate the data in email and password - check for empty fields and such
+        if(TextUtils.isEmpty(email))
+        {
+
+            return 1;
+        }
+
+        if(TextUtils.isEmpty(password))
+        {
+
+            return 2;
+        }
+
+        if(password.length() < 6)
+        {
+            return 2;
+        }
+        if(!fullName.contains(" ")){
+            return 3;
+        }
+        if(uscID.length()!=10){
+            return 4;
+        }
+        if(!email.contains("@")){
+            return 1;
+        }
+        return 0;
     }
 }
