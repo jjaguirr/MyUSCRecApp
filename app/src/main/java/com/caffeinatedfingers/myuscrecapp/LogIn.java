@@ -9,6 +9,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 
 public class LogIn extends AppCompatActivity {
@@ -29,38 +30,59 @@ public class LogIn extends AppCompatActivity {
         logIn.setOnClickListener(view -> {
             String email = uEmail.getText().toString().trim();
             String password = uPassword.getText().toString().trim();
-
-            // validate the data in email and password - check for empty fields and such
-            if (TextUtils.isEmpty(email)) {
-                uEmail.setError("Email is Required");
-                return;
+            int valid=checkFields(email,password);
+            if(valid!=0){
+               if(valid==1){
+                   uEmail.setError("Please enter a valid email");
+               }
+               if(valid==2){
+                   uPassword.setError("Please enter a valid password");
+               }
             }
 
-            if (TextUtils.isEmpty(password)) {
-                uPassword.setError("Password is Required");
-                return;
-            }
-
-            if (password.length() < 6) {
-                uPassword.setError("Password must be at least 6 characters");
-                return;
-            }
 
             //authenticate user
-            fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
-                if(task.isSuccessful())
-                {
-                    Toast.makeText(LogIn.this, "Log in was successful, Welcome!", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(LogIn.this, MapActivity.class));
-                }
+            boolean success=authenticate(email, password);
 
-                else
-                {
-                    Toast.makeText(LogIn.this, "Error logging in!" + Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
-
-                }
-            });
         });
 
+    }
+    protected boolean authenticate(String email, String password){
+        AtomicBoolean success= new AtomicBoolean(false);
+        fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+            if(task.isSuccessful())
+            {
+                success.set(true);
+                Toast.makeText(LogIn.this, "Log in was successful, Welcome!", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(LogIn.this, MapActivity.class));
+
+            }
+
+            else
+            {
+                Toast.makeText(LogIn.this, "Error logging in!" + Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+        });
+        return success.get();
+    }
+    protected static int checkFields(String email, String password){
+        // validate the data in email and password - check for empty fields and such
+        if (TextUtils.isEmpty(email)) {
+            return 1;
+        }
+
+        if (TextUtils.isEmpty(password)) {
+            return 2;
+        }
+
+        if (password.length() < 6) {
+            return 2;
+        }
+        if(!email.contains("@")){
+
+            return 1;
+        }
+        return 0;
     }
 }
