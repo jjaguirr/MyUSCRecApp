@@ -54,7 +54,7 @@ public class DAOFireBaseInstrumentedTest {
             Thread.sleep(500);
             Task<DataSnapshot> taskReservation = daoFireBase.getReservationsQuery(testUserID).get();
             Task<DataSnapshot> taskTimeSlot =daoFireBase.getTimeSlotRegisteredQuery(testTimeSlot).get();
-            Thread.sleep(500);
+            Thread.sleep(1000);
             DataSnapshot DSReservations= taskReservation.getResult();
             DataSnapshot DSTimeSlots= taskTimeSlot.getResult();
             assertTrue(DSReservations.child(testReservation.id).exists());
