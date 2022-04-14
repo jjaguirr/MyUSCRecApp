@@ -58,8 +58,6 @@ public class RVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             break;
             case 4: view = LayoutInflater.from(context).inflate(R.layout.layout_time_slot_full_unremind_me, parent, false);
             break;
-            case 5: view = LayoutInflater.from(context).inflate(R.layout.layout_reservation_previous, parent, false);
-            break;
             default:
                 throw new IllegalStateException("Unexpected value: " + viewType);
         }

@@ -51,9 +51,9 @@ public class UserProfile extends AppCompatActivity {
         userID = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
 
         DocumentReference documentReference = fStore.collection("users").document(userID);
-        documentReference.addSnapshotListener(this, (value, e) -> {
-            fullName.setText(value.getString("fName"));
-            uscID.setText(value.getString("uscID"));
+        documentReference.get().addOnSuccessListener(result -> {
+        fullName.setText(result.getString("fName"));
+            uscID.setText(result.getString("uscID"));
         });
 
         Button my_reservations = findViewById(R.id.btn_my_reservations);
@@ -69,6 +69,13 @@ public class UserProfile extends AppCompatActivity {
             // this intent returns the image that the user has clicked on to select
             Intent openGalleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             startActivityForResult(openGalleryIntent, 1000);
+        });
+
+        Button logout_btn = findViewById(R.id.btn_logout);
+            logout_btn.setOnClickListener(v->{
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(UserProfile.this,WelcomePage.class));
+                finish();
         });
     }
 
@@ -99,9 +106,9 @@ public class UserProfile extends AppCompatActivity {
                 Toast.makeText(UserProfile.this, "Failed to Upload Photo", Toast.LENGTH_SHORT).show());
     }
 
-    public void logout(View view) {
-        FirebaseAuth.getInstance().signOut();
-        startActivity(new Intent(UserProfile.this,WelcomePage.class));
-        finish();
-    }
+//    public void logout(View view) {
+//        FirebaseAuth.getInstance().signOut();
+//        startActivity(new Intent(UserProfile.this,WelcomePage.class));
+//        finish();
+//    }
 }
