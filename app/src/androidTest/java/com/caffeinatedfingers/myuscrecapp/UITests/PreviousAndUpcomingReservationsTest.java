@@ -1,4 +1,4 @@
-package com.caffeinatedfingers.myuscrecapp;
+package com.caffeinatedfingers.myuscrecapp.UITests;
 
 
 import static androidx.test.espresso.Espresso.onView;
@@ -8,25 +8,27 @@ import static androidx.test.espresso.action.ViewActions.pressImeActionButton;
 import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
-import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withParent;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.is;
 
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 
 import androidx.test.espresso.ViewInteraction;
+import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.AndroidJUnit4;
 
+import com.caffeinatedfingers.myuscrecapp.R;
+import com.caffeinatedfingers.myuscrecapp.WelcomePage;
+
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
+import org.hamcrest.Matchers;
 import org.hamcrest.TypeSafeMatcher;
 import org.hamcrest.core.IsInstanceOf;
 import org.junit.Rule;
@@ -35,15 +37,15 @@ import org.junit.runner.RunWith;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class UploadPhotoTest {
+public class PreviousAndUpcomingReservationsTest {
 
     @Rule
     public ActivityTestRule<WelcomePage> mActivityTestRule = new ActivityTestRule<>(WelcomePage.class);
 
     @Test
-    public void uploadPhotoTest() throws InterruptedException {
+    public void previousReservationsTest() throws InterruptedException {
         ViewInteraction materialButton = onView(
-                allOf(withId(R.id.btn_login), withText("Log in"),
+                Matchers.allOf(ViewMatchers.withId(R.id.btn_login), withText("Log in"),
                         childAtPosition(
                                 allOf(withId(R.id.container),
                                         childAtPosition(
@@ -98,35 +100,26 @@ public class UploadPhotoTest {
         materialButton2.perform(click());
         Thread.sleep(3000);
         ViewInteraction materialButton3 = onView(
-                allOf(withId(R.id.btn_my_profile), withText("Profile"),
+                allOf(withId(R.id.btn_my_reservations), withText("reservations"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(android.R.id.content),
                                         0),
-                                2),
-                        isDisplayed()));
-        materialButton3.perform(click());
-        Thread.sleep(3000);
-        ViewInteraction materialButton4 = onView(
-                allOf(withId(R.id.btn_upload_photo), withText("Upload Photo"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withClassName(is("android.widget.LinearLayout")),
-                                        4),
                                 1),
                         isDisplayed()));
-        materialButton4.perform(click());
+        materialButton3.perform(click());
 //        Thread.sleep(3000);
-//        ViewInteraction frameLayout = onView(
-//                allOf(IsInstanceOf.<View>instanceOf(android.widget.FrameLayout.class), isDisplayed()));
-//        frameLayout.check(matches(isDisplayed()));
-//        Thread.sleep(3000);
-//        ViewInteraction imageView = onView(
-//                allOf(withId(R.id.profile_image), withContentDescription("Profile image"),
-//                        withParent(withParent(IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class))),
+//        ViewInteraction textView = onView(
+//                allOf(withId(R.id.previous_reservations), withText("Previous Reservations"),
+//                        withParent(withParent(IsInstanceOf.<View>instanceOf(android.widget.ScrollView.class))),
 //                        isDisplayed()));
-//        imageView.check(matches(isDisplayed()));
-        Thread.sleep(3000);
+//        textView.check(matches(withText("Previous Reservations")));
+//        Thread.sleep(3000);
+//        ViewInteraction viewGroup = onView(
+//                allOf(withParent(withParent(withId(R.id.rvPrevious))),
+//                        isDisplayed()));
+//        viewGroup.check(matches(isDisplayed()));
+//        Thread.sleep(3000);
     }
 
     private static Matcher<View> childAtPosition(

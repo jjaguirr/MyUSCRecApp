@@ -113,7 +113,7 @@ public class SignUp extends AppCompatActivity
 //        });
 
     }
-    protected static int checkData(String email, String password, String fullName, String uscID){
+    public static int checkData(String email, String password, String fullName, String uscID){
         // validate the data in email and password - check for empty fields and such
         if(TextUtils.isEmpty(email))
         {

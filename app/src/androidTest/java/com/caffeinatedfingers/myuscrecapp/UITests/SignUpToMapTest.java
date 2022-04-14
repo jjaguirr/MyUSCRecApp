@@ -1,4 +1,4 @@
-package com.caffeinatedfingers.myuscrecapp;
+package com.caffeinatedfingers.myuscrecapp.UITests;
 
 
 import static androidx.test.espresso.Espresso.onView;
@@ -19,12 +19,17 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 
 import androidx.test.espresso.ViewInteraction;
+import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.AndroidJUnit4;
 
+import com.caffeinatedfingers.myuscrecapp.R;
+import com.caffeinatedfingers.myuscrecapp.WelcomePage;
+
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
+import org.hamcrest.Matchers;
 import org.hamcrest.TypeSafeMatcher;
 import org.junit.Rule;
 import org.junit.Test;
@@ -40,7 +45,7 @@ public class SignUpToMapTest {
     @Test
     public void signUpToMapTest() throws InterruptedException {
         ViewInteraction materialButton = onView(
-                allOf(withId(R.id.btn_sign_up), withText("Sign up"),
+                Matchers.allOf(ViewMatchers.withId(R.id.btn_sign_up), withText("Sign up"),
                         childAtPosition(
                                 allOf(withId(R.id.container),
                                         childAtPosition(

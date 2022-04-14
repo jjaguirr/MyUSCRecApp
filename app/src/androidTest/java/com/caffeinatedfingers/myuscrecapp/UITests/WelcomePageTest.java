@@ -1,4 +1,4 @@
-package com.caffeinatedfingers.myuscrecapp;
+package com.caffeinatedfingers.myuscrecapp.UITests;
 
 
 import static androidx.test.espresso.Espresso.onView;
@@ -11,10 +11,15 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
 
 import androidx.test.espresso.ViewInteraction;
+import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.AndroidJUnit4;
 
+import com.caffeinatedfingers.myuscrecapp.R;
+import com.caffeinatedfingers.myuscrecapp.WelcomePage;
+
+import org.hamcrest.Matchers;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,7 +34,7 @@ public class WelcomePageTest {
     @Test
     public void welcomePageTest() {
         ViewInteraction imageView = onView(
-                allOf(withId(R.id.imageView), withContentDescription("logo"),
+                Matchers.allOf(ViewMatchers.withId(R.id.imageView), withContentDescription("logo"),
                         withParent(allOf(withId(R.id.container),
                                 withParent(withId(android.R.id.content)))),
                         isDisplayed()));

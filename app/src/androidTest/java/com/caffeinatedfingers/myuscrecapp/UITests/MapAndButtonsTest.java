@@ -1,4 +1,4 @@
-package com.caffeinatedfingers.myuscrecapp;
+package com.caffeinatedfingers.myuscrecapp.UITests;
 
 
 import static androidx.test.espresso.Espresso.onView;
@@ -19,12 +19,17 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 
 import androidx.test.espresso.ViewInteraction;
+import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.AndroidJUnit4;
 
+import com.caffeinatedfingers.myuscrecapp.R;
+import com.caffeinatedfingers.myuscrecapp.WelcomePage;
+
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
+import org.hamcrest.Matchers;
 import org.hamcrest.TypeSafeMatcher;
 import org.junit.Rule;
 import org.junit.Test;
@@ -32,15 +37,15 @@ import org.junit.runner.RunWith;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class LogInToMapTest {
+public class MapAndButtonsTest {
 
     @Rule
     public ActivityTestRule<WelcomePage> mActivityTestRule = new ActivityTestRule<>(WelcomePage.class);
 
     @Test
-    public void logInToMapTest() throws InterruptedException {
+    public void mapAndButtonsTest() throws InterruptedException {
         ViewInteraction materialButton = onView(
-                allOf(withId(R.id.btn_login), withText("Log in"),
+                Matchers.allOf(ViewMatchers.withId(R.id.btn_login), withText("Log in"),
                         childAtPosition(
                                 allOf(withId(R.id.container),
                                         childAtPosition(
@@ -50,13 +55,7 @@ public class LogInToMapTest {
                         isDisplayed()));
         materialButton.perform(click());
         Thread.sleep(3000);
-        ViewInteraction button = onView(
-                allOf(withId(R.id.btn_login), withText("LOG IN"),
-                        withParent(allOf(withId(R.id.container),
-                                withParent(withId(android.R.id.content)))),
-                        isDisplayed()));
-        button.check(matches(isDisplayed()));
-        Thread.sleep(3000);
+
         ViewInteraction appCompatEditText = onView(
                 allOf(withId(R.id.email),
                         childAtPosition(
@@ -101,29 +100,47 @@ public class LogInToMapTest {
                         isDisplayed()));
         materialButton2.perform(click());
         Thread.sleep(3000);
+        ViewInteraction button = onView(
+                allOf(withId(R.id.btn_my_profile), withText("PROFILE"),
+                        withParent(withParent(withId(android.R.id.content))),
+                        isDisplayed()));
+        button.check(matches(isDisplayed()));
+        Thread.sleep(3000);
+        ViewInteraction button2 = onView(
+                allOf(withId(R.id.btn_my_reservations), withText("RESERVATIONS"),
+                        withParent(withParent(withId(android.R.id.content))),
+                        isDisplayed()));
+        button2.check(matches(isDisplayed()));
+        Thread.sleep(3000);
+        ViewInteraction textView = onView(
+                allOf(withId(R.id.rec_center_header), withText("Select a Rec Center"),
+                        withParent(withParent(withId(android.R.id.content))),
+                        isDisplayed()));
+        textView.check(matches(withText("Select a Rec Center")));
+        Thread.sleep(3000);
         ViewInteraction imageView = onView(
                 allOf(withId(R.id.imageView3), withContentDescription("map"),
                         withParent(withParent(withId(android.R.id.content))),
                         isDisplayed()));
         imageView.check(matches(isDisplayed()));
         Thread.sleep(3000);
-        ViewInteraction button2 = onView(
-                allOf(withId(R.id.btn_lyon_center), withText("LYON CENTER"),
-                        withParent(withParent(withId(android.R.id.content))),
-                        isDisplayed()));
-        button2.check(matches(isDisplayed()));
-        Thread.sleep(3000);
         ViewInteraction button3 = onView(
-                allOf(withId(R.id.btn_village_center), withText("USC VILLAGE REC CENTER"),
+                allOf(withId(R.id.btn_lyon_center), withText("LYON CENTER"),
                         withParent(withParent(withId(android.R.id.content))),
                         isDisplayed()));
         button3.check(matches(isDisplayed()));
         Thread.sleep(3000);
         ViewInteraction button4 = onView(
-                allOf(withId(R.id.btn_aquatics), withText("UYTENGSU AQUATICS CENTER"),
+                allOf(withId(R.id.btn_village_center), withText("USC VILLAGE REC CENTER"),
                         withParent(withParent(withId(android.R.id.content))),
                         isDisplayed()));
         button4.check(matches(isDisplayed()));
+        Thread.sleep(3000);
+        ViewInteraction button5 = onView(
+                allOf(withId(R.id.btn_aquatics), withText("UYTENGSU AQUATICS CENTER"),
+                        withParent(withParent(withId(android.R.id.content))),
+                        isDisplayed()));
+        button5.check(matches(isDisplayed()));
         Thread.sleep(3000);
     }
 

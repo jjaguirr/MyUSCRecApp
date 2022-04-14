@@ -1,7 +1,9 @@
-package com.caffeinatedfingers.myuscrecapp;
+package com.caffeinatedfingers.myuscrecapp.InstrumentedTests;
 
 import static org.junit.Assert.*;
 
+
+import com.caffeinatedfingers.myuscrecapp.SignUp;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -12,7 +14,7 @@ public class SignUpUnitTests {
 
     @Test
     public void invalidEmail() {
-        int result=SignUp.checkData("invalid","testtest","test test","1234567890"); //no @ sign
+        int result= SignUp.checkData("invalid","testtest","test test","1234567890"); //no @ sign
         assertEquals(result,1);
     }
     @Test

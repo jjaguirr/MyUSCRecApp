@@ -66,7 +66,7 @@ public class LogIn extends AppCompatActivity {
         });
         return success.get();
     }
-    protected static int checkFields(String email, String password){
+    public static int checkFields(String email, String password){
         // validate the data in email and password - check for empty fields and such
         if (TextUtils.isEmpty(email)) {
             return 1;
