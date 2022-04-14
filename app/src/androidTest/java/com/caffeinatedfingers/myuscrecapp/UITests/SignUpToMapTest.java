@@ -83,10 +83,10 @@ public class SignUpToMapTest {
                                         0),
                                 3),
                         isDisplayed()));
-        appCompatEditText3.perform(replaceText("12345678"), closeSoftKeyboard());
+        appCompatEditText3.perform(replaceText("1234567890"), closeSoftKeyboard());
         Thread.sleep(3000);
         ViewInteraction appCompatEditText4 = onView(
-                allOf(withId(R.id.user_ID), withText("12345678"),
+                allOf(withId(R.id.user_ID), withText("1234567890"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(android.R.id.content),
