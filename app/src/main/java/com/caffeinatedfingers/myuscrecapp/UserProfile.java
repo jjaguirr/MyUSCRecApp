@@ -29,6 +29,8 @@ public class UserProfile extends AppCompatActivity {
     FirebaseFirestore fStore;
     //database userID not uscID
     String userID;
+    String stringUscID;
+    String stringFullName;
     ImageView profileImage;
     Button uploadPhotoButton;
     StorageReference storageReference;
@@ -51,16 +53,18 @@ public class UserProfile extends AppCompatActivity {
         userID = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
 
         DocumentReference documentReference = fStore.collection("users").document(userID);
-        documentReference.get().addOnSuccessListener(result -> {
-        fullName.setText(result.getString("fName"));
-            uscID.setText(result.getString("uscID"));
+        documentReference.get().addOnSuccessListener(value -> {
+            stringFullName = value.getString("fName");
+            fullName.setText(stringFullName);
+            stringUscID = value.getString("uscID");
+            uscID.setText(stringUscID);
         });
 
         Button my_reservations = findViewById(R.id.btn_my_reservations);
         my_reservations.setOnClickListener(v->{
             Intent intent = new Intent(UserProfile.this, UpcomingReservations.class);
-            intent.putExtra("UserId", "123456780");
-            intent.putExtra("UserName", "Tommy Trojan");
+            intent.putExtra("UserId", stringUscID);
+            intent.putExtra("UserName", stringFullName);
             startActivity(intent);
         });
 
