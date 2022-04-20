@@ -8,12 +8,13 @@
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="424dp"
+        android:layout_height="337dp"
         android:layout_marginBottom="11dp"
         android:contentDescription="@string/map"
         app:layout_constraintBottom_toTopOf="@+id/btn_lyon_center"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.538"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rec_center_header"
         app:srcCompat="@drawable/map" />
@@ -56,15 +57,15 @@
         app:backgroundTint="@null"
         app:layout_constraintBottom_toTopOf="@+id/rec_center_header"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.106"
+        app:layout_constraintHorizontal_bias="0.104"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/btn_lyon_center"
-        android:layout_width="318dp"
-        android:layout_height="65dp"
+        android:layout_width="316dp"
+        android:layout_height="47dp"
         android:backgroundTint="#343A40"
         android:text="@string/lyon_center"
         android:textColor="@color/white"
@@ -75,8 +76,8 @@
 
     <Button
         android:id="@+id/btn_village_center"
-        android:layout_width="318dp"
-        android:layout_height="65dp"
+        android:layout_width="316dp"
+        android:layout_height="47dp"
         android:backgroundTint="#343A40"
         android:text="@string/usc_village_rec_center"
         android:textColor="@color/white"
@@ -87,21 +88,22 @@
 
     <Button
         android:id="@+id/btn_aquatics"
-        android:layout_width="318dp"
-        android:layout_height="65dp"
+        android:layout_width="316dp"
+        android:layout_height="47dp"
         android:layout_marginBottom="28dp"
         android:backgroundTint="#343A40"
         android:text="@string/uytengsu_aquatics_center"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_village_center" />
 
     <TextView
         android:id="@+id/rec_center_header"
         android:layout_width="346dp"
-        android:layout_height="51dp"
+        android:layout_height="35dp"
         android:layout_marginStart="61dp"
         android:layout_marginEnd="61dp"
         android:text="@string/select_a_rec_center"
@@ -111,6 +113,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/imageView3"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_my_reservations" />
 

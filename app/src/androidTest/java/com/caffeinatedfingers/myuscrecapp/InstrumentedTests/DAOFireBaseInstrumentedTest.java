@@ -14,6 +14,7 @@ import com.caffeinatedfingers.myuscrecapp.User;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
