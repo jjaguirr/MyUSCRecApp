@@ -43,5 +43,7 @@
     <string name="uscid">uscID</string>
     <string name="upload_photo">Upload Photo</string>
     <string name="profile_image">Profile image</string>
+    <string name="date">date</string>
+    <string name="pressed_date">pressed_date</string>
 </resources>
 

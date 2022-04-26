@@ -36,6 +36,7 @@ public class DAOFireBase {
         this.databaseUsers = db.getReference("users");
         this.databaseReferenceReservations = db.getReference("reservations");
         this.databaseReferencePrevious = db.getReference("previous");
+
     }
 
     /**
@@ -76,6 +77,7 @@ public class DAOFireBase {
             Log.println(Log.ERROR,"DAO FIREBASE", "Successfully removed reservation from DB");
         });
     }
+
 
     /**
      * Adds user to wait list and will remind when it is its turn
@@ -154,5 +156,8 @@ public class DAOFireBase {
         managerCompat.notify(999,builder.build());
     }
 
+    public Query getDatesQuery(String recCenter){
+        return databaseReference.child(recCenter).child("dates").orderByKey();
+    }
 
 }

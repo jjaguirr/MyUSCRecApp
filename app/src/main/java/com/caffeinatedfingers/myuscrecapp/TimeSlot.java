@@ -15,21 +15,26 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class TimeSlot implements Serializable {
     public String getId() {
         return id;
     }
 
-    String id;
-    Long capacity;
-    String recCenter;
-    String date;
-    String time; //or Timeobject
-    int usersCount;
-    boolean thisUserReserved;
-    boolean thisUserInWaitlist;
+    public String id;
+    public Long capacity;
+    public String recCenter;
+    public String date;
+    public String time; //or Timeobject
+    public int usersCount;
+    public transient boolean thisUserReserved;
+    public transient boolean thisUserInWaitlist;
 
+    public TimeSlot(){
+
+    }
     public TimeSlot(Long capacity, String recCenter, String time, String date) {
         this.capacity = capacity;
         this.id = time;
