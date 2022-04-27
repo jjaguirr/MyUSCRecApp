@@ -3,6 +3,7 @@ package com.caffeinatedfingers.myuscrecapp;
 import java.io.Serializable;
 
 public class User implements Serializable {
+    public String uid;
     public String userName;
     public String id;
     public String uid;
@@ -17,5 +18,8 @@ public class User implements Serializable {
         this.uid=uid;
     }
 
-  
+    public User(){
+        //No argument Constructor, required for Serialization
+    }
+
 }

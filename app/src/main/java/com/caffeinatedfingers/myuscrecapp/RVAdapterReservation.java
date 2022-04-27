@@ -65,6 +65,8 @@ public class RVAdapterReservation extends RecyclerView.Adapter<RecyclerView.View
         if (getItemViewType(position)==0){
             vh.btn.setOnClickListener(view -> {
                 dao.removeUser(reservation.timeSlot,reservation.user,context);
+                items.remove(reservation);
+                notifyItemRemoved(position);
             });
         }
         String dateAndTime = reservation.date+" "+reservation.time;

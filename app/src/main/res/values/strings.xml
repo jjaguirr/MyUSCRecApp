@@ -45,5 +45,8 @@
     <string name="profile_image">Profile image</string>
     <string name="date">date</string>
     <string name="pressed_date">pressed_date</string>
+    <string name="lyonmarker">lyonmarker</string>
+    <string name="aquamarker">aquamarker</string>
+    <string name="villagemarker">villagemarker</string>
 </resources>
 

@@ -36,7 +36,7 @@
         app:backgroundTint="@null"
         app:layout_constraintBottom_toTopOf="@+id/rec_center_header"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.896"
+        app:layout_constraintHorizontal_bias="0.933"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -57,10 +57,10 @@
         app:backgroundTint="@null"
         app:layout_constraintBottom_toTopOf="@+id/rec_center_header"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.104"
+        app:layout_constraintHorizontal_bias="0.133"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.49" />
 
     <Button
         android:id="@+id/btn_lyon_center"
@@ -117,43 +117,34 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_my_reservations" />
 
-<!--    <ImageButton-->
-<!--        android:id="@+id/imageButton4"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:background="transparent"-->
-<!--        app:layout_constraintBottom_toBottomOf="@+id/imageView3"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.429"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="@+id/imageView3"-->
-<!--        app:layout_constraintVertical_bias="0.334"-->
-<!--        app:srcCompat="@drawable/mapmarker_ccexpress" />-->
+    <ImageView
+        android:id="@+id/marker_aqua"
+        android:layout_width="39dp"
+        android:layout_height="48dp"
+        app:srcCompat="@drawable/marker"
+        tools:layout_editor_absoluteX="116dp"
+        tools:layout_editor_absoluteY="204dp"
+        tools:ignore="MissingConstraints"
+        android:contentDescription="@string/aquamarker" />
 
-<!--    <ImageButton-->
-<!--        android:id="@+id/imageButton5"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:background="transparent"-->
-<!--        app:layout_constraintBottom_toBottomOf="@+id/imageView3"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.662"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="@+id/imageView3"-->
-<!--        app:layout_constraintVertical_bias="0.233"-->
-<!--        app:srcCompat="@drawable/mapmarker_ccexpress" />-->
+    <ImageView
+        android:id="@+id/marker_lyon"
+        android:layout_width="39dp"
+        android:layout_height="47dp"
+        app:srcCompat="@drawable/marker"
+        tools:layout_editor_absoluteX="139dp"
+        tools:layout_editor_absoluteY="188dp"
+        tools:ignore="MissingConstraints"
+        android:contentDescription="@string/lyonmarker" />
 
-<!--    <ImageButton-->
-<!--        android:id="@+id/imageButton6"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:background="transparent"-->
-<!--        app:layout_constraintBottom_toBottomOf="@+id/imageView3"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.313"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="@+id/imageView3"-->
-<!--        app:layout_constraintVertical_bias="0.337"-->
-<!--        app:srcCompat="@drawable/mapmarker_ccexpress" />-->
+    <ImageView
+        android:id="@+id/marker_village"
+        android:layout_width="39dp"
+        android:layout_height="48dp"
+        app:srcCompat="@drawable/marker"
+        tools:layout_editor_absoluteX="251dp"
+        tools:layout_editor_absoluteY="164dp"
+        tools:ignore="MissingConstraints"
+        android:contentDescription="@string/villagemarker" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
