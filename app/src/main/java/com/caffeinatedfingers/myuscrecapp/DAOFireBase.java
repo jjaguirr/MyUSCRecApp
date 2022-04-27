@@ -98,10 +98,10 @@ public class DAOFireBase {
      * @param context Context for toast texts.
      */
     public void unRemindUser(@NonNull TimeSlot ts, @NonNull User user, Context context) {
+        //@TODO Not working with new wait-list implementation.
 
         this.databaseReference.child(ts.recCenter).child(ts.date).child(ts.id).child("Waitlist").child(user.id)
                 .removeValue().addOnSuccessListener(suc -> {
-            //@TODO remove from waiting a notification
             Toast.makeText(context, "You're removed to the waitlist!", Toast.LENGTH_SHORT).show();
         }).addOnFailureListener(fail -> {
             Toast.makeText(context, "" + fail.getMessage(), Toast.LENGTH_SHORT).show();

@@ -25,6 +25,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 
 public class BookingPage extends AppCompatActivity {
     SwipeRefreshLayout swipeRefreshLayout;
@@ -110,14 +111,24 @@ public class BookingPage extends AppCompatActivity {
                         TimeSlot nTs = new TimeSlot(capacity, recCenterName, timeSlotID, date);
                         rvAdapter.add(nTs);
                         nTs.setThisUserReserved(TSSnapshot.child("Registered").child(user.id).exists());
-                        nTs.setThisUserInWaitlist(TSSnapshot.child("Waitlist").child(user.id).exists());
+                        nTs.setThisUserInWaitlist(false);
+                        for (DataSnapshot waitListDSS: TSSnapshot.child("Waitlist").getChildren()){
+                            if (Objects.equals(waitListDSS.getValue(), user.uid)) {
+                                nTs.setThisUserInWaitlist(true);
+                            }
+                        }
                         rvAdapter.notifyItemInserted(rvAdapter.items.indexOf(nTs));
                         nTs.usersCount = (int) TSSnapshot.child("Registered").getChildrenCount();
                     }
                     //update already existing timeslot
                     else {
                         ts.setThisUserReserved(TSSnapshot.child("Registered").child(user.id).exists());
-                        ts.setThisUserInWaitlist(TSSnapshot.child("Waitlist").child(user.id).exists());
+                        ts.setThisUserInWaitlist(false);
+                        for (DataSnapshot waitListDSS: TSSnapshot.child("Waitlist").getChildren()){
+                            if (Objects.equals(waitListDSS.getValue(), user.uid)) {
+                                ts.setThisUserInWaitlist(true);
+                            }
+                        }
                         int pos = rvAdapter.items.indexOf(ts);
                         rvAdapter.notifyItemChanged(pos);
                         ts.usersCount = (int) TSSnapshot.child("Registered").getChildrenCount();
