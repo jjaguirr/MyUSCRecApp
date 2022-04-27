@@ -32,7 +32,7 @@ public class DAOFireBase {
     public void addUser(@NonNull TimeSlot ts, @NonNull User user, Context context) {
         Reservation reservation = new Reservation(user, ts);
         this.databaseReference.child(ts.recCenter).child(ts.date).child(ts.id).child("current").get().addOnSuccessListener(dataSnapshot -> {
-            this.databaseReference.child(ts.recCenter).child(ts.date).child(ts.id).child("current").setValue((int)dataSnapshot.getValue()+1);
+            this.databaseReference.child(ts.recCenter).child(ts.date).child(ts.id).child("current").setValue((long)dataSnapshot.getValue()+1);
         });
         this.databaseReference.child(ts.recCenter).child(ts.date)
                 .child(ts.id).child("Registered").child(user.id).setValue(user.userName)

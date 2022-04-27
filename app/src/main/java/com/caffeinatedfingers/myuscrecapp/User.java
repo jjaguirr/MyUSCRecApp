@@ -6,7 +6,6 @@ public class User implements Serializable {
     public String uid;
     public String userName;
     public String id;
-    public String uid;
 
     /**
      * @param id User ID
