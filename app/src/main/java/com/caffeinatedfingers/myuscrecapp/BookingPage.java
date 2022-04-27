@@ -127,23 +127,15 @@ public class BookingPage extends AppCompatActivity {
     }
 
     public void loadDates(){
-        dao.getDatesQuery(recCenter.id).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(!snapshot.hasChildren()) rvAdapterDates.addDate("NODATE"); //or smth else
-                for(DataSnapshot dateSS: snapshot.getChildren()){
-                    String date = dateSS.getKey();
-                    if (rvAdapterDates.items.contains(date)) continue;
-                    rvAdapterDates.addDate(date);
-                }
-                date = rvAdapterDates.pressedDate;
-                loadTimeSlots();
+        dao.getDatesQuery(recCenter.id).get().addOnSuccessListener(snapshot -> {
+            if(!snapshot.hasChildren()) rvAdapterDates.addDate("NODATE"); //or smth else
+            for(DataSnapshot dateSS: snapshot.getChildren()){
+                String date = dateSS.getKey();
+                if (rvAdapterDates.items.contains(date)) continue;
+                rvAdapterDates.addDate(date);
             }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                rvAdapterDates.addDate("NODATE");
-            }
+            date = rvAdapterDates.pressedDate;
+            loadTimeSlots();
         });
 
     }

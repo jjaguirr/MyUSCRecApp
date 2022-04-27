@@ -116,7 +116,7 @@ public class DAOFireBase {
      * @return A db ordered reference of the timeslots
      */
     public Query getTimeSlotsQuery(String recCenter, String date) {
-        return databaseReference.child(recCenter).child(date).orderByKey();
+        return databaseReference.child(recCenter).child(date).orderByChild("ordering");
     }
     /**
      * @return A db reference of a timeslot given a timeslot object
@@ -157,7 +157,7 @@ public class DAOFireBase {
     }
 
     public Query getDatesQuery(String recCenter){
-        return databaseReference.child(recCenter).child("dates").orderByKey();
+        return databaseReference.child(recCenter).orderByKey();
     }
 
 }

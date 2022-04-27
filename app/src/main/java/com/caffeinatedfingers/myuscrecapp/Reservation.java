@@ -1,6 +1,14 @@
 package com.caffeinatedfingers.myuscrecapp;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class Reservation implements Serializable {
     public String studentID;
@@ -11,6 +19,7 @@ public class Reservation implements Serializable {
     public User user;
     public TimeSlot timeSlot;
     public String date;
+    public String startingTime, endingTime;
 
     public Reservation(){
         //no argument constructor
@@ -25,5 +34,9 @@ public class Reservation implements Serializable {
         this.cap = timeSlot.capacity;
         this.date = timeSlot.date;
         this.id = studentID+timeSlot.recCenter+time+date;
+        String[] timeFormatted = this.time.split("-");
+        this.startingTime = timeFormatted[0];
+        this.endingTime = timeFormatted[1];
     }
+
 }
