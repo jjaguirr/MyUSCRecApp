@@ -14,3 +14,11 @@
 .cxx
 local.properties
 .idea/misc.xml
+app/src/test/java/com/caffeinatedfingers/myuscrecapp/TimeSlotTests.java
+database.rules.json
+firebase-debug.log
+firebase.json
+firestore.indexes.json
+firestore.rules
+functions/.eslintrc.js
+functions/package-lock.json

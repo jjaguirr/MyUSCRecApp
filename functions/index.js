@@ -10,23 +10,30 @@ const admin = require("firebase-admin");
 // });
 exports.notifyWaitlist=functions.database.ref('timeslots/{location}/{date}/{time}').onUpdate(async (change,context)=>
 {   
-    const after=change.after.val();
-    const before=change.before.val();
+    const after=change.after;
+    const before=change.before;
+    const numWaitlisted=change.before.child('waitlist').getChildrenCount();
     if(before.waitlist===after.waitlist && before.capacity===after.capacity){
         console.log("no change detected");
     }
-    else{
-        const capacity=change.after.val().capacity;
-        const newWaitlist=change.before.val().waitlist;
+    else if(before.waitlist!=""&& after.current<after.capacity){
+        const capacity=change.after.child('capacity').val();
+        const newWaitlist=change.before.child(waitlist);
         if(waitlist.hasChildren()){
-            const topOfWaitlist=change.before.child("waitlist").child("1").val();
+            const topOfWaitlist=change.before.child("Waitlist").child("1").child("uid");
             const newWaitlist=sendNotification(topOfWaitlist);
             capacity+=1;
             newWaitlist.removeChild(topOfWaitlist);
 
         }
-        change.after.ref.update({capacity,newWaitlist});
+        change.after.child()
+        change.after.ref.update({capacity:capacity,Waitlist:newWaitlist});
     }
+    for(let i=2;i<=numWaitlisted;i++){
+        const key=i.toString;
+        change.after.child("Waitlist").update({key:i-1});
+    }
+    admin.database().ref("/reservations").set()
 }
 )
 
@@ -52,3 +59,4 @@ async function sendNotification(userUID){
     });
 
 }
+exports.changeDates=functions.database.ref('')

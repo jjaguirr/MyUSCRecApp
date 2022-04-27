@@ -31,6 +31,9 @@ public class DAOFireBase {
      */
     public void addUser(@NonNull TimeSlot ts, @NonNull User user, Context context) {
         Reservation reservation = new Reservation(user, ts);
+        this.databaseReference.child(ts.recCenter).child(ts.date).child(ts.id).child("current").get().addOnSuccessListener(dataSnapshot -> {
+            this.databaseReference.child(ts.recCenter).child(ts.date).child(ts.id).child("current").setValue((int)dataSnapshot.getValue()+1);
+        });
         this.databaseReference.child(ts.recCenter).child(ts.date)
                 .child(ts.id).child("Registered").child(user.id).setValue(user.userName)
                 .addOnSuccessListener(suc -> {
@@ -58,6 +61,9 @@ public class DAOFireBase {
         }).addOnFailureListener(fail -> {
             Toast.makeText(context, "" + fail.getMessage(), Toast.LENGTH_SHORT).show();
         });
+        this.databaseReference.child(ts.recCenter).child(ts.date).child(ts.id).child("current").get().addOnSuccessListener(dataSnapshot -> {
+            this.databaseReference.child(ts.recCenter).child(ts.date).child(ts.id).child("current").setValue((int)dataSnapshot.getValue()-1);
+        });
         this.databaseReferenceReservations.child(user.id).child(reservation.id).removeValue().addOnSuccessListener(succ-> {
             Log.println(Log.ERROR,"DAO FIREBASE", "Successfully removed reservation from DB");
         });
@@ -78,18 +84,22 @@ public class DAOFireBase {
 
          });
         if(waitlisted.intValue()==0){
-            numPeople=1;
+            numPeople=0;
         }
         else{
             numPeople=waitlisted.intValue();
     }
-        this.databaseReference.child(ts.recCenter).child(ts.date).child(ts.id).child("Waitlist").child(String.valueOf(numPeople))
-                .setValue(user.uid).addOnSuccessListener(suc -> {
+        this.databaseReference.child(ts.recCenter).child(ts.date).child(ts.id).child("Waitlist").child(String.valueOf(numPeople+1))
+                .child("uid").setValue(user.uid).addOnSuccessListener(suc -> {
 
             Toast.makeText(context, "You're added to the waitlist!", Toast.LENGTH_SHORT).show();
         }).addOnFailureListener(fail -> {
             Toast.makeText(context, "" + fail.getMessage(), Toast.LENGTH_SHORT).show();
         });
+        this.databaseReference.child(ts.recCenter).child(ts.date).child(ts.id).child("Waitlist").child(String.valueOf(numPeople+1))
+                .child("id").setValue(user.id);
+        this.databaseReference.child(ts.recCenter).child(ts.date).child(ts.id).child("Waitlist").child(String.valueOf(numPeople+1))
+                .child("name").setValue(user.userName);
     }
     /**
      * Removes a user from a timeslot wait list
