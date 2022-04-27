@@ -46,6 +46,7 @@ public class MapActivity extends AppCompatActivity {
             Intent intent = new Intent(MapActivity.this,UpcomingReservations.class);
             intent.putExtra("UserId", userID);
             intent.putExtra("UserName", userName);
+            intent.putExtra("UID",fAuth.getCurrentUser().getUid());
             startActivity(intent);
         });
 
@@ -54,6 +55,7 @@ public class MapActivity extends AppCompatActivity {
             Intent intent = new Intent(MapActivity.this,UserProfile.class);
             intent.putExtra("UserId", userID);
             intent.putExtra("UserName", userName);
+            intent.putExtra("UID",fAuth.getCurrentUser().getUid());
             startActivity(intent);
         });
 
@@ -63,6 +65,7 @@ public class MapActivity extends AppCompatActivity {
             intent.putExtra("RecCenter", "Lyon Center");
             intent.putExtra("UserId", userID);
             intent.putExtra("UserName", userName);
+            intent.putExtra("UID",fAuth.getCurrentUser().getUid());
             startActivity(intent);
         });
 
@@ -72,6 +75,7 @@ public class MapActivity extends AppCompatActivity {
             intent.putExtra("RecCenter", "USC Village Center");
             intent.putExtra("UserId", userID);
             intent.putExtra("UserName", userName);
+            intent.putExtra("UID",fAuth.getCurrentUser().getUid());
             startActivity(intent);
         });
 
@@ -81,6 +85,7 @@ public class MapActivity extends AppCompatActivity {
             intent.putExtra("RecCenter", "Uytengsu Aquatics Center");
             intent.putExtra("UserId", userID);
             intent.putExtra("UserName", userName);
+            intent.putExtra("UID",fAuth.getCurrentUser().getUid());
             startActivity(intent);
         });
 

@@ -47,7 +47,8 @@ public class BookingPage extends AppCompatActivity {
         Bundle b = getIntent().getExtras();
         String userId = b.getString("UserId");
         String userName= b.getString("UserName");
-        this.user = new User (userId,userName);
+        String uid=b.getString("UID");
+        this.user = new User (userId,userName,uid);
         String recCenterName = b.getString("RecCenter");
         gymName.setText(recCenterName);
 
