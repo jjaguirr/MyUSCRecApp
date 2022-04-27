@@ -17,5 +17,8 @@ public class User implements Serializable {
         this.uid=uid;
     }
 
-  
+    public User(){
+        //No argument Constructor, required for Serialization
+    }
+
 }
