@@ -12,6 +12,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.messaging.FirebaseMessaging;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -87,6 +89,7 @@ public class SignUp extends AppCompatActivity
                     user.put("fName", fullName);
                     user.put("email", email);
                     user.put("uscID", uscID);
+                    user.put("notificationToken", FirebaseMessaging.getInstance().getToken().getResult());
 
                     // now insert into cloud database
                     documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>(){

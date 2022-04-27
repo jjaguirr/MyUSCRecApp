@@ -31,7 +31,7 @@ public class RVAdapterTest {
     @Before
     public void setUp() {
         LinearLayoutManager manager = new LinearLayoutManager(appContext);
-        user = new User("00000000", "TEST");
+        user = new User("00000000", "TEST","uid");
         recCenter = new RecCenter("GYMTEST", "INFO");
         date ="TODAY";
         isLoading= false;

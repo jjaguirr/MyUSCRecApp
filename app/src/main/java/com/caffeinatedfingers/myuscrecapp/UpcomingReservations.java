@@ -42,7 +42,8 @@ public class UpcomingReservations extends AppCompatActivity {
         Bundle b = getIntent().getExtras();
         String userId = b.getString("UserId");
         String userName= b.getString("UserName");
-        this.user = new User (userId,userName);
+        String uid=b.getString("UID");
+        this.user = new User (userId,userName,uid);
 
 
         //When click on a button do add, remove calling dao.add(timeslot, user) or dao.remove() etc.

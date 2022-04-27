@@ -1,31 +1,16 @@
 package com.caffeinatedfingers.myuscrecapp;
 
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.content.Context;
 import android.util.Log;
-import android.os.Build;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import androidx.annotation.Nullable;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.ktx.Firebase;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.squareup.picasso.Picasso;
+
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class DAOFireBase {
     private final DatabaseReference databaseReference, databaseReferenceReservations, databaseReferencePrevious;
@@ -84,10 +69,21 @@ public class DAOFireBase {
      * @param context Context for toast texts.
      */
     public void remindUser(@NonNull TimeSlot ts, @NonNull User user, Context context) {
+        AtomicInteger waitlisted= new AtomicInteger();
+        int numPeople;
+         databaseReference.child(ts.recCenter).child(ts.date).child(ts.id).child("Waitlist").get().addOnSuccessListener(dataSnapshot-> {
+             waitlisted.set((int) dataSnapshot.getChildrenCount());
 
-        this.databaseReference.child(ts.recCenter).child(ts.date).child(ts.id).child("Waitlist").child(user.id)
-                .setValue(user.userName).addOnSuccessListener(suc -> {
-            //@TODO set waiting for a notification
+         });
+        if(waitlisted.intValue()==0){
+            numPeople=1;
+        }
+        else{
+            numPeople=waitlisted.intValue();
+    }
+        this.databaseReference.child(ts.recCenter).child(ts.date).child(ts.id).child("Waitlist").child(String.valueOf(numPeople))
+                .setValue(user.uid).addOnSuccessListener(suc -> {
+
             Toast.makeText(context, "You're added to the waitlist!", Toast.LENGTH_SHORT).show();
         }).addOnFailureListener(fail -> {
             Toast.makeText(context, "" + fail.getMessage(), Toast.LENGTH_SHORT).show();
@@ -142,17 +138,17 @@ public class DAOFireBase {
     public Query getPreviousReservationQuery(String userID) {
         return databaseReferencePrevious.child(userID);
     }
-    private void notification(Context context){
-        if(Build.VERSION.SDK_INT >=Build.VERSION_CODES.O){
-            NotificationChannel channel = new NotificationChannel("waitlistOpen","waitlistOpen", NotificationManager.IMPORTANCE_DEFAULT);
-            NotificationManager manager = context.getSystemService(NotificationManager.class);
-            manager.createNotificationChannel(channel);
-
-        }
-        NotificationCompat.Builder builder= new NotificationCompat.Builder(context, "waitlistOpen").setContentTitle("USCRecApp").setAutoCancel(true).setContentText("Good news! A spot opened for your slot.");
-        NotificationManagerCompat managerCompat= NotificationManagerCompat.from(context);
-        managerCompat.notify(999,builder.build());
-    }
+//    private void notification(Context context){
+//        if(Build.VERSION.SDK_INT >=Build.VERSION_CODES.O){
+//            NotificationChannel channel = new NotificationChannel("waitlistOpen","waitlistOpen", NotificationManager.IMPORTANCE_DEFAULT);
+//            NotificationManager manager = context.getSystemService(NotificationManager.class);
+//            manager.createNotificationChannel(channel);
+//
+//        }
+//        NotificationCompat.Builder builder= new NotificationCompat.Builder(context, "waitlistOpen").setContentTitle("USCRecApp").setAutoCancel(true).setContentText("Good news! A spot opened for your slot.");
+//        NotificationManagerCompat managerCompat= NotificationManagerCompat.from(context);
+//        managerCompat.notify(999,builder.build());
+//    }
 
 
 }

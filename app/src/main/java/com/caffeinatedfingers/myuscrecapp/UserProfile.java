@@ -29,8 +29,10 @@ public class UserProfile extends AppCompatActivity {
     FirebaseFirestore fStore;
     //database userID not uscID
     String userID;
+    String UID;
     String stringUscID;
     String stringFullName;
+    String stringUID;
     ImageView profileImage;
     Button uploadPhotoButton;
     StorageReference storageReference;
@@ -58,6 +60,7 @@ public class UserProfile extends AppCompatActivity {
             fullName.setText(stringFullName);
             stringUscID = value.getString("uscID");
             uscID.setText(stringUscID);
+            stringUID=userID;
         });
 
         Button my_reservations = findViewById(R.id.btn_my_reservations);
@@ -65,6 +68,7 @@ public class UserProfile extends AppCompatActivity {
             Intent intent = new Intent(UserProfile.this, UpcomingReservations.class);
             intent.putExtra("UserId", stringUscID);
             intent.putExtra("UserName", stringFullName);
+            intent.putExtra("uid",stringUID);
             startActivity(intent);
         });
 
