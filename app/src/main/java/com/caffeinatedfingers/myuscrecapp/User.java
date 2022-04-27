@@ -3,6 +3,7 @@ package com.caffeinatedfingers.myuscrecapp;
 import java.io.Serializable;
 
 public class User implements Serializable {
+    public String uid;
     public String userName;
     public String id;
 
