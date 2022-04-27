@@ -2,30 +2,34 @@ package com.caffeinatedfingers.myuscrecapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.os.Build;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
+import java.sql.Time;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class BookingPage extends AppCompatActivity {
     SwipeRefreshLayout swipeRefreshLayout;
-    RecyclerView recyclerView;
+    RecyclerView recyclerView, rvDates;
     RVAdapter rvAdapter;
+    RVAdapterDates rvAdapterDates;
     RecCenter recCenter;
     DAOFireBase dao;
+    ArrayList<String> dates;
     String date;
     User user;
     boolean isLoading=false;
@@ -52,52 +56,46 @@ public class BookingPage extends AppCompatActivity {
         this.recCenter = new RecCenter(recCenterName, "INFO");
         dao = new DAOFireBase();
 
-        //Default
-        date = "TODAY";
-        Button btn_today = findViewById(R.id.btn_today);
-        Button btn_tomorrow = findViewById(R.id.btn_tomorrow);
-        View.OnClickListener onClickListener = view -> {
-            if (date.equals("TODAY") && view.equals(btn_tomorrow)){
-                view.setBackgroundResource(R.drawable.timeslot_book_background);//red pressed
-                btn_today.setBackgroundResource(R.drawable.timeslot_full_background);//gray
-                date = "TOMORROW";
-                clearRV();
-                loadData();
-            }
-            if (date.equals("TOMORROW") && view.equals(btn_today)){
-                view.setBackgroundResource(R.drawable.timeslot_book_background);//red pressed
-                btn_tomorrow.setBackgroundResource(R.drawable.timeslot_full_background);//gray
-                date = "TODAY";
-                clearRV();
-                loadData();
-            }
-        };
-        btn_today.setOnClickListener(onClickListener);
-        btn_tomorrow.setOnClickListener(onClickListener);
-
-        rvAdapter = new RVAdapter(this, dao, user, date);
+        rvDates = findViewById(R.id.recycler_view_button_dates);
+        LinearLayoutManager datesLLM = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        rvDates.setLayoutManager(datesLLM);
+        rvAdapterDates = new RVAdapterDates(this);
+        rvDates.setAdapter(rvAdapterDates);
+        rvAdapterDates.setClickListener(view -> {
+            Button clickedB = (Button)view;
+            String newDate = clickedB.getText().toString();
+            rvAdapterDates.notifyItemChanged(rvAdapterDates.items.indexOf(rvAdapterDates.pressedDate));
+            rvAdapterDates.notifyItemChanged(rvAdapterDates.items.indexOf(newDate));
+            rvAdapterDates.pressedDate = newDate;
+            date = newDate;
+            clearRV();
+            loadTimeSlots();
+        });
+        rvAdapter = new RVAdapter(this, dao, user);
         recyclerView.setAdapter(rvAdapter);
+
+        loadDates();
 
         swipeRefreshLayout.setOnRefreshListener(() -> {
             swipeRefreshLayout.setRefreshing(false);
-            loadData();
+            loadTimeSlots();
         });
-        loadData();
     }
 
     private void clearRV(){
         rvAdapter.refreshDelete();
     }
 
-    private void loadData(){
+    public void loadTimeSlots(){
         swipeRefreshLayout.setRefreshing(true);
-        dao.getTimeSlotsQuery(this.recCenter.id, this.date).addValueEventListener(new ValueEventListener() {
+        dao.getTimeSlotsQuery(this.recCenter.id, rvAdapterDates.pressedDate).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot RCSnapshot) {
                 String recCenterName = recCenter.id;
                 for(DataSnapshot TSSnapshot: RCSnapshot.getChildren()){
+                    TimeSlot example = TSSnapshot.getValue(TimeSlot.class);
                     String timeSlotID = TSSnapshot.getKey();
-                    Long capacity = (Long) TSSnapshot.child("Capacity").getValue();
+                    Long capacity = (Long) TSSnapshot.child("capacity").getValue();
                     assert timeSlotID != null;
                     TimeSlot ts = rvAdapter.getTimeSlot(timeSlotID);
                     if (ts==null){
@@ -129,5 +127,25 @@ public class BookingPage extends AppCompatActivity {
 
     }
 
+    public void loadDates(){
+        dao.getDatesQuery(recCenter.id).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(!snapshot.hasChildren()) rvAdapterDates.addDate("NODATE"); //or smth else
+                for(DataSnapshot dateSS: snapshot.getChildren()){
+                    String date = dateSS.getKey();
+                    if (rvAdapterDates.items.contains(date)) continue;
+                    rvAdapterDates.addDate(date);
+                }
+                date = rvAdapterDates.pressedDate;
+                loadTimeSlots();
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                rvAdapterDates.addDate("NODATE");
+            }
+        });
+
+    }
 }

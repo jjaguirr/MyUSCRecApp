@@ -7,8 +7,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -16,28 +14,29 @@ import com.google.firebase.database.ValueEventListener;
 
 public class UpcomingReservations extends AppCompatActivity {
     SwipeRefreshLayout swipeRefreshLayout, swipeRPrevious;
-    RecyclerView recyclerView, rvPrevious;
-    RVAdapter rvAdapter, rvAdapterPrev;
+    RecyclerView RVUpcoming, RVPrevious;
+    RVAdapterReservation rvAdapterUpcoming, rvAdapterPrevious;
     DAOFireBase dao;
     User user;
-    String date;
-    boolean isLoading=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_upcoming_page);
-        swipeRefreshLayout = findViewById(R.id.swipe);
-        recyclerView = findViewById(R.id.rv);
-        recyclerView.setHasFixedSize(true);
-        LinearLayoutManager manager = new LinearLayoutManager(this);
-        LinearLayoutManager managerr = new LinearLayoutManager(this);
 
-        recyclerView.setLayoutManager(manager);
+        setContentView(R.layout.activity_upcoming_page);
+
+        swipeRefreshLayout = findViewById(R.id.swipe);
+        RVUpcoming = findViewById(R.id.rv);
+        RVUpcoming.setHasFixedSize(true);
+        LinearLayoutManager manager = new LinearLayoutManager(this);
+        RVUpcoming.setLayoutManager(manager);
+
 
         swipeRPrevious = findViewById(R.id.swipePrevious);
-        rvPrevious  = findViewById(R.id.rvPrevious);
-        rvPrevious.setLayoutManager(managerr);
+        RVPrevious = findViewById(R.id.rvPrevious);
+        RVPrevious.setHasFixedSize(true);
+        LinearLayoutManager managerPrevious = new LinearLayoutManager(this);
+        RVPrevious.setLayoutManager(managerPrevious);
 
         Bundle b = getIntent().getExtras();
         String userId = b.getString("UserId");
@@ -45,90 +44,48 @@ public class UpcomingReservations extends AppCompatActivity {
         String uid=b.getString("UID");
         this.user = new User (userId,userName,uid);
 
-
-        //When click on a button do add, remove calling dao.add(timeslot, user) or dao.remove() etc.
         dao = new DAOFireBase();
 
-        //Default
-        date = "TODAY";
-        Button btn_today = findViewById(R.id.btn_today);
-        Button btn_tomorrow = findViewById(R.id.btn_tomorrow);
-        View.OnClickListener onClickListener = view -> {
-            if (date.equals("TODAY") && view.equals(btn_tomorrow)){
-                view.setBackgroundResource(R.drawable.timeslot_book_background);//red pressed
-                btn_today.setBackgroundResource(R.drawable.timeslot_full_background);//gray
-                date = "TOMORROW";
-                clearRV();
-                loadData();
-            }
-            if (date.equals("TOMORROW") && view.equals(btn_today)){
-                view.setBackgroundResource(R.drawable.timeslot_book_background);//red pressed
-                btn_tomorrow.setBackgroundResource(R.drawable.timeslot_full_background);//gray
-                date = "TODAY";
-                clearRV();
-                loadData();
-            }
-        };
-        btn_today.setOnClickListener(onClickListener);
-        btn_tomorrow.setOnClickListener(onClickListener);
-        rvAdapter = new RVAdapter(this, dao, user, date);
-        rvAdapterPrev = new RVAdapter(this, dao, user, date);
-        recyclerView.setAdapter(rvAdapter);
-        rvPrevious.setAdapter(rvAdapterPrev);
+        rvAdapterUpcoming = new RVAdapterReservation(this, dao, user);
+        rvAdapterPrevious = new RVAdapterReservation(this, dao, user);
+
+        RVUpcoming.setAdapter(rvAdapterUpcoming);
+        RVPrevious.setAdapter(rvAdapterPrevious);
 
         swipeRefreshLayout.setOnRefreshListener(() -> {
             swipeRefreshLayout.setRefreshing(false);
-            loadData();
+            loadUpcoming();
         });
         swipeRPrevious.setOnRefreshListener(() -> {
             swipeRefreshLayout.setRefreshing(false);
             loadPrevious();
         });
-        loadData();
+        loadUpcoming();
         loadPrevious();
     }
 
-    private void clearRV(){
-        rvAdapter.refreshDelete();
+    private void clearRVUpcoming(){
+        rvAdapterUpcoming.refreshDelete();
+    }
+    private void clearRVPrevious(){
+        rvAdapterPrevious.refreshDelete();
     }
 
-    private void loadData(){
+    private void loadUpcoming(){
         swipeRefreshLayout.setRefreshing(true);
         dao.getReservationsQuery(this.user.id).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot userRSS) {
                 if (userRSS.getValue() == null){
-                    rvAdapter.refreshDelete();
+                    rvAdapterUpcoming.refreshDelete();
                 }
                 for (DataSnapshot reservationSS: userRSS.getChildren()){
                     Reservation reservation= reservationSS.getValue(Reservation.class);
                     assert reservation != null;
-                    String timeSlotID = reservation.time;
-                    TimeSlot ts = rvAdapter.getTimeSlot(timeSlotID);
-                    if (ts==null){
-                        TimeSlot nTs = new TimeSlot(reservation.cap, reservation.location, timeSlotID, date);
-                        dao.getTimeSlotRegisteredQuery(nTs).get().addOnSuccessListener(dataSnapshot -> {
-                            nTs.usersCount = (int) dataSnapshot.getChildrenCount();
-                            nTs.setThisUserReserved(dataSnapshot.child(user.id).exists());
-                            rvAdapter.add(nTs);
-                            rvAdapter.notifyItemInserted(rvAdapter.items.indexOf(nTs));
-                        });
-
-                    }
-                    //update already existing timeslot
-                    else {
-                        int pos = rvAdapter.items.indexOf(ts);
-                        if(!ts.thisUserReserved) {
-                            rvAdapter.delete(ts);
-                            rvAdapter.notifyItemRemoved(pos);
-                        }
-                        else{
-                            rvAdapter.notifyItemChanged(pos);
-                            dao.getTimeSlotRegisteredQuery(ts).get().addOnSuccessListener(dataSnapshot -> {
-                                ts.usersCount = (int) dataSnapshot.getChildrenCount();
-                                ts.setThisUserReserved(dataSnapshot.child(user.id).exists());
-                            });
-                        }
+                    Reservation reservationInAdapter = rvAdapterUpcoming.getReservation(reservation.id);
+                    if (reservationInAdapter==null){
+                        rvAdapterUpcoming.add(reservation);
+                        rvAdapterUpcoming.notifyItemInserted(rvAdapterUpcoming.items.indexOf(reservation));
                     }
                 }
                 swipeRefreshLayout.setRefreshing(false);
@@ -147,23 +104,16 @@ public class UpcomingReservations extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot userRSS) {
                 if (userRSS.getValue() == null){
-                    rvAdapterPrev.refreshDelete();
+                    rvAdapterPrevious.refreshDelete();
                 }
+                //For all reservations of this user.
                 for (DataSnapshot reservationSS: userRSS.getChildren()){
-                    Reservation reservation= reservationSS.getValue(Reservation.class);
-                    assert reservation != null;
-                    String timeSlotID = reservation.time;
-                    TimeSlot ts = rvAdapterPrev.getTimeSlot(timeSlotID);
-                    if (ts==null){
-                        TimeSlot nTs = new TimeSlot(reservation.cap, reservation.location, timeSlotID, date);
-                        dao.getTimeSlotRegisteredQuery(nTs).get().addOnSuccessListener(dataSnapshot -> {
-                            nTs.usersCount = (int) dataSnapshot.getChildrenCount();
-                            nTs.setThisUserReserved(false);
-                            nTs.usersCount = 50;
-                            rvAdapterPrev.add(nTs);
-                            rvAdapterPrev.notifyItemInserted(rvAdapterPrev.items.indexOf(nTs));
-                        });
-
+                    Reservation reservationFromDB= reservationSS.getValue(Reservation.class);
+                    assert reservationFromDB != null;
+                    //if not in the RV add it
+                    if (rvAdapterPrevious.getReservation(reservationFromDB.id)==null){
+                        rvAdapterPrevious.add(reservationFromDB);
+                        rvAdapterPrevious.notifyItemInserted(rvAdapterPrevious.items.indexOf(reservationFromDB));
                     }
                 }
                 swipeRPrevious.setRefreshing(false);

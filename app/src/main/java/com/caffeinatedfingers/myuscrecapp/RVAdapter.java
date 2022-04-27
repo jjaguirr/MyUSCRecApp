@@ -17,12 +17,16 @@ public class RVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     DAOFireBase dao;
     User user;
     ArrayList<TimeSlot> items = new ArrayList<>();
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
     String date;
-    public RVAdapter(Context context, DAOFireBase dao, User user, String date){
+    public RVAdapter(Context context, DAOFireBase dao, User user){
         this.context = context;
         this.dao = dao;
         this.user = user;
-        this.date = date;
     }
     //@TODO specify item for efficiency purposes
     public void add(TimeSlot ts) {
@@ -58,8 +62,6 @@ public class RVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             case 2: view = LayoutInflater.from(context).inflate(R.layout.layout_time_slot_full, parent, false);
             break;
             case 3: view = LayoutInflater.from(context).inflate(R.layout.layout_time_slot_full_unremind_me, parent, false);
-            break;
-            case 4: view = LayoutInflater.from(context).inflate(R.layout.layout_reservation_previous, parent, false);
             break;
             default:
                 throw new IllegalStateException("Unexpected value: " + viewType);
@@ -126,10 +128,6 @@ public class RVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     this.btn = itemView.findViewById(R.id.btn_unremindme);
                     this.txt_hours = itemView.findViewById(R.id.txt_hours);
                     this.txt_remaining = itemView.findViewById(R.id.txt_remaining);
-                }
-                case 4:{
-                    this.txt_hours = itemView.findViewById(R.id.txt_date);
-                    this.txt_remaining = itemView.findViewById(R.id.txt_day);
                 }
             }
 

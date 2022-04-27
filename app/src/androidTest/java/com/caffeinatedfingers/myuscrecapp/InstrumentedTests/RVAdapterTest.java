@@ -37,7 +37,7 @@ public class RVAdapterTest {
         isLoading= false;
         timeSlot = new TimeSlot(5L, "GYMTEST", "10-11AM",date);
         dao = new DAOFireBase();
-        rvAdapter = new RVAdapter(appContext, dao, user, date);
+        rvAdapter = new RVAdapter(appContext, dao, user);
 
     }
     @Test
