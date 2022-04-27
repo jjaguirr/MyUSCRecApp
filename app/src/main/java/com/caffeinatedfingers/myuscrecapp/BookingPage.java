@@ -19,6 +19,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
 import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -95,8 +99,12 @@ public class BookingPage extends AppCompatActivity {
                 for(DataSnapshot TSSnapshot: RCSnapshot.getChildren()){
                     TimeSlot example = TSSnapshot.getValue(TimeSlot.class);
                     String timeSlotID = TSSnapshot.getKey();
-                    Long capacity = (Long) TSSnapshot.child("capacity").getValue();
                     assert timeSlotID != null;
+                    LocalTime timeSlotEndingTime = LocalTime.parse(timeSlotID.split("-")[1], DateTimeFormatter.ofPattern("hha"));
+                    LocalDateTime timeSlotDateTime = LocalDateTime.of(LocalDate.parse(rvAdapterDates.pressedDate, DateTimeFormatter.ofPattern("MM-dd-yyyy")),
+                            timeSlotEndingTime);
+                    if(timeSlotDateTime.isBefore(LocalDateTime.now())) continue;
+                    Long capacity = (Long) TSSnapshot.child("capacity").getValue();
                     TimeSlot ts = rvAdapter.getTimeSlot(timeSlotID);
                     if (ts==null){
                         TimeSlot nTs = new TimeSlot(capacity, recCenterName, timeSlotID, date);
@@ -132,6 +140,8 @@ public class BookingPage extends AppCompatActivity {
             if(!snapshot.hasChildren()) rvAdapterDates.addDate("NODATE"); //or smth else
             for(DataSnapshot dateSS: snapshot.getChildren()){
                 String date = dateSS.getKey();
+                if (LocalDate.now().isAfter(LocalDate.parse(date,DateTimeFormatter.ofPattern("MM-dd-yyyy"))))
+                    continue;
                 if (rvAdapterDates.items.contains(date)) continue;
                 rvAdapterDates.addDate(date);
             }
