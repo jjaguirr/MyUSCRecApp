@@ -113,7 +113,7 @@ public class BookingPage extends AppCompatActivity {
                         nTs.setThisUserReserved(TSSnapshot.child("Registered").child(user.id).exists());
                         nTs.setThisUserInWaitlist(false);
                         for (DataSnapshot waitListDSS: TSSnapshot.child("Waitlist").getChildren()){
-                            if (Objects.equals(waitListDSS.getValue(), user.id)) {
+                            if (Objects.equals(waitListDSS.child("id").getValue(), user.id)) {
                                 nTs.setThisUserInWaitlist(true);
                             }
                         }
@@ -125,7 +125,7 @@ public class BookingPage extends AppCompatActivity {
                         ts.setThisUserReserved(TSSnapshot.child("Registered").child(user.id).exists());
                         ts.setThisUserInWaitlist(false);
                         for (DataSnapshot waitListDSS: TSSnapshot.child("Waitlist").getChildren()){
-                            if (Objects.equals(waitListDSS.getValue(), user.id)) {
+                            if (Objects.equals(waitListDSS.child("id").getValue(), user.id)) {
                                 ts.setThisUserInWaitlist(true);
                             }
                         }
