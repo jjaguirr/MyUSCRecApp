@@ -89,7 +89,7 @@ public class SignUp extends AppCompatActivity
                     user.put("fName", fullName);
                     user.put("email", email);
                     user.put("uscID", uscID);
-                    user.put("notificationToken", FirebaseMessaging.getInstance().getToken().getResult());
+//                    user.put("notificationToken", FirebaseMessaging.getInstance().getToken().getResult());
 
                     // now insert into cloud database
                     documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>(){
