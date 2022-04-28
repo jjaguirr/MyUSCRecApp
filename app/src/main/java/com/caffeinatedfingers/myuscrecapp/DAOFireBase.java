@@ -63,7 +63,7 @@ public class DAOFireBase {
             Toast.makeText(context, "" + fail.getMessage(), Toast.LENGTH_SHORT).show();
         });
         this.databaseReference.child(ts.recCenter).child(ts.date).child(ts.id).child("current").get().addOnSuccessListener(dataSnapshot -> {
-            this.databaseReference.child(ts.recCenter).child(ts.date).child(ts.id).child("current").setValue((int)dataSnapshot.getValue()-1);
+            this.databaseReference.child(ts.recCenter).child(ts.date).child(ts.id).child("current").setValue((long)dataSnapshot.getValue()-1);
         });
         this.databaseReferenceReservations.child(user.id).child(reservation.id).removeValue().addOnSuccessListener(succ-> {
             Log.println(Log.ERROR,"DAO FIREBASE", "Successfully removed reservation from DB");
@@ -82,7 +82,7 @@ public class DAOFireBase {
             Toast.makeText(context, "" + fail.getMessage(), Toast.LENGTH_SHORT).show();
         });
         this.databaseReference.child(reservation.location).child(reservation.date).child(reservation.time).child("current").get().addOnSuccessListener(dataSnapshot -> {
-            this.databaseReference.child(reservation.location).child(reservation.date).child(reservation.time).child("current").setValue((int)dataSnapshot.getValue()-1);
+            this.databaseReference.child(reservation.location).child(reservation.date).child(reservation.time).child("current").setValue((long)dataSnapshot.getValue()-1);
         });
         this.databaseReferenceReservations.child(reservation.studentID).child(reservation.id).removeValue().addOnSuccessListener(succ-> {
             Log.println(Log.ERROR,"DAO FIREBASE", "Successfully removed reservation from DB");
