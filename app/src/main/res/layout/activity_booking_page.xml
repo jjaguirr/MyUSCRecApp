@@ -31,17 +31,27 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-    <EditText
+    <TextView
         android:id="@+id/gym_info"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:ems="10"
+        android:layout_height="27dp"
         android:gravity="center"
         android:importantForAutofill="no"
-        android:inputType="textMultiLine"
-        android:lines="3"
+        android:text="@string/operation"
+        android:textColor="@color/gray_trojan"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        tools:ignore="Autofill,LabelFor" />
+
+    <TextView
+        android:id="@+id/gym_info_two"
+        android:layout_width="match_parent"
+        android:layout_height="28dp"
+        android:gravity="center"
+        android:importantForAutofill="no"
         android:text="@string/hours"
+        android:textColor="@color/cardinal_red"
+        android:textSize="17sp"
         android:textStyle="bold"
         tools:ignore="Autofill,LabelFor" />
 
