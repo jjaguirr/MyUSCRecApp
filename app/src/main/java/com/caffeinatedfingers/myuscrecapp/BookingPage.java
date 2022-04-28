@@ -19,8 +19,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
 import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 
 public class BookingPage extends AppCompatActivity {
     SwipeRefreshLayout swipeRefreshLayout;
@@ -95,21 +100,35 @@ public class BookingPage extends AppCompatActivity {
                 for(DataSnapshot TSSnapshot: RCSnapshot.getChildren()){
                     TimeSlot example = TSSnapshot.getValue(TimeSlot.class);
                     String timeSlotID = TSSnapshot.getKey();
-                    Long capacity = (Long) TSSnapshot.child("capacity").getValue();
                     assert timeSlotID != null;
+                    LocalTime timeSlotEndingTime = LocalTime.parse(timeSlotID.split("-")[1], DateTimeFormatter.ofPattern("hha"));
+                    LocalDateTime timeSlotDateTime = LocalDateTime.of(LocalDate.parse(rvAdapterDates.pressedDate, DateTimeFormatter.ofPattern("MM-dd-yyyy")),
+                            timeSlotEndingTime);
+                    if(timeSlotDateTime.isBefore(LocalDateTime.now())) continue;
+                    Long capacity = (Long) TSSnapshot.child("capacity").getValue();
                     TimeSlot ts = rvAdapter.getTimeSlot(timeSlotID);
                     if (ts==null){
                         TimeSlot nTs = new TimeSlot(capacity, recCenterName, timeSlotID, date);
                         rvAdapter.add(nTs);
                         nTs.setThisUserReserved(TSSnapshot.child("Registered").child(user.id).exists());
-                        nTs.setThisUserInWaitlist(TSSnapshot.child("Waitlist").child(user.id).exists());
+                        nTs.setThisUserInWaitlist(false);
+                        for (DataSnapshot waitListDSS: TSSnapshot.child("Waitlist").getChildren()){
+                            if (Objects.equals(waitListDSS.child("id").getValue(), user.id)) {
+                                nTs.setThisUserInWaitlist(true);
+                            }
+                        }
                         rvAdapter.notifyItemInserted(rvAdapter.items.indexOf(nTs));
                         nTs.usersCount = (int) TSSnapshot.child("Registered").getChildrenCount();
                     }
                     //update already existing timeslot
                     else {
                         ts.setThisUserReserved(TSSnapshot.child("Registered").child(user.id).exists());
-                        ts.setThisUserInWaitlist(TSSnapshot.child("Waitlist").child(user.id).exists());
+                        ts.setThisUserInWaitlist(false);
+                        for (DataSnapshot waitListDSS: TSSnapshot.child("Waitlist").getChildren()){
+                            if (Objects.equals(waitListDSS.child("id").getValue(), user.id)) {
+                                ts.setThisUserInWaitlist(true);
+                            }
+                        }
                         int pos = rvAdapter.items.indexOf(ts);
                         rvAdapter.notifyItemChanged(pos);
                         ts.usersCount = (int) TSSnapshot.child("Registered").getChildrenCount();
@@ -128,23 +147,17 @@ public class BookingPage extends AppCompatActivity {
     }
 
     public void loadDates(){
-        dao.getDatesQuery(recCenter.id).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(!snapshot.hasChildren()) rvAdapterDates.addDate("NODATE"); //or smth else
-                for(DataSnapshot dateSS: snapshot.getChildren()){
-                    String date = dateSS.getKey();
-                    if (rvAdapterDates.items.contains(date)) continue;
-                    rvAdapterDates.addDate(date);
-                }
-                date = rvAdapterDates.pressedDate;
-                loadTimeSlots();
+        dao.getDatesQuery(recCenter.id).get().addOnSuccessListener(snapshot -> {
+            if(!snapshot.hasChildren()) rvAdapterDates.addDate("NODATE"); //or smth else
+            for(DataSnapshot dateSS: snapshot.getChildren()){
+                String date = dateSS.getKey();
+                if (LocalDate.now().isAfter(LocalDate.parse(date,DateTimeFormatter.ofPattern("MM-dd-yyyy"))))
+                    continue;
+                if (rvAdapterDates.items.contains(date)) continue;
+                rvAdapterDates.addDate(date);
             }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                rvAdapterDates.addDate("NODATE");
-            }
+            date = rvAdapterDates.pressedDate;
+            loadTimeSlots();
         });
 
     }

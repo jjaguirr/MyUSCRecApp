@@ -5,13 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="80dp"
     android:layout_marginTop="10dp"
-
+    app:cardCornerRadius="10dp"
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
         android:background="@drawable/timeslot_full_background"
         android:backgroundTint="#343A40"
         android:elevation="9dp"

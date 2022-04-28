@@ -1,16 +1,23 @@
 package com.caffeinatedfingers.myuscrecapp;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.os.Build;
 import android.os.Bundle;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class UpcomingReservations extends AppCompatActivity {
     SwipeRefreshLayout swipeRefreshLayout, swipeRPrevious;
@@ -83,7 +90,7 @@ public class UpcomingReservations extends AppCompatActivity {
                     Reservation reservation= reservationSS.getValue(Reservation.class);
                     assert reservation != null;
                     Reservation reservationInAdapter = rvAdapterUpcoming.getReservation(reservation.id);
-                    if (reservationInAdapter==null){
+                    if (reservationInAdapter==null && !isPrevious(reservation)){
                         rvAdapterUpcoming.add(reservation);
                         rvAdapterUpcoming.notifyItemInserted(rvAdapterUpcoming.items.indexOf(reservation));
                     }
@@ -100,7 +107,8 @@ public class UpcomingReservations extends AppCompatActivity {
 
     private void loadPrevious(){
         swipeRPrevious.setRefreshing(true);
-        dao.getPreviousReservationQuery(this.user.id).addValueEventListener(new ValueEventListener() {
+        dao.getReservationsQuery(this.user.id).addValueEventListener(new ValueEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onDataChange(@NonNull DataSnapshot userRSS) {
                 if (userRSS.getValue() == null){
@@ -111,7 +119,9 @@ public class UpcomingReservations extends AppCompatActivity {
                     Reservation reservationFromDB= reservationSS.getValue(Reservation.class);
                     assert reservationFromDB != null;
                     //if not in the RV add it
-                    if (rvAdapterPrevious.getReservation(reservationFromDB.id)==null){
+                    if (isPrevious(reservationFromDB))
+                    if (rvAdapterPrevious.getReservation(reservationFromDB.id)==null &&
+                    isPrevious(reservationFromDB)){
                         rvAdapterPrevious.add(reservationFromDB);
                         rvAdapterPrevious.notifyItemInserted(rvAdapterPrevious.items.indexOf(reservationFromDB));
                     }
@@ -123,5 +133,14 @@ public class UpcomingReservations extends AppCompatActivity {
                 swipeRPrevious.setRefreshing(false);
             }
         });
+    }
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public boolean isPrevious(Reservation reservation){
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter DATEFORMATTER = DateTimeFormatter.ofPattern("MM-dd-yyyy");
+        LocalDate reservationDate = LocalDate.parse(reservation.date, DATEFORMATTER);
+        LocalTime reservationEndingTime = LocalTime.parse(reservation.endingTime, DateTimeFormatter.ofPattern("hha"));
+        LocalDateTime reservationTime = LocalDateTime.of(reservationDate, reservationEndingTime);
+        return reservationTime.isBefore(now);
     }
 }

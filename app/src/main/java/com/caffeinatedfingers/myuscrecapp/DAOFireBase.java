@@ -1,6 +1,7 @@
 package com.caffeinatedfingers.myuscrecapp;
 
 import android.content.Context;
+import android.service.restrictions.RestrictionsReceiver;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -31,6 +32,9 @@ public class DAOFireBase {
      */
     public void addUser(@NonNull TimeSlot ts, @NonNull User user, Context context) {
         Reservation reservation = new Reservation(user, ts);
+        this.databaseReference.child(ts.recCenter).child(ts.date).child(ts.id).child("current").get().addOnSuccessListener(dataSnapshot -> {
+            this.databaseReference.child(ts.recCenter).child(ts.date).child(ts.id).child("current").setValue((long)dataSnapshot.getValue()+1);
+        });
         this.databaseReference.child(ts.recCenter).child(ts.date)
                 .child(ts.id).child("Registered").child(user.id).setValue(user.userName)
                 .addOnSuccessListener(suc -> {
@@ -58,7 +62,29 @@ public class DAOFireBase {
         }).addOnFailureListener(fail -> {
             Toast.makeText(context, "" + fail.getMessage(), Toast.LENGTH_SHORT).show();
         });
+        this.databaseReference.child(ts.recCenter).child(ts.date).child(ts.id).child("current").get().addOnSuccessListener(dataSnapshot -> {
+            this.databaseReference.child(ts.recCenter).child(ts.date).child(ts.id).child("current").setValue((long)dataSnapshot.getValue()-1);
+        });
         this.databaseReferenceReservations.child(user.id).child(reservation.id).removeValue().addOnSuccessListener(succ-> {
+            Log.println(Log.ERROR,"DAO FIREBASE", "Successfully removed reservation from DB");
+        });
+    }
+
+    /**
+     * @param reservation Reservation to remove
+     * @param context Context for toast texts.
+     */
+    public void removeReservation(@NonNull Reservation reservation, Context context) {
+        this.databaseReference.child(reservation.location).child(reservation.date).child(reservation.time).child("Registered").child(reservation.studentID)
+                .removeValue().addOnSuccessListener(suc -> {
+            Toast.makeText(context, "Successfully cancelled reservation.", Toast.LENGTH_SHORT).show();
+        }).addOnFailureListener(fail -> {
+            Toast.makeText(context, "" + fail.getMessage(), Toast.LENGTH_SHORT).show();
+        });
+        this.databaseReference.child(reservation.location).child(reservation.date).child(reservation.time).child("current").get().addOnSuccessListener(dataSnapshot -> {
+            this.databaseReference.child(reservation.location).child(reservation.date).child(reservation.time).child("current").setValue((long)dataSnapshot.getValue()-1);
+        });
+        this.databaseReferenceReservations.child(reservation.studentID).child(reservation.id).removeValue().addOnSuccessListener(succ-> {
             Log.println(Log.ERROR,"DAO FIREBASE", "Successfully removed reservation from DB");
         });
     }
@@ -71,25 +97,20 @@ public class DAOFireBase {
      * @param context Context for toast texts.
      */
     public void remindUser(@NonNull TimeSlot ts, @NonNull User user, Context context) {
-        AtomicInteger waitlisted= new AtomicInteger();
-        int numPeople;
          databaseReference.child(ts.recCenter).child(ts.date).child(ts.id).child("Waitlist").get().addOnSuccessListener(dataSnapshot-> {
-             waitlisted.set((int) dataSnapshot.getChildrenCount());
+             int numPeople = (int) (dataSnapshot.getChildrenCount() + 1);
+             this.databaseReference.child(ts.recCenter).child(ts.date).child(ts.id).child("Waitlist").child(String.valueOf(numPeople))
+                     .child("uid").setValue(user.uid).addOnSuccessListener(suc -> {
 
+                 Toast.makeText(context, "You're added to the waitlist!", Toast.LENGTH_SHORT).show();
+             }).addOnFailureListener(fail -> {
+                 Toast.makeText(context, "" + fail.getMessage(), Toast.LENGTH_SHORT).show();
+             });
+             this.databaseReference.child(ts.recCenter).child(ts.date).child(ts.id).child("Waitlist").child(String.valueOf(numPeople))
+                     .child("id").setValue(user.id);
+             this.databaseReference.child(ts.recCenter).child(ts.date).child(ts.id).child("Waitlist").child(String.valueOf(numPeople))
+                     .child("name").setValue(user.userName);
          });
-        if(waitlisted.intValue()==0){
-            numPeople=1;
-        }
-        else{
-            numPeople=waitlisted.intValue();
-    }
-        this.databaseReference.child(ts.recCenter).child(ts.date).child(ts.id).child("Waitlist").child(String.valueOf(numPeople))
-                .setValue(user.uid).addOnSuccessListener(suc -> {
-
-            Toast.makeText(context, "You're added to the waitlist!", Toast.LENGTH_SHORT).show();
-        }).addOnFailureListener(fail -> {
-            Toast.makeText(context, "" + fail.getMessage(), Toast.LENGTH_SHORT).show();
-        });
     }
     /**
      * Removes a user from a timeslot wait list
@@ -98,10 +119,8 @@ public class DAOFireBase {
      * @param context Context for toast texts.
      */
     public void unRemindUser(@NonNull TimeSlot ts, @NonNull User user, Context context) {
-
         this.databaseReference.child(ts.recCenter).child(ts.date).child(ts.id).child("Waitlist").child(user.id)
                 .removeValue().addOnSuccessListener(suc -> {
-            //@TODO remove from waiting a notification
             Toast.makeText(context, "You're removed to the waitlist!", Toast.LENGTH_SHORT).show();
         }).addOnFailureListener(fail -> {
             Toast.makeText(context, "" + fail.getMessage(), Toast.LENGTH_SHORT).show();
@@ -112,7 +131,7 @@ public class DAOFireBase {
      * @return A db ordered reference of the timeslots
      */
     public Query getTimeSlotsQuery(String recCenter, String date) {
-        return databaseReference.child(recCenter).child(date).orderByKey();
+        return databaseReference.child(recCenter).child(date).orderByChild("ordering");
     }
     /**
      * @return A db reference of a timeslot given a timeslot object
@@ -153,7 +172,7 @@ public class DAOFireBase {
 //    }
 
     public Query getDatesQuery(String recCenter){
-        return databaseReference.child(recCenter).child("dates").orderByKey();
+        return databaseReference.child(recCenter).orderByKey();
     }
 
 }

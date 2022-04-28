@@ -64,7 +64,9 @@ public class RVAdapterReservation extends RecyclerView.Adapter<RecyclerView.View
         Reservation reservation = items.get(position);
         if (getItemViewType(position)==0){
             vh.btn.setOnClickListener(view -> {
-                dao.removeUser(reservation.timeSlot,reservation.user,context);
+                dao.removeReservation(reservation, context);
+                items.remove(reservation);
+                notifyItemRemoved(position);
             });
         }
         String dateAndTime = reservation.date+" "+reservation.time;
@@ -81,6 +83,7 @@ public class RVAdapterReservation extends RecyclerView.Adapter<RecyclerView.View
     @Override
     public int getItemViewType(int position) {
         return 0;
+        //if
     }
 
     public class ReservationVH extends RecyclerView.ViewHolder {
