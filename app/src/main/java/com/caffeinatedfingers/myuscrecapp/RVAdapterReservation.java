@@ -83,6 +83,7 @@ public class RVAdapterReservation extends RecyclerView.Adapter<RecyclerView.View
     @Override
     public int getItemViewType(int position) {
         return 0;
+        //if
     }
 
     public class ReservationVH extends RecyclerView.ViewHolder {
