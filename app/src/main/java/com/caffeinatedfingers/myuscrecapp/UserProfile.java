@@ -113,10 +113,4 @@ public class UserProfile extends AppCompatActivity {
                 (uri -> Picasso.get().load(uri).into(profileImage))).addOnFailureListener(e ->
                 Toast.makeText(UserProfile.this, "Failed to Upload Photo", Toast.LENGTH_SHORT).show());
     }
-
-//    public void logout(View view) {
-//        FirebaseAuth.getInstance().signOut();
-//        startActivity(new Intent(UserProfile.this,WelcomePage.class));
-//        finish();
-//    }
 }

@@ -13,10 +13,19 @@ exports.notifyWaitlist=functions.database.ref('timeslots/{location}/{date}/{time
     const after=change.after;
     const before=change.before;
     const numWaitlisted=change.before.child('waitlist').getChildrenCount();
-    if(before.waitlist===after.waitlist && before.capacity===after.capacity){
+    const cap=change.before.child("capacity").val();
+    const date=change.before.parent().parent().key();
+    const time=change.after.ref().parent().key();
+    const startingTime=time.slice(0,time.find("-"));
+    const endingTime=time.slice(time.find("-"));
+    const id=location+time+date;
+    const location=change.after.ref().parent().parent().parent().key();
+    const studentID=change.after.child("id").val();
+    const newRes={"cap":cap,"date":date,"startingTime":startingTime,"endingTime":endingTime,"id":id,"location":location,"time":time,"studentID":studentID};
+    if(before.child("waitlist").val()===after.child("waitlist").val() && before.child("capacity").val()===after.child("capacity").val()){
         console.log("no change detected");
     }
-    else if(before.waitlist!=""&& after.current<after.capacity){
+    else if(before.child("waitlist").val()!=""&& after.child("current").val()<after.child("capacity").val()){
         const capacity=change.after.child('capacity').val();
         const newWaitlist=change.before.child(waitlist);
         const waitlist=change.after.child(waitlist);
@@ -24,7 +33,7 @@ exports.notifyWaitlist=functions.database.ref('timeslots/{location}/{date}/{time
             const topOfWaitlist=change.before.child("Waitlist").child("1").child("uid");
             const newWaitlist=sendNotification(topOfWaitlist);
             capacity+=1;
-            waitlist.removeChild(topOfWaitlist);
+            topOfWaitlist.remove();
 
         }
         
@@ -34,38 +43,40 @@ exports.notifyWaitlist=functions.database.ref('timeslots/{location}/{date}/{time
         const key=i.toString;
         change.after.child("Waitlist").update({key:i-1});
     }
-    admin.database().ref("/reservations").set()
+    admin.database().ref("/reservations/${location}${time}${date}").set(newRes)
 }
 )
-exports.changeDates=functions.pubsub.schedule("0 12 * * *").onRun((context) => {
-    var today = new Date();
-    var dd = String(today.getDate()).padStart(2, '0');
-    var mm = String(today.getMonth() + 1).padStart(2, '0'); 
-    var yyyy = today.getFullYear();
+// exports.changeDates=functions.pubsub.schedule("0 12 * * *").onRun((context) => {
+//     const today = new Date();
+//     const dd = String(today.getDate()).padStart(2, '0');
+//     const mm = String(today.getMonth() + 1).padStart(2, '0'); 
+//     const yyyy = today.getFullYear();
 
-    today = mm + '-' + dd + '-' + yyyy;
+//     today = mm + '-' + dd + '-' + yyyy;
 
-    var yesterday = new Date(today);
-    yesterday.setdate(yesterday.getDate()-1);
-    var ydd = String(yesterday.getDate()).padStart(2, '0');
-    var ymm = String(yesterday.getMonth()+ 1).padStart(2, '0'); 
-    var yyyyy = yesterday.getFullYear();
+//     const yesterday = new Date(today);
+//     yesterday.setdate(yesterday.getDate()-1);
+//     const ydd = String(yesterday.getDate()).padStart(2, '0');
+//     const ymm = String(yesterday.getMonth()+ 1).padStart(2, '0'); 
+//     const yyyyy = yesterday.getFullYear();
 
-    yesterday = ymm + '-' + ydd + '-' + yyyyy;
+//     yesterday = ymm + '-' + ydd + '-' + yyyyy;
 
-    tomorrow = new Date(today);
-    today.setdate(today.getDate()+1);
-    var tdd = String(tomorrow.getDate()).padStart(2, '0');
-    var tmm = String(tomorrow.getMonth()+ 1).padStart(2, '0'); 
-    var tyyyy = tomorrow.getFullYear();
-    tomorrow = tmm + '-' + tdd + '-' + tyyyy;
+//     const tomorrow = new Date(today);
+//     tomorrow.setdate(today.getDate()+1);
+//     const tdd = String(tomorrow.getDate()).padStart(2, '0');
+//     const tmm = String(tomorrow.getMonth()+ 1).padStart(2, '0'); 
+//     const tyyyy = tomorrow.getFullYear();
+//     tomorrow = tmm + '-' + tdd + '-' + tyyyy;
 
+//     const ref= admin.database().ref('/timeslots/TODAY: ${}');
     
-})
+    
+// })
 
 async function sendNotification(userUID){
     console.log(userUID);
-    const token = admin.database().ref('/users/${user}/notificationToken').val();
+    const token = admin.database().ref('/users/${userUID}/notificationToken').val();
     const payload= {
         notification:{
             title:"You're in!",
