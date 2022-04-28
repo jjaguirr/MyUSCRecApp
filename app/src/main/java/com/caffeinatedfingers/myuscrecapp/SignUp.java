@@ -7,8 +7,13 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -89,16 +94,26 @@ public class SignUp extends AppCompatActivity
                     user.put("fName", fullName);
                     user.put("email", email);
                     user.put("uscID", uscID);
-                    user.put("notificationToken", FirebaseMessaging.getInstance().getToken().getResult());
-
-                    // now insert into cloud database
-                    documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>(){
+                    FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
                         @Override
-                        public void onSuccess(Void aVoid) {
-                            Log.d("TAG", "onSuccess: user Profile is created for" + userID);
+                        public void onComplete(@NonNull Task<String> task) {
+                            if (!task.isSuccessful()) {
+                                return;
+                            }
+                            // Get new FCM registration token
+                            String token= task.getResult();
+                            user.put("notificationToken",token);
+                            // now insert into cloud database
+                            documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>(){
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d("TAG", "onSuccess: user Profile is created for" + userID);
+                                }
+                            });
+                            startActivity(new Intent(SignUp.this, MapActivity.class));
                         }
                     });
-                    startActivity(new Intent(SignUp.this, MapActivity.class));
+
                 }
 
                 else
