@@ -1,5 +1,6 @@
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
+admin.initializeApp();
 
 // // Create and Deploy Your First Cloud Functions
 // // https://firebase.google.com/docs/functions/write-firebase-functions
@@ -14,12 +15,12 @@ exports.notifyWaitlist=functions.database.ref('timeslots/{location}/{date}/{time
     const before=change.before;
     const numWaitlisted=change.before.child('waitlist').numChildren();
     const cap=change.before.child("capacity").val();
-    const date=change.before.ref().parent().parent().key();
-    const time=change.after.ref().parent().key();
-    const startingTime=time.slice(0,time.find("-"));
-    const endingTime=time.slice(time.find("-"));
+    const date=context.params.date;
+    const time=context.params.time;
+    const location=context.params.location;
+    const startingTime=time.slice(0,time.search("-"));
+    const endingTime=time.slice(time.search("-"));
     const id=location+time+date;
-    const location=change.after.ref().parent().parent().parent().key();
     const studentID=change.after.child("id").val();
     const newRes={"cap":cap,"date":date,"startingTime":startingTime,"endingTime":endingTime,"id":id,"location":location,"time":time,"studentID":studentID};
     if(before.child("waitlist").val()===after.child("waitlist").val() && before.child("capacity").val()===after.child("capacity").val()){
@@ -27,8 +28,8 @@ exports.notifyWaitlist=functions.database.ref('timeslots/{location}/{date}/{time
     }
     else if(before.child("waitlist").val()!=""&& after.child("current").val()<after.child("capacity").val()){
         const capacity=change.after.child('capacity').val();
-        const newWaitlist=change.before.child(waitlist);
-        const waitlist=change.after.child(waitlist);
+        const newWaitlist=change.before.child("Waitlist");
+        const waitlist=change.after.child("Waitlist");
         if(waitlist.hasChildren()){
             const topOfWaitlist=change.before.child("Waitlist").child("1").child("uid");
             const newWaitlist=sendNotification(topOfWaitlist);
@@ -37,12 +38,12 @@ exports.notifyWaitlist=functions.database.ref('timeslots/{location}/{date}/{time
 
         }
         
-        change.after.ref.update({capacity:capacity,Waitlist:waitlist});
+        change.after.ref.update({"capacity":capacity,"Waitlist":waitlist});
     }
-    for(let i=2;i<=numWaitlisted;i++){
-        const key=i.toString;
-        change.after.child("Waitlist").update({key:i-1});
-    }
+    // for(let i=2;i<=numWaitlisted;i++){
+    //     const key=i.toString;
+    //     change.after.child("Waitlist").update({key:(i-1)});
+    // }
     admin.database().ref("/reservations/${location}${time}${date}").set(newRes)
 }
 )
