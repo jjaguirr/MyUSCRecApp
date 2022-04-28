@@ -19,15 +19,16 @@ exports.notifyWaitlist=functions.database.ref('timeslots/{location}/{date}/{time
     else if(before.waitlist!=""&& after.current<after.capacity){
         const capacity=change.after.child('capacity').val();
         const newWaitlist=change.before.child(waitlist);
+        const waitlist=change.after.child(waitlist);
         if(waitlist.hasChildren()){
             const topOfWaitlist=change.before.child("Waitlist").child("1").child("uid");
             const newWaitlist=sendNotification(topOfWaitlist);
             capacity+=1;
-            newWaitlist.removeChild(topOfWaitlist);
+            waitlist.removeChild(topOfWaitlist);
 
         }
-        change.after.child()
-        change.after.ref.update({capacity:capacity,Waitlist:newWaitlist});
+        
+        change.after.ref.update({capacity:capacity,Waitlist:waitlist});
     }
     for(let i=2;i<=numWaitlisted;i++){
         const key=i.toString;
@@ -36,6 +37,31 @@ exports.notifyWaitlist=functions.database.ref('timeslots/{location}/{date}/{time
     admin.database().ref("/reservations").set()
 }
 )
+exports.changeDates=functions.pubsub.schedule("0 12 * * *").onRun((context) => {
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); 
+    var yyyy = today.getFullYear();
+
+    today = mm + '-' + dd + '-' + yyyy;
+
+    var yesterday = new Date(today);
+    yesterday.setdate(yesterday.getDate()-1);
+    var ydd = String(yesterday.getDate()).padStart(2, '0');
+    var ymm = String(yesterday.getMonth()+ 1).padStart(2, '0'); 
+    var yyyyy = yesterday.getFullYear();
+
+    yesterday = ymm + '-' + ydd + '-' + yyyyy;
+
+    tomorrow = new Date(today);
+    today.setdate(today.getDate()+1);
+    var tdd = String(tomorrow.getDate()).padStart(2, '0');
+    var tmm = String(tomorrow.getMonth()+ 1).padStart(2, '0'); 
+    var tyyyy = tomorrow.getFullYear();
+    tomorrow = tmm + '-' + tdd + '-' + tyyyy;
+
+    
+})
 
 async function sendNotification(userUID){
     console.log(userUID);
@@ -59,4 +85,3 @@ async function sendNotification(userUID){
     });
 
 }
-exports.changeDates=functions.database.ref('')

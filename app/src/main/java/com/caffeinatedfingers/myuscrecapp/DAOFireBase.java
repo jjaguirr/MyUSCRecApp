@@ -109,16 +109,17 @@ public class DAOFireBase {
         else{
             numPeople=waitlisted.intValue();
     }
-        this.databaseReference.child(ts.recCenter).child(ts.date).child(ts.id).child("Waitlist").child(String.valueOf(numPeople+1))
+        numPeople=numPeople+1;
+        this.databaseReference.child(ts.recCenter).child(ts.date).child(ts.id).child("Waitlist").child(String.valueOf(numPeople))
                 .child("uid").setValue(user.uid).addOnSuccessListener(suc -> {
 
             Toast.makeText(context, "You're added to the waitlist!", Toast.LENGTH_SHORT).show();
         }).addOnFailureListener(fail -> {
             Toast.makeText(context, "" + fail.getMessage(), Toast.LENGTH_SHORT).show();
         });
-        this.databaseReference.child(ts.recCenter).child(ts.date).child(ts.id).child("Waitlist").child(String.valueOf(numPeople+1))
+        this.databaseReference.child(ts.recCenter).child(ts.date).child(ts.id).child("Waitlist").child(String.valueOf(numPeople))
                 .child("id").setValue(user.id);
-        this.databaseReference.child(ts.recCenter).child(ts.date).child(ts.id).child("Waitlist").child(String.valueOf(numPeople+1))
+        this.databaseReference.child(ts.recCenter).child(ts.date).child(ts.id).child("Waitlist").child(String.valueOf(numPeople))
                 .child("name").setValue(user.userName);
     }
     /**
