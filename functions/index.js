@@ -12,9 +12,9 @@ exports.notifyWaitlist=functions.database.ref('timeslots/{location}/{date}/{time
 {   
     const after=change.after;
     const before=change.before;
-    const numWaitlisted=change.before.child('waitlist').getChildrenCount();
+    const numWaitlisted=change.before.child('waitlist').numChildren();
     const cap=change.before.child("capacity").val();
-    const date=change.before.parent().parent().key();
+    const date=change.before.ref().parent().parent().key();
     const time=change.after.ref().parent().key();
     const startingTime=time.slice(0,time.find("-"));
     const endingTime=time.slice(time.find("-"));
