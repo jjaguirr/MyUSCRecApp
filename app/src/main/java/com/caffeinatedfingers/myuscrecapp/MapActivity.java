@@ -1,9 +1,11 @@
+
 package com.caffeinatedfingers.myuscrecapp;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -59,7 +61,7 @@ public class MapActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        Button lyon_center = findViewById(R.id.btn_lyon_center);
+        ImageButton lyon_center = findViewById(R.id.btn_lyon_center);
         lyon_center.setOnClickListener(v->{
             Intent intent = new Intent(MapActivity.this,BookingPage.class);
             intent.putExtra("RecCenter", "Lyon Center");
@@ -69,7 +71,7 @@ public class MapActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        Button village_center = findViewById(R.id.btn_village_center);
+        ImageButton village_center = findViewById(R.id.btn_village_center);
         village_center.setOnClickListener(v->{
             Intent intent = new Intent(MapActivity.this,BookingPage.class);
             intent.putExtra("RecCenter", "USC Village Center");
@@ -79,7 +81,7 @@ public class MapActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        Button aquatics_center = findViewById(R.id.btn_aquatics);
+        ImageButton aquatics_center = findViewById(R.id.btn_aquatics);
         aquatics_center.setOnClickListener(v->{
             Intent intent = new Intent(MapActivity.this,BookingPage.class);
             intent.putExtra("RecCenter", "Uytengsu Aquatics Center");
