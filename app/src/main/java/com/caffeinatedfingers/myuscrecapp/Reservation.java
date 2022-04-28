@@ -18,7 +18,7 @@ public class Reservation implements Serializable {
     public Long cap;
     public String date;
     public String startingTime, endingTime;
-
+    public transient boolean isPrevious;
     public Reservation(){
         //no argument constructor
     }
