@@ -8,49 +8,51 @@
 
     <ImageView
         android:id="@+id/map"
-        android:layout_width="399dp"
-        android:layout_height="501dp"
+        android:layout_width="393dp"
+        android:layout_height="355dp"
         android:contentDescription="@string/map"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btn_lyon_center_two"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.511"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rec_center_header"
-        app:layout_constraintVertical_bias="0.216"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/map" />
 
     <ImageButton
         android:id="@+id/btn_lyon_center"
         android:layout_width="39dp"
         android:layout_height="47dp"
+        android:background="?android:selectableItemBackground"
         android:contentDescription="@string/lyonmarker"
         app:layout_constraintBottom_toBottomOf="@+id/map"
         app:layout_constraintEnd_toEndOf="@+id/map"
-        app:layout_constraintHorizontal_bias="0.353"
+        app:layout_constraintHorizontal_bias="0.331"
         app:layout_constraintStart_toStartOf="@+id/map"
         app:layout_constraintTop_toTopOf="@+id/map"
-        app:layout_constraintVertical_bias="0.364"
+        app:layout_constraintVertical_bias="0.336"
         app:srcCompat="@drawable/small_marker"
-        android:background="?android:selectableItemBackground"/>
+        tools:ignore="DuplicateIds" />
 
     <ImageButton
         android:id="@+id/btn_village_center"
         android:layout_width="39dp"
         android:layout_height="48dp"
+        android:background="?android:selectableItemBackground"
         android:contentDescription="@string/villagemarker"
         app:layout_constraintBottom_toBottomOf="@+id/map"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.675"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/map"
-        app:layout_constraintVertical_bias="0.302"
+        app:layout_constraintVertical_bias="0.271"
         app:srcCompat="@drawable/small_marker"
-        android:background="?android:selectableItemBackground"/>
+        tools:ignore="DuplicateIds" />
 
     <ImageButton
         android:id="@+id/btn_aquatics"
         android:layout_width="39dp"
         android:layout_height="48dp"
+        android:background="?android:selectableItemBackground"
         android:contentDescription="@string/aquamarker"
         app:layout_constraintBottom_toBottomOf="@+id/map"
         app:layout_constraintEnd_toEndOf="@+id/map"
@@ -59,14 +61,14 @@
         app:layout_constraintTop_toTopOf="@+id/map"
         app:layout_constraintVertical_bias="0.405"
         app:srcCompat="@drawable/small_marker"
-        android:background="?android:selectableItemBackground"/>
+        tools:ignore="DuplicateIds" />
+
 
     <Button
         android:id="@+id/btn_my_reservations"
         android:layout_width="171dp"
-        android:layout_height="38dp"
+        android:layout_height="40dp"
         android:layout_gravity="center"
-        android:layout_marginBottom="8dp"
         android:background="@drawable/btn_login"
         android:gravity="center"
         android:padding="6dp"
@@ -82,10 +84,9 @@
     <Button
         android:id="@+id/btn_my_profile"
         android:layout_width="171dp"
-        android:layout_height="38dp"
+        android:layout_height="40dp"
         android:layout_gravity="center"
-        android:layout_marginStart="24dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginStart="20dp"
         android:background="@drawable/btn_login"
         android:gravity="center"
         android:padding="6dp"
@@ -94,9 +95,10 @@
         android:textSize="13sp"
         android:textStyle="bold"
         app:backgroundTint="@null"
+        app:layout_constraintBottom_toTopOf="@+id/btn_lyon_center_two"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/rec_center_header"
@@ -109,16 +111,75 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.116"
+        app:layout_constraintVertical_bias="0.091"
         tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/btn_village_center_two"
+        android:layout_width="316dp"
+        android:layout_height="70dp"
+        android:layout_weight="1"
+        android:backgroundTint="#343A40"
+        android:text="@string/usc_village_rec_center"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_aquatics_two"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/btn_lyon_center_two"
+        android:layout_width="316dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="9dp"
+        android:layout_weight="1"
+        android:backgroundTint="#343A40"
+        android:text="@string/lyon_center"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/btn_aquatics_two"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/map"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/btn_aquatics_two"
+        android:layout_width="316dp"
+        android:layout_height="70dp"
+        android:layout_marginBottom="1dp"
+        android:layout_weight="1"
+        android:backgroundTint="#343A40"
+        android:text="@string/uytengsu_aquatics_center"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/btn_village_center_two"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_lyon_center_two"
+        app:layout_constraintVertical_bias="0.152" />
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/group3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="map" />
+        app:constraint_referenced_ids="map"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="btn_my_reservations" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

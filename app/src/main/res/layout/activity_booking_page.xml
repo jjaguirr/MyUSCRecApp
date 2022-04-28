@@ -25,52 +25,31 @@
         android:layout_height="match_parent"
         android:text="@string/gym_name"
         android:textAlignment="center"
-        android:textColor="#000000"
+        android:textColor="@color/sign_up_button_gradient_start"
         android:textSize="50sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+    <EditText
+        android:id="@+id/gym_info"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:ems="10"
+        android:gravity="center"
+        android:importantForAutofill="no"
+        android:inputType="textMultiLine"
+        android:lines="3"
+        android:text="@string/hours"
+        android:textStyle="bold"
+        tools:ignore="Autofill,LabelFor" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_button_dates"
         android:layout_width="match_parent"
         android:layout_height="50sp"
-        android:orientation="horizontal"/>
-
-<!--    <LinearLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="40dp"-->
-<!--        android:clipChildren="false"-->
-<!--        android:clipToPadding="false"-->
-<!--        android:orientation="horizontal">-->
-<!--        -->
-<!--        <Button-->
-<!--            android:id="@+id/btn_today"-->
-<!--            style="?android:attr/buttonBarButtonStyle"-->
-<!--            android:layout_width="150dp"-->
-<!--            android:layout_height="50sp"-->
-<!--            android:layout_marginStart="30sp"-->
-<!--            android:background="@drawable/timeslot_book_background"-->
-<!--            android:text="@string/today"-->
-<!--            android:textColor="#ffd000"-->
-<!--            android:textSize="20sp"-->
-<!--            app:backgroundTint="@null" />-->
-
-<!--        <Button-->
-<!--            android:layout_marginStart="50sp"-->
-<!--            android:id="@+id/btn_tomorrow"-->
-<!--            style="?android:attr/buttonBarButtonStyle"-->
-<!--            android:layout_width="150dp"-->
-<!--            android:layout_height="50sp"-->
-<!--            app:backgroundTint="@null"-->
-<!--            android:background="@drawable/timeslot_full_background"-->
-<!--            android:text="@string/tomorrow"-->
-<!--            android:textColor="@color/gold"-->
-<!--            android:textSize="20sp" />-->
-<!--    </LinearLayout>-->
-
-
+        android:orientation="horizontal" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe"

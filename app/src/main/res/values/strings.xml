@@ -48,5 +48,6 @@
     <string name="lyonmarker">lyonmarker</string>
     <string name="aquamarker">aquamarker</string>
     <string name="villagemarker">villagemarker</string>
+    <string name="hours"><![CDATA[Hours Of Operation: SUN-FRI 6AM-12AM + SAT 6AM-7PM]]></string>
 </resources>
 

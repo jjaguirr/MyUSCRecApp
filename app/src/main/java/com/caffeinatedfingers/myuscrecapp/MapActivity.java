@@ -91,5 +91,35 @@ public class MapActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+        Button lyon_center_two = findViewById(R.id.btn_lyon_center_two);
+        lyon_center_two.setOnClickListener(v->{
+            Intent intent = new Intent(MapActivity.this,BookingPage.class);
+            intent.putExtra("RecCenter", "Lyon Center");
+            intent.putExtra("UserId", userID);
+            intent.putExtra("UserName", userName);
+            intent.putExtra("UID",fAuth.getCurrentUser().getUid());
+            startActivity(intent);
+        });
+
+        Button village_center_two = findViewById(R.id.btn_village_center_two);
+        village_center_two.setOnClickListener(v->{
+            Intent intent = new Intent(MapActivity.this,BookingPage.class);
+            intent.putExtra("RecCenter", "USC Village Center");
+            intent.putExtra("UserId", userID);
+            intent.putExtra("UserName", userName);
+            intent.putExtra("UID",fAuth.getCurrentUser().getUid());
+            startActivity(intent);
+        });
+
+        Button aquatics_two = findViewById(R.id.btn_aquatics_two);
+        aquatics_two.setOnClickListener(v->{
+            Intent intent = new Intent(MapActivity.this,BookingPage.class);
+            intent.putExtra("RecCenter", "Uytengsu Aquatics Center");
+            intent.putExtra("UserId", userID);
+            intent.putExtra("UserName", userName);
+            intent.putExtra("UID",fAuth.getCurrentUser().getUid());
+            startActivity(intent);
+        });
+
     }
 }
