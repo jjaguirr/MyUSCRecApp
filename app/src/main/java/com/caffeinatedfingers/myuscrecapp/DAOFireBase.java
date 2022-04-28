@@ -122,7 +122,40 @@ public class DAOFireBase {
      * @param context Context for toast texts.
      */
     public void unRemindUser(@NonNull TimeSlot ts, @NonNull User user, Context context) {
-        Toast.makeText(context, "You're removed to the waitlist!", Toast.LENGTH_SHORT).show();
+        this.databaseReference.child(ts.recCenter).child(ts.date).child(ts.id).child("Waitlist").get().addOnSuccessListener(dataSnapshot -> {
+            for (DataSnapshot waitlistedPerson: dataSnapshot.getChildren()){
+                String positionString = waitlistedPerson.getKey();
+                assert positionString != null;
+                int position = Integer.parseInt(positionString);
+                if (user.id.equals(waitlistedPerson.child("id").getValue())){
+                    this.databaseReference.child(ts.recCenter).child(ts.date).child(ts.id).child("Waitlist").
+                            child(positionString).removeValue().addOnSuccessListener(succ ->{
+                        for(DataSnapshot otherWaitlistedPerson: dataSnapshot.getChildren()){
+                            String otherPositionString = otherWaitlistedPerson.getKey();
+                            assert otherPositionString != null;
+                            if (otherPositionString.equals(positionString)) continue;
+                            int otherPosition = Integer.parseInt(otherPositionString);
+                            if(otherPosition>position) {
+                                otherPosition--;
+                                int finalOtherPosition = otherPosition;
+                                this.databaseReference.child(ts.recCenter).child(ts.date).child(ts.id).child("Waitlist").
+                                        child(otherPositionString).removeValue().addOnSuccessListener(s ->{
+                                    String newKey = String.valueOf(finalOtherPosition);
+                                    this.databaseReference.child(ts.recCenter).child(ts.date).child(ts.id).child("Waitlist").
+                                            child(newKey).setValue(otherWaitlistedPerson.getValue()).addOnSuccessListener(ignore->{
+                                    });
+                                });
+                            }
+                        }
+                    });
+                    break;
+                }
+            }
+
+            Toast.makeText(context, "You're removed to the waitlist!", Toast.LENGTH_SHORT).show();
+        }).addOnFailureListener(fail -> {
+            Toast.makeText(context, "" + fail.getMessage(), Toast.LENGTH_SHORT).show();
+        });
     }
 
     /**
