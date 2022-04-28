@@ -142,7 +142,7 @@ public class DAOFireBase {
                                         child(otherPositionString).removeValue().addOnSuccessListener(s ->{
                                     String newKey = String.valueOf(finalOtherPosition);
                                     this.databaseReference.child(ts.recCenter).child(ts.date).child(ts.id).child("Waitlist").
-                                            child(newKey).setValue(otherWaitlistedPerson.getValue()).addOnSuccessListener(ignore->{
+                                            child(newKey).setValue(otherWaitlistedPerson.getValue() ).addOnSuccessListener(ignore->{
                                     });
                                 });
                             }

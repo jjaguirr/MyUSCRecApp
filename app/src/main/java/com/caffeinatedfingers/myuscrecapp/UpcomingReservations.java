@@ -91,6 +91,7 @@ public class UpcomingReservations extends AppCompatActivity {
                     assert reservation != null;
                     Reservation reservationInAdapter = rvAdapterUpcoming.getReservation(reservation.id);
                     if (reservationInAdapter==null && !isPrevious(reservation)){
+                        reservation.isPrevious=false;
                         rvAdapterUpcoming.add(reservation);
                         rvAdapterUpcoming.notifyItemInserted(rvAdapterUpcoming.items.indexOf(reservation));
                     }
@@ -119,9 +120,9 @@ public class UpcomingReservations extends AppCompatActivity {
                     Reservation reservationFromDB= reservationSS.getValue(Reservation.class);
                     assert reservationFromDB != null;
                     //if not in the RV add it
-                    if (isPrevious(reservationFromDB))
                     if (rvAdapterPrevious.getReservation(reservationFromDB.id)==null &&
                     isPrevious(reservationFromDB)){
+                        reservationFromDB.isPrevious=true;
                         rvAdapterPrevious.add(reservationFromDB);
                         rvAdapterPrevious.notifyItemInserted(rvAdapterPrevious.items.indexOf(reservationFromDB));
                     }
