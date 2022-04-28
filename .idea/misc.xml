@@ -57,7 +57,7 @@
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.165" />
         <entry key="app/src/main/res/layout/activity_login_google.xml" value="0.2604166666666667" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.24490203857421877" />
-        <entry key="app/src/main/res/layout/activity_map.xml" value="0.2805023193359375" />
+        <entry key="app/src/main/res/layout/activity_map.xml" value="0.22653961181640625" />
         <entry key="app/src/main/res/layout/activity_reservation_page.xml" value="0.28665517171223953" />
         <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_summary_page.xml" value="0.20989583333333334" />
@@ -72,6 +72,7 @@
         <entry key="app/src/main/res/layout/layout_time_slot_full.xml" value="0.20989583333333334" />
         <entry key="app/src/main/res/layout/layout_time_slot_reserved.xml" value="0.20989583333333334" />
         <entry key="app/src/main/res/layout/nav_header_user_profile_menu.xml" value="0.20989583333333334" />
+        <entry key="app/src/main/res/layout/pop_up_lyon.xml" value="0.25" />
         <entry key="app/src/main/res/layout/popup_window.xml" value="0.20643363728470113" />
         <entry key="app/src/main/res/menu/activity_main_drawer.xml" value="0.36354166666666665" />
         <entry key="app/src/main/res/menu/user_profile_menu.xml" value="0.36354166666666665" />

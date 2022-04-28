@@ -6,49 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".MapActivity">
 
-    <!--    <Button-->
-    <!--        android:id="@+id/btn_lyon_center"-->
-    <!--        android:layout_width="316dp"-->
-    <!--        android:layout_height="47dp"-->
-    <!--        android:backgroundTint="#343A40"-->
-    <!--        android:text="@string/lyon_center"-->
-    <!--        android:textColor="@color/white"-->
-    <!--        app:layout_constraintBottom_toTopOf="@+id/btn_village_center"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@+id/imageView3" />-->
-
-    <!--    <Button-->
-    <!--        android:id="@+id/btn_village_center"-->
-    <!--        android:layout_width="316dp"-->
-    <!--        android:layout_height="47dp"-->
-    <!--        android:backgroundTint="#343A40"-->
-    <!--        android:text="@string/usc_village_rec_center"-->
-    <!--        android:textColor="@color/white"-->
-    <!--        tools:layout_editor_absoluteX="47dp"-->
-    <!--        tools:layout_editor_absoluteY="470dp" />-->
-
-    <!--    <Button-->
-    <!--        android:id="@+id/btn_aquatics"-->
-    <!--        android:layout_width="316dp"-->
-    <!--        android:layout_height="47dp"-->
-    <!--        android:backgroundTint="#343A40"-->
-    <!--        android:text="@string/uytengsu_aquatics_center"-->
-    <!--        android:textColor="@color/white"-->
-    <!--        tools:layout_editor_absoluteX="47dp"-->
-    <!--        tools:layout_editor_absoluteY="531dp" />-->
-
     <ImageView
         android:id="@+id/map"
-        android:layout_width="393dp"
-        android:layout_height="445dp"
+        android:layout_width="399dp"
+        android:layout_height="501dp"
         android:contentDescription="@string/map"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.511"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rec_center_header"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_bias="0.216"
         app:srcCompat="@drawable/map" />
 
     <ImageButton
@@ -107,7 +75,6 @@
         android:textSize="13sp"
         android:textStyle="bold"
         app:backgroundTint="@null"
-        app:layout_constraintBottom_toTopOf="@+id/welcome"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btn_my_profile"
         app:layout_constraintTop_toTopOf="parent" />
@@ -127,38 +94,25 @@
         android:textSize="13sp"
         android:textStyle="bold"
         app:backgroundTint="@null"
-        app:layout_constraintBottom_toTopOf="@+id/welcome"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
     <TextView
         android:id="@+id/rec_center_header"
         android:layout_width="346dp"
         android:layout_height="35dp"
-        android:layout_marginTop="12dp"
         android:text="@string/select_a_rec_center"
         android:textAlignment="center"
         android:textColor="@color/gray_trojan"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.507"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/welcome" />
-
-    <TextView
-        android:id="@+id/welcome"
-        android:layout_width="346dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="56dp"
-        android:text="Welcome, NAME!"
-        android:textAlignment="center"
-        android:textColor="@color/gray_trojan"
-        android:textSize="35sp"
-        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.116"
+        tools:ignore="MissingConstraints" />
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/group3"
